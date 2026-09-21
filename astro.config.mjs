@@ -12,7 +12,7 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://little-wonder-care.vercel.app',
+  site: 'https://littlewondercare.com',
   integrations: [
     mdx(),
     sitemap(),
