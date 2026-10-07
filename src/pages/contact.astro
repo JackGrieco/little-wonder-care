@@ -16,35 +16,53 @@ import Footer from '../components/Footer.astro';
 		<Header />
 
 		<main>
-
 			<!-- Page Hero -->
 			<div class="page-hero bg-crema">
 				<p class="eyebrow">Let's Connect</p>
 				<h1>Get in Touch</h1>
-				<p class="subtitle">Have a question or ready to start? I'd love to hear from you.</p>
+				<p class="subtitle">
+					Have a question or ready to start? I'd love to hear from you.
+				</p>
 			</div>
 
 			<!-- Contact Two-Column Layout -->
 			<div class="section">
 				<div class="section-inner">
 					<div class="contact-grid">
-
 						<!-- LEFT: Contact Form -->
 						<div>
 							<h2 class="contact-col-heading">Send a Message</h2>
-							<form class="contact-form" action="https://formspree.io/f/PLACEHOLDER" method="POST">
+							<form
+								class="contact-form"
+								action="https://formspree.io/f/PLACEHOLDER"
+								method="POST"
+							>
 								<div class="form-field">
 									<label for="c-name">Your Name</label>
-									<input type="text" id="c-name" name="name" placeholder="Jane Smith" required />
+									<input
+										type="text"
+										id="c-name"
+										name="name"
+										placeholder="Jane Smith"
+										required
+									/>
 								</div>
 								<div class="form-field">
 									<label for="c-email">Email Address</label>
-									<input type="email" id="c-email" name="email" placeholder="jane@email.com" required />
+									<input
+										type="email"
+										id="c-email"
+										name="email"
+										placeholder="jane@email.com"
+										required
+									/>
 								</div>
 								<div class="form-field">
 									<label for="c-subject">Subject</label>
 									<select id="c-subject" name="subject" required>
-										<option value="" disabled selected>Select a topic…</option>
+										<option value="" disabled selected>
+											Select a topic…
+										</option>
 										<option value="General Question">General Question</option>
 										<option value="Postpartum Doula">Postpartum Doula</option>
 										<option value="Sleep Consulting">Sleep Consulting</option>
@@ -61,7 +79,9 @@ import Footer from '../components/Footer.astro';
 										required
 									></textarea>
 								</div>
-								<button type="submit" class="contact-submit">Send Message</button>
+								<button type="submit" class="contact-submit">
+									Send Message
+								</button>
 							</form>
 						</div>
 
@@ -69,17 +89,26 @@ import Footer from '../components/Footer.astro';
 						<div>
 							<h2 class="contact-col-heading">Contact Info</h2>
 							<div class="contact-info-card">
-
 								<div class="contact-info-item">
 									<div class="contact-info-icon">
-										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-											<rect x="2" y="4" width="20" height="16" rx="2"/>
-											<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+										<svg
+											width="18"
+											height="18"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+										>
+											<rect x="2" y="4" width="20" height="16" rx="2" />
+											<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
 										</svg>
 									</div>
 									<div>
 										<p class="contact-info-label">Email</p>
-										<a href="mailto:hello@littlewondercare.com" class="contact-info-value">
+										<a
+											href="mailto:hello@littlewondercare.com"
+											class="contact-info-value"
+										>
 											hello@littlewondercare.com
 										</a>
 									</div>
@@ -87,15 +116,23 @@ import Footer from '../components/Footer.astro';
 
 								<div class="contact-info-item">
 									<div class="contact-info-icon">
-										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-											<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
-											<circle cx="12" cy="10" r="3"/>
+										<svg
+											width="18"
+											height="18"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+										>
+											<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+											<circle cx="12" cy="10" r="3" />
 										</svg>
 									</div>
 									<div>
 										<p class="contact-info-label">Service Area</p>
 										<p class="contact-info-value">
-											Waco, TX &amp; surrounding areas (in-home)<br />
+											Waco, TX &amp; surrounding areas (in-home)
+											<br />
 											Nationwide (virtual)
 										</p>
 									</div>
@@ -103,38 +140,62 @@ import Footer from '../components/Footer.astro';
 
 								<div class="contact-info-item">
 									<div class="contact-info-icon">
-										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-											<circle cx="12" cy="12" r="10"/>
-											<polyline points="12 6 12 12 16 14"/>
+										<svg
+											width="18"
+											height="18"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+										>
+											<circle cx="12" cy="12" r="10" />
+											<polyline points="12 6 12 12 16 14" />
 										</svg>
 									</div>
 									<div>
 										<p class="contact-info-label">Response Time</p>
-										<p class="contact-info-value">I typically respond within 24 hours</p>
+										<p class="contact-info-value">
+											I typically respond within 24 hours
+										</p>
 									</div>
 								</div>
 
 								<div class="contact-info-item">
 									<div class="contact-info-icon">
-										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-											<rect x="2" y="2" width="20" height="20" rx="5"/>
-											<circle cx="12" cy="12" r="5"/>
-											<circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/>
+										<svg
+											width="18"
+											height="18"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+										>
+											<rect x="2" y="2" width="20" height="20" rx="5" />
+											<circle cx="12" cy="12" r="5" />
+											<circle
+												cx="17.5"
+												cy="6.5"
+												r="1.5"
+												fill="currentColor"
+												stroke="none"
+											/>
 										</svg>
 									</div>
 									<div>
 										<p class="contact-info-label">Instagram</p>
-										<a href="#" class="contact-info-value">@littlewondercare</a>
+										<a href="#" class="contact-info-value">
+											@littlewondercare
+										</a>
 									</div>
 								</div>
 
 								<div class="contact-note">
-									Not ready to send a message yet?<br />
+									Not ready to send a message yet?
+									<br />
 									<a href="/services">Browse the services →</a>
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -142,10 +203,14 @@ import Footer from '../components/Footer.astro';
 			<!-- CTA Band -->
 			<section class="cta-band">
 				<h2>Not Sure Which Service Is Right for You?</h2>
-				<p>A free 15-minute discovery call is the easiest way to find out. No pressure, just a conversation.</p>
-				<a href="https://formspree.io/f/PLACEHOLDER" class="btn-cta-light">Book a Free Discovery Call</a>
+				<p>
+					A free 15-minute discovery call is the easiest way to find out. No
+					pressure, just a conversation.
+				</p>
+				<a href="https://formspree.io/f/PLACEHOLDER" class="btn-cta-light">
+					Book a Free Discovery Call
+				</a>
 			</section>
-
 		</main>
 
 		<Footer />
@@ -153,7 +218,12 @@ import Footer from '../components/Footer.astro';
 </html>
 
 <style>
-	main { width: 100%; max-width: 100%; margin: 0; padding: 0; }
+	main {
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+		padding: 0;
+	}
 
 	.contact-grid {
 		display: grid;
@@ -171,7 +241,9 @@ import Footer from '../components/Footer.astro';
 	}
 
 	/* Form */
-	.contact-form .form-field { margin-bottom: 20px; }
+	.contact-form .form-field {
+		margin-bottom: 20px;
+	}
 
 	.contact-form .form-field label {
 		display: block;
@@ -212,7 +284,10 @@ import Footer from '../components/Footer.astro';
 		box-shadow: 0 0 0 3px rgba(183, 201, 206, 0.2);
 	}
 
-	.contact-form textarea { resize: vertical; min-height: 140px; }
+	.contact-form textarea {
+		resize: vertical;
+		min-height: 140px;
+	}
 
 	.contact-submit {
 		display: inline-block;
@@ -226,7 +301,9 @@ import Footer from '../components/Footer.astro';
 		font-family: var(--font-sans);
 		letter-spacing: 0.02em;
 		cursor: pointer;
-		transition: background 0.2s, transform 0.15s;
+		transition:
+			background 0.2s,
+			transform 0.15s;
 		box-shadow: 0 4px 16px rgba(204, 128, 107, 0.25);
 	}
 
@@ -281,7 +358,9 @@ import Footer from '../components/Footer.astro';
 		text-decoration: none;
 	}
 
-	a.contact-info-value:hover { color: var(--corallo); }
+	a.contact-info-value:hover {
+		color: var(--corallo);
+	}
 
 	.contact-note {
 		font-size: 0.85rem;

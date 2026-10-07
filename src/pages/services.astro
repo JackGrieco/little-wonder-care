@@ -8,71 +8,102 @@ const sanityPackages = await getServicePackages().catch(() => []);
 const hasSanityData = sanityPackages.length > 0;
 
 // Group Sanity packages by serviceType
-const groupOrder = ['Sleep Consulting', 'Postpartum Doula', 'Consultation'] as const;
+const groupOrder = [
+	'Sleep Consulting',
+	'Postpartum Doula',
+	'Consultation',
+] as const;
 
 const grouped = hasSanityData
-  ? groupOrder.reduce<Record<string, SanityServicePackage[]>>((acc, type) => {
-      const items = sanityPackages.filter(p => p.serviceType === type);
-      if (items.length) acc[type] = items;
-      return acc;
-    }, {})
-  : {};
+	? groupOrder.reduce<Record<string, SanityServicePackage[]>>((acc, type) => {
+			const items = sanityPackages.filter((p) => p.serviceType === type);
+			if (items.length) acc[type] = items;
+			return acc;
+		}, {})
+	: {};
 
 // Static fallback data
 // calLink = Cal.com event path (triggers popup); ctaLink = normal href fallback (used when calLink absent)
 const staticPackages = [
-  {
-    tag: 'Sleep',
-    title: 'Single Sleep Consultation',
-    description: 'A one-time 60-minute video call to assess your child\'s sleep and give you a clear, actionable plan.',
-    price: '$150',
-    duration: '60 min',
-    features: ['Pre-call intake questionnaire', '60-minute video consultation', 'Written sleep plan within 48 hours', 'One follow-up email'],
-    ctaText: 'Book Now',
-    calLink: 'littlewondercare/sleep-consultation',
-    ctaClass: 'btn-cta',
-    note: 'Books directly via calendar',
-    popular: false,
-  },
-  {
-    tag: 'Sleep Package',
-    title: 'Gentle Sleep Program',
-    description: 'A comprehensive 2-week program with hands-on guidance to transform your family\'s sleep — gently.',
-    price: '$450',
-    duration: '2 weeks',
-    features: ['90-minute initial assessment call', 'Custom gentle sleep plan', '14 days of daily support (text/email)', 'Two 30-minute follow-up calls', 'Sleep log tracking & adjustments'],
-    ctaText: 'Book First Session',
-    calLink: 'littlewondercare/sleep-program-intro',
-    ctaClass: 'btn-cta',
-    note: 'Books first session via calendar · payment at booking',
-    popular: true,
-  },
-  {
-    tag: 'Postpartum',
-    title: 'Doula Consultation',
-    description: 'A single support session to talk through your postpartum needs, newborn care questions, or feeding concerns.',
-    price: '$100',
-    duration: '60 min',
-    features: ['60-minute session (in-home or virtual)', 'Newborn care guidance', 'Feeding support & resources', 'Personalized recommendations'],
-    ctaText: 'Book Now',
-    calLink: 'littlewondercare/doula-consultation',
-    ctaClass: 'btn-cta',
-    note: 'Books directly via calendar',
-    popular: false,
-  },
-  {
-    tag: 'Doula Package',
-    title: 'Postpartum Support Package',
-    description: 'Ongoing in-home support during the early weeks. I walk beside you through the beautiful, messy reality of new parenthood.',
-    price: 'From $1,200',
-    duration: 'custom',
-    features: ['Prenatal planning visit', 'Weekly in-home visits (Waco area)', 'Emotional & practical support', 'Newborn care education', 'Feeding guidance', 'Light household support'],
-    ctaText: 'Request Availability',
-    ctaLink: '#request',   // keeps the scroll-to-form behaviour — no Cal popup
-    ctaClass: 'btn-outline',
-    note: 'Limited to 3 clients/month · submit a request below',
-    popular: false,
-  },
+	{
+		tag: 'Sleep',
+		title: 'Single Sleep Consultation',
+		description:
+			"A one-time 60-minute video call to assess your child's sleep and give you a clear, actionable plan.",
+		price: '$150',
+		duration: '60 min',
+		features: [
+			'Pre-call intake questionnaire',
+			'60-minute video consultation',
+			'Written sleep plan within 48 hours',
+			'One follow-up email',
+		],
+		ctaText: 'Book Now',
+		calLink: 'littlewondercare/sleep-consultation',
+		ctaClass: 'btn-cta',
+		note: 'Books directly via calendar',
+		popular: false,
+	},
+	{
+		tag: 'Sleep Package',
+		title: 'Gentle Sleep Program',
+		description:
+			"A comprehensive 2-week program with hands-on guidance to transform your family's sleep — gently.",
+		price: '$450',
+		duration: '2 weeks',
+		features: [
+			'90-minute initial assessment call',
+			'Custom gentle sleep plan',
+			'14 days of daily support (text/email)',
+			'Two 30-minute follow-up calls',
+			'Sleep log tracking & adjustments',
+		],
+		ctaText: 'Book First Session',
+		calLink: 'littlewondercare/sleep-program-intro',
+		ctaClass: 'btn-cta',
+		note: 'Books first session via calendar · payment at booking',
+		popular: true,
+	},
+	{
+		tag: 'Postpartum',
+		title: 'Doula Consultation',
+		description:
+			'A single support session to talk through your postpartum needs, newborn care questions, or feeding concerns.',
+		price: '$100',
+		duration: '60 min',
+		features: [
+			'60-minute session (in-home or virtual)',
+			'Newborn care guidance',
+			'Feeding support & resources',
+			'Personalized recommendations',
+		],
+		ctaText: 'Book Now',
+		calLink: 'littlewondercare/doula-consultation',
+		ctaClass: 'btn-cta',
+		note: 'Books directly via calendar',
+		popular: false,
+	},
+	{
+		tag: 'Doula Package',
+		title: 'Postpartum Support Package',
+		description:
+			'Ongoing in-home support during the early weeks. I walk beside you through the beautiful, messy reality of new parenthood.',
+		price: 'From $1,200',
+		duration: 'custom',
+		features: [
+			'Prenatal planning visit',
+			'Weekly in-home visits (Waco area)',
+			'Emotional & practical support',
+			'Newborn care education',
+			'Feeding guidance',
+			'Light household support',
+		],
+		ctaText: 'Request Availability',
+		ctaLink: '#request', // keeps the scroll-to-form behaviour — no Cal popup
+		ctaClass: 'btn-outline',
+		note: 'Limited to 3 clients/month · submit a request below',
+		popular: false,
+	},
 ];
 ---
 
@@ -88,12 +119,14 @@ const staticPackages = [
 		<Header />
 
 		<main>
-
 			<!-- Page Hero -->
 			<div class="page-hero bg-crema">
 				<p class="eyebrow">Services &amp; Packages</p>
 				<h1>Find the Right Support for Your Family</h1>
-				<p class="subtitle">Whether you need help with sleep, postpartum recovery, or just someone to talk to — I'm here. Choose the option that fits your needs.</p>
+				<p class="subtitle">
+					Whether you need help with sleep, postpartum recovery, or just someone
+					to talk to — I'm here. Choose the option that fits your needs.
+				</p>
 			</div>
 
 			<!-- Packages -->
@@ -111,8 +144,12 @@ const staticPackages = [
 								<h3 class="group-heading">{type}</h3>
 								<div class="packages-grid">
 									{pkgs.map((pkg) => (
-										<div class={`package-card${pkg.serviceType === 'Sleep Consulting' || pkg.serviceType === 'Consultation' ? ' sleep' : ' doula'}${pkg.isPopular ? ' popular' : ''}`}>
-											{pkg.isPopular && <span class="popular-badge">Most Popular</span>}
+										<div
+											class={`package-card${pkg.serviceType === 'Sleep Consulting' || pkg.serviceType === 'Consultation' ? ' sleep' : ' doula'}${pkg.isPopular ? ' popular' : ''}`}
+										>
+											{pkg.isPopular && (
+												<span class="popular-badge">Most Popular</span>
+											)}
 											<span class="package-tag">{pkg.serviceType}</span>
 											<h3>{pkg.title}</h3>
 											{pkg.description && <p>{pkg.description}</p>}
@@ -121,10 +158,17 @@ const staticPackages = [
 													{pkg.price != null && (
 														<>
 															${pkg.price}
-															{pkg.priceNote && <span class="price-note"> / {pkg.priceNote}</span>}
+															{pkg.priceNote && (
+																<span class="price-note">
+																	{' '}
+																	/ {pkg.priceNote}
+																</span>
+															)}
 														</>
 													)}
-													{!pkg.price && pkg.duration && <span class="price-note">{pkg.duration}</span>}
+													{!pkg.price && pkg.duration && (
+														<span class="price-note">{pkg.duration}</span>
+													)}
 												</div>
 											)}
 											{pkg.duration && pkg.price != null && (
@@ -132,18 +176,31 @@ const staticPackages = [
 											)}
 											{pkg.features && pkg.features.length > 0 && (
 												<ul class="package-includes">
-													{pkg.features.map((f) => <li>{f}</li>)}
+													{pkg.features.map((f) => (
+														<li>{f}</li>
+													))}
 												</ul>
 											)}
-											{pkg.ctaLink && (() => {
-												const isCalLink = pkg.ctaLink.startsWith('cal:');
-												const calPath = isCalLink ? pkg.ctaLink.slice(4) : null;
-												return isCalLink ? (
-													<button data-cal-link={calPath} data-cal-namespace="" class="btn-cta">{pkg.ctaText ?? 'Book Now'}</button>
-												) : (
-													<a href={pkg.ctaLink} class="btn-cta">{pkg.ctaText ?? 'Book Now'}</a>
-												);
-											})()}
+											{pkg.ctaLink &&
+												(() => {
+													const isCalLink = pkg.ctaLink.startsWith('cal:');
+													const calPath = isCalLink
+														? pkg.ctaLink.slice(4)
+														: null;
+													return isCalLink ? (
+														<button
+															data-cal-link={calPath}
+															data-cal-namespace=""
+															class="btn-cta"
+														>
+															{pkg.ctaText ?? 'Book Now'}
+														</button>
+													) : (
+														<a href={pkg.ctaLink} class="btn-cta">
+															{pkg.ctaText ?? 'Book Now'}
+														</a>
+													);
+												})()}
 										</div>
 									))}
 								</div>
@@ -153,20 +210,36 @@ const staticPackages = [
 						/* ── Static fallback ── */
 						<div class="packages-grid">
 							{staticPackages.map((pkg) => (
-								<div class={`package-card${pkg.tag.toLowerCase().includes('sleep') ? ' sleep' : ' doula'}${pkg.popular ? ' popular' : ''}`}>
-									{pkg.popular && <span class="popular-badge">Most Popular</span>}
+								<div
+									class={`package-card${pkg.tag.toLowerCase().includes('sleep') ? ' sleep' : ' doula'}${pkg.popular ? ' popular' : ''}`}
+								>
+									{pkg.popular && (
+										<span class="popular-badge">Most Popular</span>
+									)}
 									<span class="package-tag">{pkg.tag}</span>
 									<h3>{pkg.title}</h3>
 									<p>{pkg.description}</p>
-									<div class="package-price">{pkg.price} <span>/ {pkg.duration}</span></div>
+									<div class="package-price">
+										{pkg.price} <span>/ {pkg.duration}</span>
+									</div>
 									<ul class="package-includes">
-										{pkg.features.map((f) => <li>{f}</li>)}
+										{pkg.features.map((f) => (
+											<li>{f}</li>
+										))}
 									</ul>
 									{pkg.calLink ? (
-									<button data-cal-link={pkg.calLink} data-cal-namespace="" class={pkg.ctaClass}>{pkg.ctaText}</button>
-								) : (
-									<a href={pkg.ctaLink} class={pkg.ctaClass}>{pkg.ctaText}</a>
-								)}
+										<button
+											data-cal-link={pkg.calLink}
+											data-cal-namespace=""
+											class={pkg.ctaClass}
+										>
+											{pkg.ctaText}
+										</button>
+									) : (
+										<a href={pkg.ctaLink} class={pkg.ctaClass}>
+											{pkg.ctaText}
+										</a>
+									)}
 									<p class="package-booking-note">{pkg.note}</p>
 								</div>
 							))}
@@ -174,10 +247,19 @@ const staticPackages = [
 					)}
 
 					<div class="services-note">
-						<strong>Not sure which option is right for you?</strong><br />
-						Book a free 15-minute discovery call and we'll figure it out together.
-						<br /><br />
-						<button data-cal-link="littlewondercare/discovery-call" data-cal-namespace="" class="btn-outline">Free Discovery Call</button>
+						<strong>Not sure which option is right for you?</strong>
+						<br />
+						Book a free 15-minute discovery call and we'll figure it out
+						together.
+						<br />
+						<br />
+						<button
+							data-cal-link="littlewondercare/discovery-call"
+							data-cal-namespace=""
+							class="btn-outline"
+						>
+							Free Discovery Call
+						</button>
 					</div>
 				</div>
 			</div>
@@ -196,11 +278,21 @@ const staticPackages = [
 						</div>
 						<div class="form-field">
 							<label for="req-name">Your Name</label>
-							<input type="text" id="req-name" name="name" placeholder="Jane Smith" />
+							<input
+								type="text"
+								id="req-name"
+								name="name"
+								placeholder="Jane Smith"
+							/>
 						</div>
 						<div class="form-field">
 							<label for="req-email">Email</label>
-							<input type="email" id="req-email" name="email" placeholder="jane@email.com" />
+							<input
+								type="email"
+								id="req-email"
+								name="email"
+								placeholder="jane@email.com"
+							/>
 						</div>
 						<div class="form-field">
 							<label for="req-due">Due Date</label>
@@ -219,9 +311,19 @@ const staticPackages = [
 						</div>
 						<div class="form-field">
 							<label for="req-notes">Anything you'd like me to know?</label>
-							<textarea id="req-notes" name="notes" placeholder="First baby, concerns about feeding…"></textarea>
+							<textarea
+								id="req-notes"
+								name="notes"
+								placeholder="First baby, concerns about feeding…"
+							></textarea>
 						</div>
-						<button type="submit" class="btn-cta" style="width:100%; border:none; cursor:pointer;">Submit Request</button>
+						<button
+							type="submit"
+							class="btn-cta"
+							style="width:100%; border:none; cursor:pointer;"
+						>
+							Submit Request
+						</button>
 						<p style="font-size:0.78rem; color:rgba(45,45,45,0.45); text-align:center; margin-top:12px; margin-bottom:0;">
 							I'll review your request and get back to you within 48 hours.
 						</p>
@@ -232,10 +334,18 @@ const staticPackages = [
 			<!-- CTA Band -->
 			<section class="cta-band">
 				<h2>Ready to Take the First Step?</h2>
-				<p>Book a free 20-minute call. Let's talk about your needs and find the right solution for your family.</p>
-				<button data-cal-link="littlewondercare/discovery-call" data-cal-namespace="" class="btn-cta-light">Book Your Free Call</button>
+				<p>
+					Book a free 20-minute call. Let's talk about your needs and find the
+					right solution for your family.
+				</p>
+				<button
+					data-cal-link="littlewondercare/discovery-call"
+					data-cal-namespace=""
+					class="btn-cta-light"
+				>
+					Book Your Free Call
+				</button>
 			</section>
-
 		</main>
 
 		<Footer />
@@ -243,11 +353,20 @@ const staticPackages = [
 </html>
 
 <style>
-	main { width: 100%; max-width: 100%; margin: 0; padding: 0; }
+	main {
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+		padding: 0;
+	}
 
 	/* Service type group heading */
-	.service-group { margin-bottom: 56px; }
-	.service-group:last-child { margin-bottom: 0; }
+	.service-group {
+		margin-bottom: 56px;
+	}
+	.service-group:last-child {
+		margin-bottom: 0;
+	}
 
 	.group-heading {
 		font-family: 'Cormorant Garamond', Georgia, serif;

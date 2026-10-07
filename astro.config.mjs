@@ -12,22 +12,22 @@ import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://littlewondercareco.com',
-  integrations: [
-    mdx(),
-    sitemap(),
-    react(),
-    sanity({
-      projectId: 'bf0ainjd',
-      dataset: 'production',
-      studioBasePath: '/studio',
-      useCdn: false,
-    }),
-  ],
+	site: 'https://littlewondercareco.com',
+	integrations: [
+		mdx(),
+		sitemap(),
+		react(),
+		sanity({
+			projectId: 'bf0ainjd',
+			dataset: 'production',
+			studioBasePath: '/studio',
+			useCdn: false,
+		}),
+	],
 
-  vite: {
-    plugins: [tailwindcss()],
-  },
+	vite: {
+		plugins: [tailwindcss()],
+	},
 
-  adapter: vercel(),
+	adapter: vercel(),
 });

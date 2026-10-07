@@ -24,16 +24,22 @@ const categories = ['All', 'Sleep Consulting', 'Postpartum Doula'] as const;
 			<div class="page-hero bg-rosa">
 				<p class="eyebrow">Families I've Worked With</p>
 				<h1>Real Stories</h1>
-				<p class="subtitle">Every family is different. Here's what some of them have shared about working together.</p>
+				<p class="subtitle">
+					Every family is different. Here's what some of them have shared about
+					working together.
+				</p>
 			</div>
 
 			<div class="section">
 				<div class="section-inner">
-
 					{testimonials.length > 0 ? (
 						<>
 							<!-- Filter buttons -->
-							<div class="filter-bar" role="group" aria-label="Filter by service type">
+							<div
+								class="filter-bar"
+								role="group"
+								aria-label="Filter by service type"
+							>
 								{categories.map((cat) => (
 									<button
 										class={`filter-btn${cat === 'All' ? ' active' : ''}`}
@@ -47,15 +53,17 @@ const categories = ['All', 'Sleep Consulting', 'Postpartum Doula'] as const;
 							<!-- Grid -->
 							<div class="t-grid" id="testimonials-grid">
 								{testimonials.map((t) => (
-									<article
-										class="t-card"
-										data-service={t.serviceType ?? 'All'}
-									>
+									<article class="t-card" data-service={t.serviceType ?? 'All'}>
 										<div class="t-card-top">
 											{t.photo?.asset ? (
 												<img
 													class="t-avatar"
-													src={urlFor(t.photo).width(80).height(80).fit('crop').auto('format').url()}
+													src={urlFor(t.photo)
+														.width(80)
+														.height(80)
+														.fit('crop')
+														.auto('format')
+														.url()}
 													alt={t.photo.alt ?? t.name}
 													width="80"
 													height="80"
@@ -69,15 +77,21 @@ const categories = ['All', 'Sleep Consulting', 'Postpartum Doula'] as const;
 												<p class="t-name">{t.name}</p>
 												{(t.serviceType || t.childAge) && (
 													<p class="t-meta">
-														{[t.serviceType, t.childAge].filter(Boolean).join(' · ')}
+														{[t.serviceType, t.childAge]
+															.filter(Boolean)
+															.join(' · ')}
 													</p>
 												)}
 											</div>
 										</div>
 
 										{t.rating && t.rating > 0 && (
-											<div class="t-stars" aria-label={`${t.rating} out of 5 stars`}>
-												{'★'.repeat(t.rating)}{'☆'.repeat(5 - t.rating)}
+											<div
+												class="t-stars"
+												aria-label={`${t.rating} out of 5 stars`}
+											>
+												{'★'.repeat(t.rating)}
+												{'☆'.repeat(5 - t.rating)}
 											</div>
 										)}
 
@@ -92,17 +106,24 @@ const categories = ['All', 'Sleep Consulting', 'Postpartum Doula'] as const;
 						</>
 					) : (
 						<div class="t-empty">
-							<p>Testimonials are coming soon. In the meantime, feel free to <a href="/contact">get in touch</a>.</p>
+							<p>
+								Testimonials are coming soon. In the meantime, feel free to{' '}
+								<a href="/contact">get in touch</a>.
+							</p>
 						</div>
 					)}
-
 				</div>
 			</div>
 
 			<section class="cta-band">
 				<h2>Ready to Start Your Own Story?</h2>
-				<p>Book a free discovery call and let's talk about how I can support your family.</p>
-				<a href="/contact" class="btn-cta-light">Book a Free Discovery Call</a>
+				<p>
+					Book a free discovery call and let's talk about how I can support your
+					family.
+				</p>
+				<a href="/contact" class="btn-cta-light">
+					Book a Free Discovery Call
+				</a>
 			</section>
 		</main>
 
@@ -137,7 +158,12 @@ const categories = ['All', 'Sleep Consulting', 'Postpartum Doula'] as const;
 </script>
 
 <style>
-	main { width: 100%; max-width: 100%; margin: 0; padding: 0; }
+	main {
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+		padding: 0;
+	}
 
 	/* Filter bar */
 	.filter-bar {
@@ -150,7 +176,7 @@ const categories = ['All', 'Sleep Consulting', 'Postpartum Doula'] as const;
 	.filter-btn {
 		padding: 8px 20px;
 		border-radius: 50px;
-		border: 2px solid rgba(183,201,206,0.5);
+		border: 2px solid rgba(183, 201, 206, 0.5);
 		background: transparent;
 		font-size: 0.82rem;
 		font-weight: 500;
@@ -161,7 +187,10 @@ const categories = ['All', 'Sleep Consulting', 'Postpartum Doula'] as const;
 		letter-spacing: 0.02em;
 	}
 
-	.filter-btn:hover { border-color: var(--corallo); color: var(--corallo); }
+	.filter-btn:hover {
+		border-color: var(--corallo);
+		color: var(--corallo);
+	}
 
 	.filter-btn.active {
 		background: var(--corallo);
@@ -180,16 +209,18 @@ const categories = ['All', 'Sleep Consulting', 'Postpartum Doula'] as const;
 		background: #fff;
 		border-radius: 20px;
 		padding: 32px 28px;
-		box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+		box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
 		display: flex;
 		flex-direction: column;
 		gap: 16px;
-		transition: transform 0.2s, box-shadow 0.2s;
+		transition:
+			transform 0.2s,
+			box-shadow 0.2s;
 	}
 
 	.t-card:hover {
 		transform: translateY(-3px);
-		box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+		box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
 	}
 
 	.t-card-top {
@@ -249,14 +280,14 @@ const categories = ['All', 'Sleep Consulting', 'Postpartum Doula'] as const;
 		font-size: 1.05rem;
 		font-style: italic;
 		line-height: 1.7;
-		color: rgba(45,45,45,0.8);
+		color: rgba(45, 45, 45, 0.8);
 		margin: 0;
 		flex: 1;
 	}
 
 	.t-no-results {
 		text-align: center;
-		color: rgba(45,45,45,0.5);
+		color: rgba(45, 45, 45, 0.5);
 		font-size: 0.95rem;
 		padding: 40px 0;
 	}
@@ -264,11 +295,13 @@ const categories = ['All', 'Sleep Consulting', 'Postpartum Doula'] as const;
 	.t-empty {
 		text-align: center;
 		padding: 60px 24px;
-		color: rgba(45,45,45,0.55);
+		color: rgba(45, 45, 45, 0.55);
 		font-size: 1rem;
 	}
 
 	@media (max-width: 560px) {
-		.t-grid { grid-template-columns: 1fr; }
+		.t-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

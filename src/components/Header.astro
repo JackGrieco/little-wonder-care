@@ -11,14 +11,23 @@ const navLinks = [
 ];
 
 const currentPath = Astro.url.pathname;
-const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href !== '/' && currentPath.startsWith(l.href)));
+const servicesActive = serviceLinks.some(
+	(l) =>
+		currentPath === l.href ||
+		(l.href !== '/' && currentPath.startsWith(l.href)),
+);
 ---
 
 <nav class="navbar">
 	<div class="navbar-inner">
 		<!-- Logo -->
 		<a href="/" class="navbar-logo">
-			<img src="/logo.jpg" alt="Little Wonder Care logo" width="48" height="48" />
+			<img
+				src="/logo.jpg"
+				alt="Little Wonder Care logo"
+				width="48"
+				height="48"
+			/>
 			<span>Little Wonder Care</span>
 		</a>
 
@@ -26,17 +35,42 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 		<ul class="navbar-links">
 			<!-- Services dropdown -->
 			<li class="has-dropdown">
-				<button class={`dropdown-trigger${servicesActive ? ' active' : ''}`} aria-expanded="false" aria-haspopup="true">
+				<button
+					class={`dropdown-trigger${servicesActive ? ' active' : ''}`}
+					aria-expanded="false"
+					aria-haspopup="true"
+				>
 					Services
-					<svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-						<path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+					<svg
+						class="chevron"
+						width="12"
+						height="12"
+						viewBox="0 0 12 12"
+						fill="none"
+						aria-hidden="true"
+					>
+						<path
+							d="M2 4l4 4 4-4"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
 					</svg>
 				</button>
 				<ul class="dropdown-menu" role="menu">
 					{serviceLinks.map(({ href, label }) => (
 						<li role="none">
-							<a href={href} role="menuitem"
-								class={currentPath === href || (href !== '/services' && currentPath.startsWith(href)) ? 'active' : ''}>
+							<a
+								href={href}
+								role="menuitem"
+								class={
+									currentPath === href ||
+									(href !== '/services' && currentPath.startsWith(href))
+										? 'active'
+										: ''
+								}
+							>
 								{label}
 							</a>
 						</li>
@@ -47,17 +81,36 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 				<li>
 					<a
 						href={href}
-						class={currentPath === href || (href !== '/' && currentPath.startsWith(href)) ? 'active' : ''}
+						class={
+							currentPath === href ||
+							(href !== '/' && currentPath.startsWith(href))
+								? 'active'
+								: ''
+						}
 					>
 						{label}
 					</a>
 				</li>
 			))}
-			<li><a href="/contact" data-cal-link="littlewondercare/discovery-call" data-cal-namespace="" class="navbar-cta">Book Now</a></li>
+			<li>
+				<a
+					href="/contact"
+					data-cal-link="littlewondercare/discovery-call"
+					data-cal-namespace=""
+					class="navbar-cta"
+				>
+					Book Now
+				</a>
+			</li>
 		</ul>
 
 		<!-- Hamburger -->
-		<button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+		<button
+			class="menu-toggle"
+			id="menu-toggle"
+			aria-label="Open menu"
+			aria-expanded="false"
+		>
 			<span></span>
 			<span></span>
 			<span></span>
@@ -69,22 +122,51 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 		<ul>
 			<!-- Services expandable -->
 			<li class="mobile-has-dropdown">
-				<button class={`mobile-dropdown-trigger${servicesActive ? ' active' : ''}`} aria-expanded="false">
+				<button
+					class={`mobile-dropdown-trigger${servicesActive ? ' active' : ''}`}
+					aria-expanded="false"
+				>
 					Services
-					<svg class="chevron" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-						<path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+					<svg
+						class="chevron"
+						width="12"
+						height="12"
+						viewBox="0 0 12 12"
+						fill="none"
+						aria-hidden="true"
+					>
+						<path
+							d="M2 4l4 4 4-4"
+							stroke="currentColor"
+							stroke-width="1.5"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						/>
 					</svg>
 				</button>
 				<ul class="mobile-dropdown">
 					{serviceLinks.map(({ href, label }) => (
-						<li><a href={href}>{label}</a></li>
+						<li>
+							<a href={href}>{label}</a>
+						</li>
 					))}
 				</ul>
 			</li>
 			{navLinks.map(({ href, label }) => (
-				<li><a href={href}>{label}</a></li>
+				<li>
+					<a href={href}>{label}</a>
+				</li>
 			))}
-			<li><a href="/contact" data-cal-link="littlewondercare/discovery-call" data-cal-namespace="" class="navbar-cta">Book Now</a></li>
+			<li>
+				<a
+					href="/contact"
+					data-cal-link="littlewondercare/discovery-call"
+					data-cal-namespace=""
+					class="navbar-cta"
+				>
+					Book Now
+				</a>
+			</li>
 		</ul>
 	</div>
 </nav>
@@ -162,7 +244,9 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 	.navbar-links a:hover,
 	.navbar-links a.active,
 	.dropdown-trigger:hover,
-	.dropdown-trigger.active { color: #cc806b; }
+	.dropdown-trigger.active {
+		color: #cc806b;
+	}
 
 	.navbar-cta {
 		background: #cc806b !important;
@@ -172,7 +256,9 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 		font-size: 0.82rem !important;
 		font-weight: 600 !important;
 		letter-spacing: 0.04em !important;
-		transition: background 0.2s, transform 0.15s !important;
+		transition:
+			background 0.2s,
+			transform 0.15s !important;
 	}
 
 	.navbar-cta:hover {
@@ -190,7 +276,7 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 		flex-shrink: 0;
 	}
 
-	.dropdown-trigger[aria-expanded="true"] .chevron {
+	.dropdown-trigger[aria-expanded='true'] .chevron {
 		transform: rotate(180deg);
 	}
 
@@ -210,13 +296,16 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 		opacity: 0;
 		visibility: hidden;
 		transform: translateX(-50%) translateY(-6px);
-		transition: opacity 0.18s, transform 0.18s, visibility 0.18s;
+		transition:
+			opacity 0.18s,
+			transform 0.18s,
+			visibility 0.18s;
 		pointer-events: none;
 	}
 
 	.has-dropdown:hover .dropdown-menu,
 	.has-dropdown:focus-within .dropdown-menu,
-	.dropdown-trigger[aria-expanded="true"] ~ .dropdown-menu {
+	.dropdown-trigger[aria-expanded='true'] ~ .dropdown-menu {
 		opacity: 1;
 		visibility: visible;
 		transform: translateX(-50%) translateY(0);
@@ -233,7 +322,9 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 		letter-spacing: 0.06em;
 		color: #5c4a2a;
 		text-decoration: none;
-		transition: background 0.15s, color 0.15s;
+		transition:
+			background 0.15s,
+			color 0.15s;
 		white-space: nowrap;
 	}
 
@@ -270,7 +361,9 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 		padding: 16px 24px 24px;
 	}
 
-	.mobile-menu.open { display: block; }
+	.mobile-menu.open {
+		display: block;
+	}
 
 	.mobile-menu > ul {
 		list-style: none;
@@ -292,10 +385,15 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 		letter-spacing: 0.08em;
 		color: #5c4a2a;
 		border-radius: 8px;
-		transition: background 0.2s, color 0.2s;
+		transition:
+			background 0.2s,
+			color 0.2s;
 	}
 
-	.mobile-menu a:hover { background: rgba(204, 128, 107, 0.08); color: #cc806b; }
+	.mobile-menu a:hover {
+		background: rgba(204, 128, 107, 0.08);
+		color: #cc806b;
+	}
 
 	.mobile-menu .navbar-cta {
 		margin-top: 8px;
@@ -320,13 +418,20 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 		color: #5c4a2a;
 		border-radius: 8px;
 		font-family: inherit;
-		transition: background 0.2s, color 0.2s;
+		transition:
+			background 0.2s,
+			color 0.2s;
 	}
 
 	.mobile-dropdown-trigger:hover,
-	.mobile-dropdown-trigger.active { background: rgba(204, 128, 107, 0.08); color: #cc806b; }
+	.mobile-dropdown-trigger.active {
+		background: rgba(204, 128, 107, 0.08);
+		color: #cc806b;
+	}
 
-	.mobile-dropdown-trigger[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+	.mobile-dropdown-trigger[aria-expanded='true'] .chevron {
+		transform: rotate(180deg);
+	}
 
 	.mobile-dropdown {
 		list-style: none;
@@ -335,7 +440,9 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 		display: none;
 	}
 
-	.mobile-dropdown.open { display: block; }
+	.mobile-dropdown.open {
+		display: block;
+	}
 
 	.mobile-dropdown a {
 		font-size: 0.8rem;
@@ -344,10 +451,18 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 	}
 
 	@media (max-width: 900px) {
-		.navbar-links { display: none; }
-		.menu-toggle { display: block; }
-		.navbar-inner { height: 60px; }
-		.navbar-logo span { font-size: 1.15rem; }
+		.navbar-links {
+			display: none;
+		}
+		.menu-toggle {
+			display: block;
+		}
+		.navbar-inner {
+			height: 60px;
+		}
+		.navbar-logo span {
+			font-size: 1.15rem;
+		}
 	}
 </style>
 
@@ -364,7 +479,8 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 	});
 
 	// Desktop dropdown: toggle on click (for keyboard/touch)
-	const desktopTrigger = document.querySelector<HTMLButtonElement>('.dropdown-trigger');
+	const desktopTrigger =
+		document.querySelector<HTMLButtonElement>('.dropdown-trigger');
 	const desktopDropdown = document.querySelector<HTMLElement>('.dropdown-menu');
 
 	desktopTrigger?.addEventListener('click', () => {
@@ -374,14 +490,21 @@ const servicesActive = serviceLinks.some(l => currentPath === l.href || (l.href 
 
 	// Close desktop dropdown when clicking outside
 	document.addEventListener('click', (e) => {
-		if (desktopTrigger && desktopDropdown && !desktopTrigger.closest('.has-dropdown')?.contains(e.target as Node)) {
+		if (
+			desktopTrigger &&
+			desktopDropdown &&
+			!desktopTrigger.closest('.has-dropdown')?.contains(e.target as Node)
+		) {
 			desktopTrigger.setAttribute('aria-expanded', 'false');
 		}
 	});
 
 	// Mobile Services expandable
-	const mobileTrigger = document.querySelector<HTMLButtonElement>('.mobile-dropdown-trigger');
-	const mobileDropdown = document.querySelector<HTMLElement>('.mobile-dropdown');
+	const mobileTrigger = document.querySelector<HTMLButtonElement>(
+		'.mobile-dropdown-trigger',
+	);
+	const mobileDropdown =
+		document.querySelector<HTMLElement>('.mobile-dropdown');
 
 	mobileTrigger?.addEventListener('click', () => {
 		const expanded = mobileTrigger.getAttribute('aria-expanded') === 'true';

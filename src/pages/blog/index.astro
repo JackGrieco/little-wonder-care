@@ -8,7 +8,11 @@ const posts = await getBlogPosts().catch(() => []);
 
 function formatDate(iso?: string) {
 	if (!iso) return '';
-	return new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+	return new Date(iso).toLocaleDateString('en-US', {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+	});
 }
 ---
 
@@ -27,7 +31,10 @@ function formatDate(iso?: string) {
 			<div class="page-hero bg-crema">
 				<p class="eyebrow">From the Blog</p>
 				<h1>Resources for Parents</h1>
-				<p class="subtitle">Honest guidance on sleep, postpartum recovery, and everything in between.</p>
+				<p class="subtitle">
+					Honest guidance on sleep, postpartum recovery, and everything in
+					between.
+				</p>
 			</div>
 
 			<div class="section">
@@ -40,7 +47,11 @@ function formatDate(iso?: string) {
 										<div class="blog-card-image">
 											{post.mainImage?.asset ? (
 												<img
-													src={urlFor(post.mainImage).width(720).height(400).auto('format').url()}
+													src={urlFor(post.mainImage)
+														.width(720)
+														.height(400)
+														.auto('format')
+														.url()}
 													alt={post.mainImage.alt ?? post.title}
 													width="720"
 													height="400"
@@ -48,13 +59,21 @@ function formatDate(iso?: string) {
 												/>
 											) : (
 												<div class="blog-card-image-placeholder">
-													<span>{post.slug.current.includes('sleep') ? 'Sleep' : post.slug.current.includes('postpartum') ? 'Postpartum' : 'Guide'}</span>
+													<span>
+														{post.slug.current.includes('sleep')
+															? 'Sleep'
+															: post.slug.current.includes('postpartum')
+																? 'Postpartum'
+																: 'Guide'}
+													</span>
 												</div>
 											)}
 										</div>
 										<div class="blog-card-body">
 											{post.publishedAt && (
-												<p class="blog-card-date">{formatDate(post.publishedAt)}</p>
+												<p class="blog-card-date">
+													{formatDate(post.publishedAt)}
+												</p>
 											)}
 											<h2 class="blog-card-title">{post.title}</h2>
 											{post.excerpt && (
@@ -69,12 +88,13 @@ function formatDate(iso?: string) {
 					) : (
 						<div class="blog-empty">
 							<p>New posts are coming soon. Check back shortly!</p>
-							<a href="/" class="btn-cta" style="margin-top: 20px;">Back to Home</a>
+							<a href="/" class="btn-cta" style="margin-top: 20px;">
+								Back to Home
+							</a>
 						</div>
 					)}
 				</div>
 			</div>
-
 		</main>
 
 		<Footer />
@@ -82,7 +102,12 @@ function formatDate(iso?: string) {
 </html>
 
 <style>
-	main { width: 100%; max-width: 100%; margin: 0; padding: 0; }
+	main {
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+		padding: 0;
+	}
 
 	.blog-grid {
 		display: grid;
@@ -100,8 +125,10 @@ function formatDate(iso?: string) {
 		background: #fff;
 		border-radius: 16px;
 		overflow: hidden;
-		box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-		transition: transform 0.2s, box-shadow 0.2s;
+		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+		transition:
+			transform 0.2s,
+			box-shadow 0.2s;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
@@ -109,7 +136,7 @@ function formatDate(iso?: string) {
 
 	.blog-card-link:hover .blog-card {
 		transform: translateY(-3px);
-		box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+		box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
 	}
 
 	.blog-card-image {
@@ -129,7 +156,9 @@ function formatDate(iso?: string) {
 		transition: transform 0.3s;
 	}
 
-	.blog-card-link:hover .blog-card-image img { transform: scale(1.03); }
+	.blog-card-link:hover .blog-card-image img {
+		transform: scale(1.03);
+	}
 
 	.blog-card-image-placeholder {
 		height: 100%;
@@ -143,7 +172,7 @@ function formatDate(iso?: string) {
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		color: var(--teal-medio);
-		background: rgba(255,255,255,0.6);
+		background: rgba(255, 255, 255, 0.6);
 		padding: 6px 14px;
 		border-radius: 20px;
 	}
@@ -175,7 +204,7 @@ function formatDate(iso?: string) {
 
 	.blog-card-excerpt {
 		font-size: 0.88rem;
-		color: rgba(45,45,45,0.65);
+		color: rgba(45, 45, 45, 0.65);
 		line-height: 1.6;
 		margin: 0 0 16px;
 		flex: 1;
@@ -188,20 +217,26 @@ function formatDate(iso?: string) {
 		margin-top: auto;
 	}
 
-	.blog-card-link:hover .blog-card-cta { color: var(--pesca); }
+	.blog-card-link:hover .blog-card-cta {
+		color: var(--pesca);
+	}
 
 	.blog-empty {
 		text-align: center;
 		padding: 60px 24px;
-		color: rgba(45,45,45,0.55);
+		color: rgba(45, 45, 45, 0.55);
 		font-size: 1rem;
 	}
 
 	@media (max-width: 900px) {
-		.blog-grid { grid-template-columns: repeat(2, 1fr); }
+		.blog-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 
 	@media (max-width: 560px) {
-		.blog-grid { grid-template-columns: 1fr; }
+		.blog-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

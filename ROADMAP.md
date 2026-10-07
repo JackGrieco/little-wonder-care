@@ -19,16 +19,16 @@ Si spunta man mano. Ogni fase dice anche cosa si impara di Astro, perché il pro
 
 Tutti gli account sono intestati all'**email dell'attività** (il Gmail di Little Wonder Care), non a email personali.
 
-| Servizio | A cosa serve | Proprietario | Stato |
-|---|---|---|---|
-| Gmail Little Wonder Care | email dell'attività, calendario | Silvia | [ ] accesso ricevuto |
-| Google Calendar | disponibilità per le call | Silvia | [ ] |
-| Cal.com | prenotazioni (collegato al Google Calendar) | Silvia (account nuovo) | [ ] creato |
-| Stripe | pagamenti | Silvia (esistente) | [ ] invito come team member |
-| Sanity | CMS: pacchetti, FAQ, testimonianze | attività (account nuovo) | [ ] creato |
-| PostHog | analytics del sito | attività (account nuovo?) | [ ] da verificare di chi è quello attuale |
-| Vercel | hosting | Giacomo (`jackgriecos-projects`) | [x] esistente |
-| GitHub | codice | Giacomo (`JackGrieco/little-wonder-care`) | [x] esistente |
+| Servizio                 | A cosa serve                                | Proprietario                              | Stato                                     |
+| ------------------------ | ------------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| Gmail Little Wonder Care | email dell'attività, calendario             | Silvia                                    | [ ] accesso ricevuto                      |
+| Google Calendar          | disponibilità per le call                   | Silvia                                    | [ ]                                       |
+| Cal.com                  | prenotazioni (collegato al Google Calendar) | Silvia (account nuovo)                    | [ ] creato                                |
+| Stripe                   | pagamenti                                   | Silvia (esistente)                        | [ ] invito come team member               |
+| Sanity                   | CMS: pacchetti, FAQ, testimonianze          | attività (account nuovo)                  | [ ] creato                                |
+| PostHog                  | analytics del sito                          | attività (account nuovo?)                 | [ ] da verificare di chi è quello attuale |
+| Vercel                   | hosting                                     | Giacomo (`jackgriecos-projects`)          | [x] esistente                             |
+| GitHub                   | codice                                      | Giacomo (`JackGrieco/little-wonder-care`) | [x] esistente                             |
 
 - [ ] Stripe: farsi aggiungere come team member (Settings → Team), **non** passarsi la password
 - [ ] Cal.com: provare a prendere lo username `littlewondercare`, così i link nel codice restano validi
@@ -38,7 +38,7 @@ Tutti gli account sono intestati all'**email dell'attività** (il Gmail di Littl
 
 ## Fase 1 — Struttura e navigazione
 
-*Cosa impari: com'è fatto un file `.astro` (frontmatter + template), componenti e props, layout condivisi, rendering condizionale.*
+_Cosa impari: com'è fatto un file `.astro` (frontmatter + template), componenti e props, layout condivisi, rendering condizionale._
 
 - [ ] Header: "Book Now" → "Get in Touch", che porta a `/contact` (desktop + menu mobile)
 - [ ] Header: togliere "Blog" dal menu
@@ -51,7 +51,7 @@ Tutti gli account sono intestati all'**email dell'attività** (il Gmail di Littl
 
 ## Fase 2 — Pagina Services e flussi di prenotazione
 
-*Cosa impari: generare l'HTML da dati (array + `.map()`), riuso con un componente `ServiceCard`, costanti condivise.*
+_Cosa impari: generare l'HTML da dati (array + `.map()`), riuso con un componente `ServiceCard`, costanti condivise._
 
 - [ ] `/services` con tre sezioni: **Sleep Consulting** (5 card), **Postpartum Doula** (5 card), **Free Discovery Call** (15 min)
 - [ ] `/sleep-consulting`: descrizione + 5 card sleep + call gratuita
@@ -65,7 +65,7 @@ Tutti gli account sono intestati all'**email dell'attività** (il Gmail di Littl
 
 ## Fase 3 — Contenuti su Sanity
 
-*Cosa impari: cos'è un headless CMS, le query GROQ, dati presi durante la build e dati presi a ogni richiesta.*
+_Cosa impari: cos'è un headless CMS, le query GROQ, dati presi durante la build e dati presi a ogni richiesta._
 
 - [ ] Schema `servicePackage` allineato ai 10 pacchetti reali (tipo, prezzo, durata, link Cal.com)
 - [ ] Inserire i pacchetti in Sanity, così Silvia può modificarli da `/studio`
@@ -74,7 +74,7 @@ Tutti gli account sono intestati all'**email dell'attività** (il Gmail di Littl
 
 ## Fase 4 — Form contatti (primo pezzo di backend)
 
-*Cosa impari: endpoint e Astro Actions, variabili d'ambiente server-side, funzioni serverless su Vercel, validazione dell'input.*
+_Cosa impari: endpoint e Astro Actions, variabili d'ambiente server-side, funzioni serverless su Vercel, validazione dell'input._
 
 - [ ] Il form "Send a message" oggi punta a `formspree.io/f/PLACEHOLDER` e non funziona
 - [ ] Scegliere: Formspree configurato bene **oppure** Astro Action + servizio email (es. Resend)
@@ -82,7 +82,7 @@ Tutti gli account sono intestati all'**email dell'attività** (il Gmail di Littl
 
 ## Fase 5 — Pagamento Sleep Coaching
 
-*Cosa impari: integrare servizi esterni, con o senza codice.*
+_Cosa impari: integrare servizi esterni, con o senza codice._
 
 - [ ] Eventi Cal.com: discovery call 15 min (preavviso breve), call doula 15 min, sessioni sleep 1 h (preavviso 2-3 giorni)
 - [ ] Collegare Stripe a Cal.com → le sessioni sleep si pagano al momento della prenotazione
@@ -91,7 +91,7 @@ Tutti gli account sono intestati all'**email dell'attività** (il Gmail di Littl
 
 ## Fase 6 — Brand e testi
 
-*Cosa impari: design token e variabili CSS, Tailwind v4.*
+_Cosa impari: design token e variabili CSS, Tailwind v4._
 
 - [ ] Logo nuovo (stesso logo, font cambiato)
 - [ ] Palette con i codici colore → variabili CSS in `src/styles/global.css`
@@ -104,7 +104,7 @@ Tutti gli account sono intestati all'**email dell'attività** (il Gmail di Littl
 - [ ] Privacy policy e T&C definitivi (dopo l'avvocato) → aggiornare `/privacy-policy`, creare `/terms`
 - [ ] Togliere dalla privacy policy i servizi non usati (es. Kit/ConvertKit, se il lead magnet resta nascosto)
 - [ ] Accesso solo dagli **Stati Uniti** (regola Firewall di Vercel). Far confermare all'avvocato che basta
-- [ ] Togliere la protezione Vercel dal dominio di produzione (oggi è attiva su *tutti* i deploy, quindi il sito non è pubblico)
+- [ ] Togliere la protezione Vercel dal dominio di produzione (oggi è attiva su _tutti_ i deploy, quindi il sito non è pubblico)
 - [ ] Rimuovere `littlewondercare.com` dall'account Vercel: **non è nostro** (è un altro sito, "Little Roots Daycare", su Netlify)
 - [ ] Chiedere a chi ha sviluppato prima di spegnere la vecchia copia su `little-wonder-care.vercel.app`
 - [ ] Controllo finale: SEO, sitemap, Lighthouse, mobile

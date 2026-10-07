@@ -17,7 +17,6 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		<Header />
 
 		<main>
-
 			<!-- ===== HERO ===== -->
 			<section class="hero">
 				<div class="hero::before-circle"></div>
@@ -25,9 +24,18 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 				<div class="hero-inner">
 					<div class="hero-content">
 						<p class="hero-eyebrow">Postpartum doula · Gentle sleep coach</p>
-						<h1 class="hero-headline">You're in good hands.<br />And so is your baby.</h1>
-						<p class="hero-subtitle">Gentle, professional support for your postpartum journey and your baby's sleep. In Waco and online nationwide.</p>
-						<a href="/contact" class="btn-cta">Let's Talk</a>
+						<h1 class="hero-headline">
+							You're in good hands.
+							<br />
+							And so is your baby.
+						</h1>
+						<p class="hero-subtitle">
+							Gentle, professional support for your postpartum journey and your
+							baby's sleep. In Waco and online nationwide.
+						</p>
+						<a href="/contact" class="btn-cta">
+							Let's Talk
+						</a>
 					</div>
 					<div class="hero-visual">
 						<div class="hero-logo-circle">
@@ -40,10 +48,18 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 			<!-- ===== TRUST BAR ===== -->
 			<div class="trust-bar">
 				<div class="trust-bar-inner">
-					<div class="trust-item"><div class="trust-dot"></div>DONA Certified</div>
-					<div class="trust-item"><div class="trust-dot"></div>GSC Program Certified</div>
-					<div class="trust-item"><div class="trust-dot"></div>Waco, TX &amp; Online</div>
-					<div class="trust-item"><div class="trust-dot"></div>Gentle Approach</div>
+					<div class="trust-item">
+						<div class="trust-dot"></div>DONA Certified
+					</div>
+					<div class="trust-item">
+						<div class="trust-dot"></div>GSC Program Certified
+					</div>
+					<div class="trust-item">
+						<div class="trust-dot"></div>Waco, TX &amp; Online
+					</div>
+					<div class="trust-item">
+						<div class="trust-dot"></div>Gentle Approach
+					</div>
 				</div>
 			</div>
 
@@ -57,20 +73,35 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 					<div class="service-card">
 						<div class="service-dot"></div>
 						<h3>Gentle Sleep Coaching</h3>
-						<p>A respectful, personalized approach to help your baby sleep better — no tears, no stress.</p>
-						<a href="/sleep-consulting" class="card-link">Learn More →</a>
+						<p>
+							A respectful, personalized approach to help your baby sleep better
+							— no tears, no stress.
+						</p>
+						<a href="/sleep-consulting" class="card-link">
+							Learn More →
+						</a>
 					</div>
 					<div class="service-card">
 						<div class="service-dot"></div>
 						<h3>Postpartum Support</h3>
-						<p>Reassuring, hands-on support in the early weeks after birth. Emotional care, newborn guidance, and practical help.</p>
-						<a href="/postpartum-doula" class="card-link">Learn More →</a>
+						<p>
+							Reassuring, hands-on support in the early weeks after birth.
+							Emotional care, newborn guidance, and practical help.
+						</p>
+						<a href="/postpartum-doula" class="card-link">
+							Learn More →
+						</a>
 					</div>
 					<div class="service-card">
 						<div class="service-dot"></div>
 						<h3>Online Consultation</h3>
-						<p>A dedicated call to answer your questions about sleep, routines, and your baby's wellbeing. From anywhere.</p>
-						<a href="/services" class="card-link">Learn More →</a>
+						<p>
+							A dedicated call to answer your questions about sleep, routines,
+							and your baby's wellbeing. From anywhere.
+						</p>
+						<a href="/services" class="card-link">
+							Learn More →
+						</a>
 					</div>
 				</div>
 			</section>
@@ -85,17 +116,26 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 					<div class="step">
 						<div class="step-number">1</div>
 						<h3>Book a Free Call</h3>
-						<p>20 minutes to get to know each other, understand your needs, and find the right path for you.</p>
+						<p>
+							20 minutes to get to know each other, understand your needs, and
+							find the right path for you.
+						</p>
 					</div>
 					<div class="step">
 						<div class="step-number">2</div>
 						<h3>Personalized Plan</h3>
-						<p>I create a custom plan for your family, honoring your values and your baby's temperament.</p>
+						<p>
+							I create a custom plan for your family, honoring your values and
+							your baby's temperament.
+						</p>
 					</div>
 					<div class="step">
 						<div class="step-number">3</div>
 						<h3>Support &amp; Results</h3>
-						<p>I walk with you step by step with dedicated follow-ups until you feel confident and at peace.</p>
+						<p>
+							I walk with you step by step with dedicated follow-ups until you
+							feel confident and at peace.
+						</p>
 					</div>
 				</div>
 			</section>
@@ -106,8 +146,14 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 					<div class="about-avatar">S</div>
 					<h2 class="about-name">Silvia</h2>
 					<p class="about-role">Postpartum Doula · Gentle Sleep Coach</p>
-					<p class="about-bio">I know what it means to wake up for the fifth time in one night and feel completely alone. That's why I chose this work: to be the person I wished I'd had by my side. No judgment, just real support.</p>
-					<a href="/about" class="btn-cta-outline">Meet Silvia</a>
+					<p class="about-bio">
+						I know what it means to wake up for the fifth time in one night and
+						feel completely alone. That's why I chose this work: to be the
+						person I wished I'd had by my side. No judgment, just real support.
+					</p>
+					<a href="/about" class="btn-cta-outline">
+						Meet Silvia
+					</a>
 				</div>
 			</section>
 
@@ -123,15 +169,21 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 						{testimonials.map((t) => (
 							<div class="testimonial-card">
 								{t.rating && t.rating > 0 && (
-									<div class="testimonial-stars" aria-label={`${t.rating} out of 5 stars`}>
-										{'★'.repeat(t.rating)}{'☆'.repeat(5 - t.rating)}
+									<div
+										class="testimonial-stars"
+										aria-label={`${t.rating} out of 5 stars`}
+									>
+										{'★'.repeat(t.rating)}
+										{'☆'.repeat(5 - t.rating)}
 									</div>
 								)}
 								<p class="testimonial-quote">"{t.quote}"</p>
 								<p class="testimonial-author">{t.name}</p>
 								{(t.serviceType || t.childAge) && (
 									<p class="testimonial-detail">
-										{[t.serviceType, t.childAge ? `· ${t.childAge}` : ''].filter(Boolean).join(' ')}
+										{[t.serviceType, t.childAge ? `· ${t.childAge}` : '']
+											.filter(Boolean)
+											.join(' ')}
 									</p>
 								)}
 							</div>
@@ -140,14 +192,21 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 				) : (
 					/* Fallback when no featured testimonials exist in Sanity yet */
 					<div class="testimonial-card">
-						<p class="testimonial-quote">"Silvia was my anchor in the early weeks. I didn't know what was normal and what wasn't, and she was always there with calm and confidence. My baby started sleeping better and I started feeling like myself again."</p>
+						<p class="testimonial-quote">
+							"Silvia was my anchor in the early weeks. I didn't know what was
+							normal and what wasn't, and she was always there with calm and
+							confidence. My baby started sleeping better and I started feeling
+							like myself again."
+						</p>
 						<p class="testimonial-author">Maria R.</p>
 						<p class="testimonial-detail">Mom of Luca, 4 months</p>
 					</div>
 				)}
 
 				<div style="text-align:center; margin-top: 40px;">
-					<a href="/testimonials" class="btn-cta-outline">Read All Stories</a>
+					<a href="/testimonials" class="btn-cta-outline">
+						Read All Stories
+					</a>
 				</div>
 			</section>
 
@@ -159,29 +218,45 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 				</div>
 				<div class="blog-grid">
 					<div class="blog-card">
-						<div class="blog-card-image"><span>Sleep</span></div>
+						<div class="blog-card-image">
+							<span>Sleep</span>
+						</div>
 						<div class="blog-card-body">
-							<h3>What Does a Postpartum Doula Do? Everything You Need to Know</h3>
-							<p>The complete guide to understanding how a doula can support you in the early weeks.</p>
+							<h3>
+								What Does a Postpartum Doula Do? Everything You Need to Know
+							</h3>
+							<p>
+								The complete guide to understanding how a doula can support you
+								in the early weeks.
+							</p>
 						</div>
 					</div>
 					<div class="blog-card">
-						<div class="blog-card-image"><span>Postpartum</span></div>
+						<div class="blog-card-image">
+							<span>Postpartum</span>
+						</div>
 						<div class="blog-card-body">
 							<h3>5 Signs Your Baby Is Ready for Sleep Training</h3>
 							<p>How to recognize the right time to start a sleep journey.</p>
 						</div>
 					</div>
 					<div class="blog-card">
-						<div class="blog-card-image"><span>Guide</span></div>
+						<div class="blog-card-image">
+							<span>Guide</span>
+						</div>
 						<div class="blog-card-body">
 							<h3>How to Survive the 4-Month Sleep Regression</h3>
-							<p>Practical strategies to navigate one of the toughest moments of the first year.</p>
+							<p>
+								Practical strategies to navigate one of the toughest moments of
+								the first year.
+							</p>
 						</div>
 					</div>
 				</div>
 				<div style="text-align:center; margin-top: 40px;">
-					<a href="/blog" class="btn-cta-outline">Read All Articles</a>
+					<a href="/blog" class="btn-cta-outline">
+						Read All Articles
+					</a>
 				</div>
 			</section>
 
@@ -189,9 +264,15 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 			<section class="lead-magnet">
 				<div class="lead-magnet-inner">
 					<h2 class="section-title">Free Newborn Sleep Guide</h2>
-					<p>Download the guide and get practical tips straight to your inbox.</p>
+					<p>
+						Download the guide and get practical tips straight to your inbox.
+					</p>
 					<form class="email-form" onsubmit="return false;">
-						<input type="email" placeholder="Your email address..." aria-label="Email address" />
+						<input
+							type="email"
+							placeholder="Your email address..."
+							aria-label="Email address"
+						/>
 						<button type="submit">Download</button>
 					</form>
 				</div>
@@ -200,10 +281,14 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 			<!-- ===== FINAL CTA BAND ===== -->
 			<section class="cta-band">
 				<h2>Ready to Take the First Step?</h2>
-				<p>Book a free 20-minute call. Let's talk about your needs and find the right solution for your family.</p>
-				<a href="/contact" class="btn-cta-light">Book Your Free Call</a>
+				<p>
+					Book a free 20-minute call. Let's talk about your needs and find the
+					right solution for your family.
+				</p>
+				<a href="/contact" class="btn-cta-light">
+					Book Your Free Call
+				</a>
 			</section>
-
 		</main>
 
 		<Footer />
@@ -212,7 +297,12 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 
 <style>
 	/* Reset for this page */
-	main { width: 100%; max-width: 100%; margin: 0; padding: 0; }
+	main {
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+		padding: 0;
+	}
 
 	/* ===== HERO ===== */
 	.hero {
@@ -255,7 +345,9 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		z-index: 1;
 	}
 
-	.hero-content { max-width: 520px; }
+	.hero-content {
+		max-width: 520px;
+	}
 
 	.hero-eyebrow {
 		font-size: 0.72rem;
@@ -294,7 +386,10 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		font-size: 0.95rem;
 		font-weight: 600;
 		letter-spacing: 0.02em;
-		transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+		transition:
+			background 0.2s,
+			transform 0.15s,
+			box-shadow 0.2s;
 		box-shadow: 0 4px 16px rgba(204, 128, 107, 0.25);
 	}
 
@@ -316,7 +411,9 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		font-weight: 600;
 		letter-spacing: 0.02em;
 		margin-top: 24px;
-		transition: background 0.2s, color 0.2s;
+		transition:
+			background 0.2s,
+			color 0.2s;
 	}
 
 	.btn-cta-outline:hover {
@@ -346,12 +443,22 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 	}
 
 	/* Hero animation */
-	.hero-content { animation: fadeInUp 0.8s ease-out; }
-	.hero-visual { animation: fadeInUp 0.8s ease-out 0.2s both; }
+	.hero-content {
+		animation: fadeInUp 0.8s ease-out;
+	}
+	.hero-visual {
+		animation: fadeInUp 0.8s ease-out 0.2s both;
+	}
 
 	@keyframes fadeInUp {
-		from { opacity: 0; transform: translateY(24px); }
-		to { opacity: 1; transform: translateY(0); }
+		from {
+			opacity: 0;
+			transform: translateY(24px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 
 	/* ===== TRUST BAR ===== */
@@ -415,7 +522,9 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 	}
 
 	/* ===== SERVICES ===== */
-	.services { padding: var(--section-padding); }
+	.services {
+		padding: var(--section-padding);
+	}
 
 	.services-grid {
 		max-width: var(--max-width);
@@ -428,17 +537,25 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 	.service-card {
 		padding: 40px 32px;
 		border-radius: 20px;
-		transition: transform 0.2s, box-shadow 0.2s;
+		transition:
+			transform 0.2s,
+			box-shadow 0.2s;
 	}
 
 	.service-card:hover {
 		transform: translateY(-4px);
-		box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
 	}
 
-	.service-card:nth-child(1) { background: var(--celeste); }
-	.service-card:nth-child(2) { background: var(--crema); }
-	.service-card:nth-child(3) { background: var(--rosa-cipria); }
+	.service-card:nth-child(1) {
+		background: var(--celeste);
+	}
+	.service-card:nth-child(2) {
+		background: var(--crema);
+	}
+	.service-card:nth-child(3) {
+		background: var(--rosa-cipria);
+	}
 
 	.service-dot {
 		width: 10px;
@@ -447,9 +564,15 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		margin-bottom: 20px;
 	}
 
-	.service-card:nth-child(1) .service-dot { background: var(--teal-scuro); }
-	.service-card:nth-child(2) .service-dot { background: var(--warm-brown); }
-	.service-card:nth-child(3) .service-dot { background: var(--corallo); }
+	.service-card:nth-child(1) .service-dot {
+		background: var(--teal-scuro);
+	}
+	.service-card:nth-child(2) .service-dot {
+		background: var(--warm-brown);
+	}
+	.service-card:nth-child(3) .service-dot {
+		background: var(--corallo);
+	}
 
 	.service-card h3 {
 		font-family: var(--font-serif);
@@ -477,7 +600,9 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		transition: color 0.2s;
 	}
 
-	.card-link:hover { color: var(--pesca); }
+	.card-link:hover {
+		color: var(--pesca);
+	}
 
 	/* ===== HOW IT WORKS ===== */
 	.how-it-works {
@@ -646,8 +771,12 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 	}
 
 	@media (max-width: 600px) {
-		.testimonials-list { grid-template-columns: 1fr; }
-		.testimonial-card { padding: 28px 24px; }
+		.testimonials-list {
+			grid-template-columns: 1fr;
+		}
+		.testimonial-card {
+			padding: 28px 24px;
+		}
 	}
 
 	/* ===== BLOG PREVIEW ===== */
@@ -668,13 +797,15 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		background: #fff;
 		border-radius: 16px;
 		overflow: hidden;
-		box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-		transition: transform 0.2s, box-shadow 0.2s;
+		box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+		transition:
+			transform 0.2s,
+			box-shadow 0.2s;
 	}
 
 	.blog-card:hover {
 		transform: translateY(-3px);
-		box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+		box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
 	}
 
 	.blog-card-image {
@@ -690,17 +821,27 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		color: var(--teal-medio);
-		background: rgba(255,255,255,0.6);
+		background: rgba(255, 255, 255, 0.6);
 		padding: 6px 14px;
 		border-radius: 20px;
 	}
 
-	.blog-card:nth-child(2) .blog-card-image { background: var(--crema); }
-	.blog-card:nth-child(2) .blog-card-image span { color: var(--warm-brown); }
-	.blog-card:nth-child(3) .blog-card-image { background: var(--rosa-cipria); }
-	.blog-card:nth-child(3) .blog-card-image span { color: var(--rosa-scuro); }
+	.blog-card:nth-child(2) .blog-card-image {
+		background: var(--crema);
+	}
+	.blog-card:nth-child(2) .blog-card-image span {
+		color: var(--warm-brown);
+	}
+	.blog-card:nth-child(3) .blog-card-image {
+		background: var(--rosa-cipria);
+	}
+	.blog-card:nth-child(3) .blog-card-image span {
+		color: var(--rosa-scuro);
+	}
 
-	.blog-card-body { padding: 24px; }
+	.blog-card-body {
+		padding: 24px;
+	}
 
 	.blog-card-body h3 {
 		font-family: var(--font-serif);
@@ -731,7 +872,7 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		background: #fff;
 		padding: 48px 40px;
 		border-radius: 24px;
-		box-shadow: 0 8px 32px rgba(0,0,0,0.04);
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
 	}
 
 	.lead-magnet-inner .section-title {
@@ -765,7 +906,9 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		transition: border-color 0.2s;
 	}
 
-	.email-form input:focus { border-color: var(--celeste); }
+	.email-form input:focus {
+		border-color: var(--celeste);
+	}
 
 	.email-form button {
 		background: var(--corallo);
@@ -781,7 +924,9 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		font-family: var(--font-sans);
 	}
 
-	.email-form button:hover { background: var(--pesca); }
+	.email-form button:hover {
+		background: var(--pesca);
+	}
 
 	/* ===== FINAL CTA BAND ===== */
 	.cta-band {
@@ -794,13 +939,13 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		font-family: var(--font-serif);
 		font-size: 2.2rem;
 		font-weight: 600;
-		color: rgba(255,255,255,0.95);
+		color: rgba(255, 255, 255, 0.95);
 		margin-bottom: 12px;
 	}
 
 	.cta-band p {
 		font-size: 1rem;
-		color: rgba(255,255,255,0.65);
+		color: rgba(255, 255, 255, 0.65);
 		max-width: 440px;
 		margin: 0 auto 32px;
 		line-height: 1.6;
@@ -816,7 +961,9 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		font-size: 1rem;
 		font-weight: 600;
 		letter-spacing: 0.02em;
-		transition: background 0.2s, transform 0.15s;
+		transition:
+			background 0.2s,
+			transform 0.15s;
 		box-shadow: 0 4px 20px rgba(204, 128, 107, 0.35);
 	}
 
@@ -834,8 +981,12 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 			gap: 40px;
 		}
 
-		.hero-content { margin: 0 auto; }
-		.hero-subtitle { margin: 0 auto 32px; }
+		.hero-content {
+			margin: 0 auto;
+		}
+		.hero-subtitle {
+			margin: 0 auto 32px;
+		}
 
 		.services-grid,
 		.steps,
@@ -845,26 +996,51 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 			margin: 0 auto;
 		}
 
-		.hero-headline { font-size: 2.2rem; }
-		.section-title { font-size: 1.8rem; }
-		.cta-band h2 { font-size: 1.8rem; }
+		.hero-headline {
+			font-size: 2.2rem;
+		}
+		.section-title {
+			font-size: 1.8rem;
+		}
+		.cta-band h2 {
+			font-size: 1.8rem;
+		}
 
-		.email-form { flex-direction: column; }
+		.email-form {
+			flex-direction: column;
+		}
 	}
 
 	@media (max-width: 600px) {
-		:root { --section-padding: 56px 20px; }
+		:root {
+			--section-padding: 56px 20px;
+		}
 
-		.hero { padding: 56px 20px 72px; }
-		.hero-headline { font-size: 1.85rem; }
-		.hero-logo-circle { width: 200px; height: 200px; }
+		.hero {
+			padding: 56px 20px 72px;
+		}
+		.hero-headline {
+			font-size: 1.85rem;
+		}
+		.hero-logo-circle {
+			width: 200px;
+			height: 200px;
+		}
 
-		.trust-bar-inner { gap: 20px; }
+		.trust-bar-inner {
+			gap: 20px;
+		}
 
-		.testimonial-card { padding: 28px 24px; }
+		.testimonial-card {
+			padding: 28px 24px;
+		}
 
-		.lead-magnet-inner { padding: 32px 24px; }
+		.lead-magnet-inner {
+			padding: 32px 24px;
+		}
 
-		.cta-band { padding: 56px 20px; }
+		.cta-band {
+			padding: 56px 20px;
+		}
 	}
 </style>

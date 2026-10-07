@@ -9,7 +9,12 @@ import type { FAQ } from '../lib/sanity';
 const allFaqs = await getFAQs().catch(() => []);
 
 // Group by category, preserving defined order
-const categoryOrder = ['General', 'Sleep Consulting', 'Postpartum Doula', 'Pricing'] as const;
+const categoryOrder = [
+	'General',
+	'Sleep Consulting',
+	'Postpartum Doula',
+	'Pricing',
+] as const;
 
 const grouped = categoryOrder.reduce<Record<string, FAQ[]>>((acc, cat) => {
 	const items = allFaqs.filter((f) => f.category === cat);
@@ -36,7 +41,9 @@ const faqSchema = {
 				? f.answer
 						.flatMap((block) =>
 							block._type === 'block' && Array.isArray((block as any).children)
-								? (block as any).children.map((span: { text?: string }) => span.text ?? '').join('')
+								? (block as any).children
+										.map((span: { text?: string }) => span.text ?? '')
+										.join('')
 								: [],
 						)
 						.join(' ')
@@ -54,7 +61,11 @@ const faqSchema = {
 			description="Frequently asked questions about postpartum doula and gentle sleep consulting services from Little Wonder Care."
 		/>
 		{hasContent && (
-			<script type="application/ld+json" is:inline set:html={JSON.stringify(faqSchema)} />
+			<script
+				type="application/ld+json"
+				is:inline
+				set:html={JSON.stringify(faqSchema)}
+			/>
 		)}
 	</head>
 	<body>
@@ -64,7 +75,10 @@ const faqSchema = {
 			<div class="page-hero bg-crema">
 				<p class="eyebrow">Have Questions?</p>
 				<h1>Frequently Asked Questions</h1>
-				<p class="subtitle">Everything you need to know before getting started. Can't find what you're looking for? Just <a href="/contact">send me a message</a>.</p>
+				<p class="subtitle">
+					Everything you need to know before getting started. Can't find what
+					you're looking for? Just <a href="/contact">send me a message</a>.
+				</p>
 			</div>
 
 			<div class="section">
@@ -78,7 +92,9 @@ const faqSchema = {
 										<details class="faq-item" name={`faq-${category}`}>
 											<summary class="faq-question">
 												<span>{faq.question}</span>
-												<span class="faq-icon" aria-hidden="true">+</span>
+												<span class="faq-icon" aria-hidden="true">
+													+
+												</span>
 											</summary>
 											<div class="faq-answer">
 												{faq.answer && faq.answer.length > 0 ? (
@@ -94,7 +110,10 @@ const faqSchema = {
 						))
 					) : (
 						<div class="faq-empty">
-							<p>FAQs are being added. In the meantime, feel free to <a href="/contact">ask me directly</a>.</p>
+							<p>
+								FAQs are being added. In the meantime, feel free to{' '}
+								<a href="/contact">ask me directly</a>.
+							</p>
 						</div>
 					)}
 				</div>
@@ -102,8 +121,13 @@ const faqSchema = {
 
 			<section class="cta-band">
 				<h2>Still Have Questions?</h2>
-				<p>I'm always happy to chat. Send me a message and I'll get back to you within 24 hours.</p>
-				<a href="/contact" class="btn-cta-light">Get in Touch</a>
+				<p>
+					I'm always happy to chat. Send me a message and I'll get back to you
+					within 24 hours.
+				</p>
+				<a href="/contact" class="btn-cta-light">
+					Get in Touch
+				</a>
 			</section>
 		</main>
 
@@ -112,7 +136,12 @@ const faqSchema = {
 </html>
 
 <style>
-	main { width: 100%; max-width: 100%; margin: 0; padding: 0; }
+	main {
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+		padding: 0;
+	}
 
 	.faq-inner {
 		max-width: 760px;
@@ -120,8 +149,12 @@ const faqSchema = {
 	}
 
 	/* Category heading */
-	.faq-group { margin-bottom: 56px; }
-	.faq-group:last-child { margin-bottom: 0; }
+	.faq-group {
+		margin-bottom: 56px;
+	}
+	.faq-group:last-child {
+		margin-bottom: 0;
+	}
 
 	.faq-category {
 		font-family: var(--font-serif);
@@ -130,21 +163,27 @@ const faqSchema = {
 		color: var(--teal-scuro);
 		margin: 0 0 20px;
 		padding-bottom: 12px;
-		border-bottom: 2px solid rgba(183,201,206,0.4);
+		border-bottom: 2px solid rgba(183, 201, 206, 0.4);
 	}
 
 	/* Accordion item */
-	.faq-list { display: flex; flex-direction: column; gap: 2px; }
+	.faq-list {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
 
 	.faq-item {
 		background: #fff;
 		border-radius: 12px;
 		overflow: hidden;
-		box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+		box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
 		transition: box-shadow 0.2s;
 	}
 
-	.faq-item[open] { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+	.faq-item[open] {
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+	}
 
 	/* Remove default triangle */
 	.faq-question {
@@ -163,10 +202,16 @@ const faqSchema = {
 		transition: background 0.15s;
 	}
 
-	.faq-question::-webkit-details-marker { display: none; }
+	.faq-question::-webkit-details-marker {
+		display: none;
+	}
 
-	.faq-item[open] .faq-question { background: rgba(183,201,206,0.12); }
-	.faq-question:hover { background: rgba(183,201,206,0.1); }
+	.faq-item[open] .faq-question {
+		background: rgba(183, 201, 206, 0.12);
+	}
+	.faq-question:hover {
+		background: rgba(183, 201, 206, 0.1);
+	}
 
 	.faq-icon {
 		font-size: 1.3rem;
@@ -177,38 +222,61 @@ const faqSchema = {
 		flex-shrink: 0;
 	}
 
-	.faq-item[open] .faq-icon { transform: rotate(45deg); }
+	.faq-item[open] .faq-icon {
+		transform: rotate(45deg);
+	}
 
 	/* Answer */
 	.faq-answer {
 		padding: 0 24px 20px;
 		font-size: 0.95rem;
 		line-height: 1.75;
-		color: rgba(45,45,45,0.75);
+		color: rgba(45, 45, 45, 0.75);
 	}
 
-	.faq-answer :global(p) { margin-bottom: 0.8em; }
-	.faq-answer :global(p:last-child) { margin-bottom: 0; }
+	.faq-answer :global(p) {
+		margin-bottom: 0.8em;
+	}
+	.faq-answer :global(p:last-child) {
+		margin-bottom: 0;
+	}
 
 	.faq-answer :global(ul),
-	.faq-answer :global(ol) { padding-left: 1.4em; margin-bottom: 0.8em; }
+	.faq-answer :global(ol) {
+		padding-left: 1.4em;
+		margin-bottom: 0.8em;
+	}
 
-	.faq-answer :global(li) { margin-bottom: 0.3em; }
+	.faq-answer :global(li) {
+		margin-bottom: 0.3em;
+	}
 
-	.faq-answer :global(a) { color: var(--corallo); }
-	.faq-answer :global(a:hover) { color: var(--pesca); }
+	.faq-answer :global(a) {
+		color: var(--corallo);
+	}
+	.faq-answer :global(a:hover) {
+		color: var(--pesca);
+	}
 
-	.faq-answer :global(strong) { color: var(--charcoal); font-weight: 600; }
+	.faq-answer :global(strong) {
+		color: var(--charcoal);
+		font-weight: 600;
+	}
 
 	/* Empty state */
 	.faq-empty {
 		text-align: center;
 		padding: 60px 24px;
-		color: rgba(45,45,45,0.55);
+		color: rgba(45, 45, 45, 0.55);
 		font-size: 1rem;
 	}
 
 	/* Hero link colour override */
-	.page-hero a { color: var(--teal-medio); font-weight: 500; }
-	.page-hero a:hover { color: var(--corallo); }
+	.page-hero a {
+		color: var(--teal-medio);
+		font-weight: 500;
+	}
+	.page-hero a:hover {
+		color: var(--corallo);
+	}
 </style>

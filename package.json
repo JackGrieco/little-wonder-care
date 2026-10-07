@@ -1,35 +1,41 @@
 {
-  "name": "little-wonder-care",
-  "type": "module",
-  "version": "0.0.1",
-  "engines": {
-    "node": ">=22.12.0"
-  },
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/mdx": "^5.0.3",
-    "@astrojs/react": "^5.0.2",
-    "@astrojs/rss": "^4.0.18",
-    "@astrojs/sitemap": "^3.7.2",
-    "@astrojs/vercel": "^10.0.3",
-    "@portabletext/react": "^6.0.3",
-    "@sanity/astro": "^3.3.1",
-    "@sanity/client": "^7.20.0",
-    "@sanity/image-url": "^2.1.1",
-    "@sanity/vision": "^5.19.0",
-    "@tailwindcss/vite": "^4.2.2",
-    "astro": "^6.1.2",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-is": "^19.2.4",
-    "sanity": "^5.19.0",
-    "sharp": "^0.34.3",
-    "styled-components": "^6.3.12",
-    "tailwindcss": "^4.2.2"
-  }
+	"name": "little-wonder-care",
+	"type": "module",
+	"version": "0.0.1",
+	"engines": {
+		"node": ">=22.12.0"
+	},
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"format": "prettier --write .",
+		"format:check": "prettier --check ."
+	},
+	"dependencies": {
+		"@astrojs/mdx": "^5.0.3",
+		"@astrojs/react": "^5.0.2",
+		"@astrojs/rss": "^4.0.18",
+		"@astrojs/sitemap": "^3.7.2",
+		"@astrojs/vercel": "^10.0.3",
+		"@portabletext/react": "^6.0.3",
+		"@sanity/astro": "^3.3.1",
+		"@sanity/client": "^7.20.0",
+		"@sanity/image-url": "^2.1.1",
+		"@sanity/vision": "^5.19.0",
+		"@tailwindcss/vite": "^4.2.2",
+		"astro": "^6.1.2",
+		"react": "^19.2.4",
+		"react-dom": "^19.2.4",
+		"react-is": "^19.2.4",
+		"sanity": "^5.19.0",
+		"sharp": "^0.34.3",
+		"styled-components": "^6.3.12",
+		"tailwindcss": "^4.2.2"
+	},
+	"devDependencies": {
+		"prettier": "^3.9.9",
+		"prettier-plugin-astro": "^1.1.0"
+	}
 }
