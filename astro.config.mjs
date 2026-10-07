@@ -10,7 +10,11 @@ import tailwindcss from '@tailwindcss/vite';
 
 import vercel from '@astrojs/vercel';
 
-import { IS_BLOG_ENABLED } from './src/consts.ts';
+import {
+	IS_BLOG_ENABLED,
+	SANITY_DATASET,
+	SANITY_PROJECT_ID,
+} from './src/consts.ts';
 
 const STUDIO_BASE_PATH = '/studio';
 
@@ -34,8 +38,8 @@ export default defineConfig({
 		sitemap({ filter: isIncludedInSitemap }),
 		react(),
 		sanity({
-			projectId: 'bf0ainjd',
-			dataset: 'production',
+			projectId: SANITY_PROJECT_ID,
+			dataset: SANITY_DATASET,
 			studioBasePath: STUDIO_BASE_PATH,
 			useCdn: false,
 		}),

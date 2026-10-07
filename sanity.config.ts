@@ -2,13 +2,14 @@ import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { visionTool } from '@sanity/vision';
 import { schemaTypes } from './schemas';
+import { SANITY_DATASET, SANITY_PROJECT_ID } from './src/consts';
 
 export default defineConfig({
 	name: 'little-wonder-care',
 	title: 'Little Wonder Care',
 
-	projectId: 'bf0ainjd',
-	dataset: 'production',
+	projectId: SANITY_PROJECT_ID,
+	dataset: SANITY_DATASET,
 
 	plugins: [
 		structureTool({

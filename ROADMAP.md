@@ -17,24 +17,24 @@ Si spunta man mano. Ogni fase dice anche cosa si impara di Astro, perché il pro
 
 ## Fase 0 — Account e setup
 
-Tutti gli account sono intestati all'**email dell'attività** (il Gmail di Little Wonder Care), non a email personali.
+Tutti gli account sono intestati all'**email dell'attività** `silvia@littlewondercareco.com`, non a email personali. Le credenziali stanno nel password manager condiviso, mai in chat.
 
-| Servizio                 | A cosa serve                                | Proprietario                              | Stato                                     |
-| ------------------------ | ------------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| Gmail Little Wonder Care | email dell'attività, calendario             | Silvia                                    | [ ] accesso ricevuto                      |
-| Google Calendar          | disponibilità per le call                   | Silvia                                    | [ ]                                       |
-| Cal.com                  | prenotazioni (collegato al Google Calendar) | Silvia (account nuovo)                    | [ ] creato                                |
-| Stripe                   | pagamenti                                   | Silvia (esistente)                        | [ ] invito come team member               |
-| Sanity                   | CMS: pacchetti, FAQ, testimonianze          | attività (account nuovo)                  | [ ] creato                                |
-| PostHog                  | analytics del sito                          | attività (account nuovo?)                 | [ ] da verificare di chi è quello attuale |
-| Vercel                   | hosting                                     | Giacomo (`jackgriecos-projects`)          | [x] esistente                             |
-| GitHub                   | codice                                      | Giacomo (`JackGrieco/little-wonder-care`) | [x] esistente                             |
+| Servizio                | A cosa serve                       | Account                                                      | Stato                                                                                          |
+| ----------------------- | ---------------------------------- | ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| Email + Google Calendar | email dell'attività, disponibilità | `silvia@littlewondercareco.com`                              | [x] accesso ricevuto                                                                           |
+| Cal.com                 | prenotazioni                       | account già esistente di Silvia, username `littlewondercare` | [x] fuso orario Chicago, calendario collegato, evento `discovery-call` (15 min, preavviso 2 h) |
+| Sanity                  | CMS: pacchetti, FAQ, testimonianze | email dell'attività, progetto `zjnv9ypr`                     | [x] creato, CORS ok. Trial "Growth" di 30 giorni, poi torna Free                               |
+| PostHog                 | analytics del sito                 | email dell'attività, US Cloud                                | [x] creato                                                                                     |
+| Stripe                  | pagamenti                          | Silvia (esistente)                                           | [ ] invito di Giacomo come team member (Developer)                                             |
+| Vercel                  | hosting                            | Giacomo (`jackgriecos-projects`)                             | [x] variabili d'ambiente aggiornate                                                            |
+| GitHub                  | codice                             | Giacomo (`JackGrieco/little-wonder-care`)                    | [x] esistente                                                                                  |
 
-- [ ] Stripe: farsi aggiungere come team member (Settings → Team), **non** passarsi la password
-- [ ] Cal.com: provare a prendere lo username `littlewondercare`, così i link nel codice restano validi
-- [ ] Sanity: nuovo progetto → aggiornare il `projectId` (`astro.config.mjs`, `sanity.config.ts`, `src/lib/sanity.ts`, `.env.example`). Il vecchio progetto `bf0ainjd` ha solo 6 documenti di prova, quindi non c'è niente da migrare
-- [ ] Variabili d'ambiente su Vercel aggiornate → `vercel env pull` per averle in locale
-- [ ] Invitare Silvia come collaboratrice sulle preview Vercel
+- [ ] Stripe: Silvia invita Giacomo da Settings → Team, **senza** passare la password
+- [x] Sanity: `projectId` aggiornato, ora sta in un posto solo (`SANITY_PROJECT_ID` in `src/consts.ts`). Il vecchio progetto `bf0ainjd` aveva solo 6 documenti di prova
+- [x] Variabili su Vercel (Production + Preview + Development) e `vercel env pull`
+- [ ] Redeploy di produzione, così prende le nuove variabili (al prossimo merge su `main`)
+- [ ] Silvia si crea un account Vercel → invitarla come collaboratrice sulle preview
+- [ ] Cal.com: i link `sleep-consultation`, `sleep-program-intro`, `doula-consultation` usati in `services.astro` non esistono sul nuovo account → si creano in Fase 2/5 con le durate di Silvia. Gli eventi di default già presenti (`30min`, `15min`, `secret`) restano non toccati
 
 ## Fase 1 — Struttura e navigazione
 

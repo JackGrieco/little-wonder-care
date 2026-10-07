@@ -2,12 +2,13 @@ import { createClient } from '@sanity/client';
 import { createImageUrlBuilder } from '@sanity/image-url';
 import type { SanityImageSource } from '@sanity/image-url';
 import type { PortableTextBlock } from '@portabletext/types';
+import { SANITY_DATASET, SANITY_PROJECT_ID } from '../consts';
 
 // ─── Client ──────────────────────────────────────────────────────────────────
 
 export const client = createClient({
-	projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'bf0ainjd',
-	dataset: import.meta.env.PUBLIC_SANITY_DATASET || 'production',
+	projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID || SANITY_PROJECT_ID,
+	dataset: import.meta.env.PUBLIC_SANITY_DATASET || SANITY_DATASET,
 	apiVersion: '2024-01-01',
 	useCdn: import.meta.env.PROD,
 });
