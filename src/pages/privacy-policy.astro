@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { CONTACT_EMAIL } from '../consts';
 ---
 
 <!doctype html>
@@ -174,10 +175,8 @@ import Footer from '../components/Footer.astro';
 						</ul>
 						<p>
 							To exercise any of these rights, just send me an email at{' '}
-							<a href="mailto:hello@littlewondercare.com">
-								hello@littlewondercare.com
-							</a>{' '}
-							and I'll take care of it.
+							<a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> and I'll
+							take care of it.
 						</p>
 					</div>
 
@@ -190,10 +189,7 @@ import Footer from '../components/Footer.astro';
 						<p>
 							<strong>Little Wonder Care</strong>
 							<br />
-							Email:{' '}
-							<a href="mailto:hello@littlewondercare.com">
-								hello@littlewondercare.com
-							</a>
+							Email: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
 							<br />
 							Waco, TX
 						</p>

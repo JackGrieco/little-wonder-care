@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { CONTACT_EMAIL } from '../consts';
 import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 ---
 
@@ -116,10 +117,10 @@ import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 									<div>
 										<p class="contact-info-label">Email</p>
 										<a
-											href="mailto:hello@littlewondercare.com"
+											href={`mailto:${CONTACT_EMAIL}`}
 											class="contact-info-value"
 										>
-											hello@littlewondercare.com
+											{CONTACT_EMAIL}
 										</a>
 									</div>
 								</div>

@@ -4,6 +4,9 @@
 export const SITE_TITLE = 'Little Wonder Care';
 export const SITE_DESCRIPTION = 'Welcome to my website!';
 
+// Public contact email shown on the site (contact page, privacy policy, footer).
+export const CONTACT_EMAIL = 'silvia@littlewondercareco.com';
+
 // Cal.com event paths (cal.com/<path>), opened as popups via data-cal-link.
 export const CAL_LINKS = {
 	discoveryCall: 'littlewondercare/discovery-call',
