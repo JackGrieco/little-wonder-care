@@ -1,0 +1,54 @@
+---
+// The "third service": a free 15-minute call for people who don't know which
+// package fits them. Shown under the packages on every services page.
+import DiscoveryCallButton from './DiscoveryCallButton.astro';
+---
+
+<section class="discovery-call-card" aria-label="Free discovery call">
+	<span class="discovery-tag">Free · 15 minutes</span>
+	<h3>Not Sure Which Package Is Right for You?</h3>
+	<p>
+		Book a free discovery call. We'll talk about where you are and figure out
+		together what would help your family the most.
+	</p>
+	<DiscoveryCallButton label="Free Discovery Call" />
+</section>
+
+<style>
+	.discovery-call-card {
+		max-width: 640px;
+		margin: 0 auto;
+		padding: 40px 32px;
+		border-radius: 20px;
+		background: var(--rosa-cipria);
+		text-align: center;
+	}
+
+	.discovery-tag {
+		display: inline-block;
+		font-size: 0.68rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		font-weight: 600;
+		padding: 4px 12px;
+		border-radius: 20px;
+		margin-bottom: 16px;
+		background: var(--corallo);
+		color: #fff;
+	}
+
+	h3 {
+		font-family: var(--font-serif);
+		font-size: 1.6rem;
+		font-weight: 600;
+		color: var(--charcoal);
+		margin: 0 0 12px;
+	}
+
+	p {
+		font-size: 0.95rem;
+		line-height: 1.6;
+		color: rgba(45, 45, 45, 0.7);
+		margin: 0 0 24px;
+	}
+</style>

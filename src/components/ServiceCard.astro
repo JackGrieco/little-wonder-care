@@ -1,0 +1,89 @@
+---
+import CalButton from './CalButton.astro';
+import {
+	SERVICE_CATEGORIES,
+	formatPrice,
+	type ServicePackage,
+} from '../lib/packages';
+
+interface Props {
+	pkg: ServicePackage;
+}
+
+const { pkg } = Astro.props;
+const category = SERVICE_CATEGORIES[pkg.category];
+const bookingLink = pkg.bookingLink ?? category.defaultBookingLink;
+---
+
+<article
+	class:list={['package-card', category.cardClass, { popular: pkg.isPopular }]}
+>
+	{pkg.isPopular && <span class="popular-badge">Most Popular</span>}
+	<span class="package-tag">{category.tag}</span>
+	<h3>{pkg.title}</h3>
+	{pkg.description && <p>{pkg.description}</p>}
+
+	{pkg.price !== null && (
+		<div class="package-price">
+			{formatPrice(pkg.price)}
+			{pkg.priceNote && <span> / {pkg.priceNote}</span>}
+		</div>
+	)}
+	{pkg.duration && <p class="package-duration">{pkg.duration}</p>}
+
+	{pkg.features.length > 0 && (
+		<ul class="package-includes">
+			{pkg.features.map((feature) => (
+				<li>{feature}</li>
+			))}
+		</ul>
+	)}
+
+	<div class="package-cta">
+		<CalButton calLink={bookingLink} label={category.ctaText} />
+		<p class="package-booking-note">{category.bookingNote}</p>
+	</div>
+</article>
+
+<style>
+	/* Column layout so the button sits at the bottom of every card */
+	.package-card {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.package-card.popular {
+		border: 2px solid var(--corallo);
+	}
+
+	.popular-badge {
+		position: absolute;
+		top: -12px;
+		left: 50%;
+		transform: translateX(-50%);
+		background: var(--corallo);
+		color: #fff;
+		font-size: 0.68rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		padding: 3px 12px;
+		border-radius: 20px;
+		white-space: nowrap;
+	}
+
+	.package-tag {
+		align-self: flex-start;
+	}
+
+	.package-card .package-duration {
+		font-size: 0.8rem;
+		color: rgba(45, 45, 45, 0.5);
+		margin: -8px 0 12px;
+	}
+
+	.package-cta {
+		margin-top: auto;
+	}
+</style>

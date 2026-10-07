@@ -1,0 +1,19 @@
+---
+// Opens a Cal.com booking popup. The Cal.com embed script (loaded in
+// BaseHead.astro) attaches the popup to every element with data-cal-link.
+import type { HTMLAttributes } from 'astro/types';
+
+export type ButtonVariant = 'btn-cta' | 'btn-cta-light' | 'btn-outline';
+
+interface Props extends HTMLAttributes<'button'> {
+	calLink: string;
+	label: string;
+	variant?: ButtonVariant;
+}
+
+const { calLink, label, variant = 'btn-cta', ...attrs } = Astro.props;
+---
+
+<button type="button" data-cal-link={calLink} class={variant} {...attrs}>
+	{label}
+</button>

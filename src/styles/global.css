@@ -394,8 +394,13 @@ button.btn-outline {
 /* Services / packages grid */
 .packages-grid {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 	gap: 24px;
+}
+@media (max-width: 1100px) {
+	.packages-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
 }
 .package-card {
 	border-radius: 20px;
@@ -499,24 +504,6 @@ button.btn-outline {
 	margin-top: 12px;
 	margin-bottom: 0;
 }
-.services-note {
-	text-align: center;
-	max-width: 600px;
-	margin: 48px auto 0;
-	font-size: 0.92rem;
-	color: rgba(45, 45, 45, 0.6);
-	line-height: 1.6;
-}
-
-/* Doula availability form */
-.custom-form-preview {
-	background: #fff;
-	border-radius: 20px;
-	padding: 40px;
-	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-	max-width: 500px;
-	margin: 32px auto 0;
-}
 .form-field {
 	margin-bottom: 20px;
 }
@@ -549,28 +536,6 @@ button.btn-outline {
 .form-field textarea {
 	resize: vertical;
 	min-height: 90px;
-}
-
-.slots-indicator {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	padding: 12px 16px;
-	background: rgba(143, 166, 142, 0.1);
-	border-radius: 12px;
-	margin-bottom: 20px;
-}
-.slots-dot {
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	background: var(--verde-salvia);
-	flex-shrink: 0;
-}
-.slots-indicator span {
-	font-size: 0.85rem;
-	color: var(--verde-salvia);
-	font-weight: 500;
 }
 
 /* About page */
@@ -725,9 +690,6 @@ button.btn-outline {
 	}
 	.page-hero h1 {
 		font-size: 1.75rem;
-	}
-	.custom-form-preview {
-		padding: 24px 20px;
 	}
 }
 

@@ -1,0 +1,44 @@
+---
+import ServiceCard from './ServiceCard.astro';
+import {
+	SERVICE_CATEGORIES,
+	getPackagesByCategory,
+	type ServiceCategory,
+} from '../lib/packages';
+
+interface Props {
+	category: ServiceCategory;
+	/** Hide the heading on pages that are already about a single service. */
+	showHeading?: boolean;
+}
+
+const { category, showHeading = true } = Astro.props;
+const packages = await getPackagesByCategory(category);
+const { label } = SERVICE_CATEGORIES[category];
+---
+
+<section class="service-group" id={category} aria-label={label}>
+	{showHeading && <h3 class="group-heading">{label}</h3>}
+	<div class="packages-grid">
+		{packages.map((pkg) => (
+			<ServiceCard pkg={pkg} />
+		))}
+	</div>
+</section>
+
+<style>
+	.service-group {
+		margin-bottom: 64px;
+		scroll-margin-top: 96px; /* keeps #sleep / #doula below the sticky header */
+	}
+
+	.group-heading {
+		font-family: var(--font-serif);
+		font-size: 1.6rem;
+		font-weight: 600;
+		color: var(--teal-scuro);
+		margin: 0 0 32px;
+		padding-bottom: 12px;
+		border-bottom: 1px solid rgba(90, 122, 130, 0.2);
+	}
+</style>

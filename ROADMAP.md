@@ -56,14 +56,16 @@ _Cosa impari: com'è fatto un file `.astro` (frontmatter + template), componenti
 
 _Cosa impari: generare l'HTML da dati (array + `.map()`), riuso con un componente `ServiceCard`, costanti condivise._
 
-- [ ] `/services` con tre sezioni: **Sleep Consulting** (5 card), **Postpartum Doula** (5 card), **Free Discovery Call** (15 min)
-- [ ] `/sleep-consulting`: descrizione + 5 card sleep + call gratuita
-- [ ] `/postpartum-doula`: descrizione + 5 card doula + call gratuita
-- [ ] Componente unico per la card del pacchetto (oggi il markup è duplicato)
-- [ ] Link di Cal.com raccolti in un posto solo (oggi sono scritti a mano in 7 punti)
-- [ ] Card doula → apre la call conoscitiva di 15 min (niente pagamento)
-- [ ] Card sleep → apre la prenotazione della call di 1 h (il pagamento arriva in Fase 5)
-- [ ] Rimuovere la sezione "Request Availability"
+- [x] `/services` con tre sezioni: **Sleep Consulting** (5 card), **Postpartum Doula** (5 card), **Free Discovery Call** (15 min)
+- [x] `/sleep-consulting`: descrizione + 5 card sleep + call gratuita
+- [x] `/postpartum-doula`: descrizione + 5 card doula + call gratuita
+- [x] Componente unico per la card del pacchetto (`ServiceCard`), dati in `src/lib/packages.ts`, segnaposto in `src/data/placeholderPackages.ts`
+- [x] Link di Cal.com raccolti in un posto solo (`CAL_LINKS` in `src/consts.ts`)
+- [x] Card doula → apre la call conoscitiva di 15 min (niente pagamento)
+  - [ ] Creare su Cal.com l'evento dedicato e aggiornare `CAL_LINKS.doulaIntroCall` (oggi punta alla discovery call)
+- [x] Card sleep → apre la prenotazione della call di 1 h (il pagamento arriva in Fase 5)
+  - [ ] Creare su Cal.com l'evento sleep e aggiornare `CAL_LINKS.sleepSession` (oggi punta alla discovery call)
+- [x] Rimuovere la sezione "Request Availability"
 - [x] Correggere le incoerenze: la CTA diceva "20-minute call", ma la discovery call è di 15
 
 ## Fase 3 — Contenuti su Sanity
@@ -99,6 +101,8 @@ _Cosa impari: design token e variabili CSS, Tailwind v4._
 - [ ] Logo nuovo (stesso logo, font cambiato)
 - [ ] Palette con i codici colore → variabili CSS in `src/styles/global.css`
 - [ ] Testi About
+- [ ] Pagina Sleep: il testo dice "Available Worldwide… internationally", ma il sito è solo per gli USA. Da rivedere con Silvia
+- [ ] Pagine Sleep/Doula: "How It Works" e "What to Expect" descrivono pacchetti vecchi. Da allineare ai pacchetti veri
 - [ ] Descrizioni, prezzi e durate dei 10 pacchetti
 - [ ] Link Instagram (header/footer)
 

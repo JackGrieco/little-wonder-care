@@ -10,6 +10,11 @@ export const CONTACT_EMAIL = 'silvia@littlewondercareco.com';
 // Cal.com event paths (cal.com/<path>), opened as popups via data-cal-link.
 export const CAL_LINKS = {
 	discoveryCall: 'littlewondercare/discovery-call',
+	// TODO: these events don't exist on Cal.com yet (durations and prices come
+	// from Silvia). Until they do, they fall back to the discovery call so no
+	// button opens an empty popup.
+	doulaIntroCall: 'littlewondercare/discovery-call',
+	sleepSession: 'littlewondercare/discovery-call',
 } as const;
 
 // Sanity project (public identifiers, not secrets). Owned by the business account.

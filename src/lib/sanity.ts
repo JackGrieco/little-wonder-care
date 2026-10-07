@@ -182,30 +182,6 @@ export async function getFAQs(category?: string): Promise<FAQ[]> {
 }
 
 /**
- * Fetch all active service packages ordered by sortOrder.
- */
-export async function getServicePackages(): Promise<SanityServicePackage[]> {
-	return client.fetch(
-		`*[_type == "servicePackage" && isActive != false] | order(sortOrder asc, _createdAt asc) {
-      _id,
-      title,
-      slug,
-      serviceType,
-      description,
-      features,
-      price,
-      priceNote,
-      duration,
-      isPopular,
-      ctaText,
-      ctaLink,
-      sortOrder,
-      isActive
-    }`,
-	);
-}
-
-/**
  * Fetch active service packages filtered by serviceType.
  */
 export async function getServicePackagesByType(

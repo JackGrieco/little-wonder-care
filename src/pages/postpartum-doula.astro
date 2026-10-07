@@ -3,6 +3,8 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
+import DiscoveryCallCard from '../components/DiscoveryCallCard.astro';
+import PackagesSection from '../components/PackagesSection.astro';
 ---
 
 <!doctype html>
@@ -96,15 +98,18 @@ import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 							<strong>nationwide</strong>.
 						</p>
 					</div>
+				</div>
+			</div>
 
-					<div style="text-align: center; margin-top: 48px;">
-						<a href="/services" class="btn-cta">
-							View Packages &amp; Pricing
-						</a>
-						<p style="font-size:0.82rem; color:rgba(45,45,45,0.45); margin-top:12px; margin-bottom:0;">
-							→ See all postpartum support packages
-						</p>
+			<!-- Packages + free discovery call -->
+			<div class="section" id="packages">
+				<div class="section-inner">
+					<div class="section-header">
+						<p class="section-eyebrow">Packages</p>
+						<h2 class="section-title">Postpartum Doula Packages</h2>
 					</div>
+					<PackagesSection category="doula" showHeading={false} />
+					<DiscoveryCallCard />
 				</div>
 			</div>
 

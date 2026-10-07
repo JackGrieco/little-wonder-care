@@ -1,29 +1,14 @@
 ---
-// Opens the Cal.com booking popup for the free 15-minute discovery call.
-// The Cal.com embed script (loaded in BaseHead.astro) attaches the popup to
-// every element that has a data-cal-link attribute.
-import type { HTMLAttributes } from 'astro/types';
+// Opens the Cal.com popup for the free 15-minute discovery call.
+import type { ComponentProps } from 'astro/types';
+import CalButton from './CalButton.astro';
 import { CAL_LINKS } from '../consts';
 
-type Variant = 'btn-cta' | 'btn-cta-light' | 'btn-outline';
-
-interface Props extends HTMLAttributes<'button'> {
-	variant?: Variant;
+type Props = Omit<ComponentProps<typeof CalButton>, 'calLink' | 'label'> & {
 	label?: string;
-}
+};
 
-const {
-	variant = 'btn-cta',
-	label = 'Book a Free Discovery Call',
-	...attrs
-} = Astro.props;
+const { label = 'Book a Free Discovery Call', ...attrs } = Astro.props;
 ---
 
-<button
-	type="button"
-	data-cal-link={CAL_LINKS.discoveryCall}
-	class={variant}
-	{...attrs}
->
-	{label}
-</button>
+<CalButton calLink={CAL_LINKS.discoveryCall} label={label} {...attrs} />

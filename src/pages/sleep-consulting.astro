@@ -3,6 +3,8 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
+import DiscoveryCallCard from '../components/DiscoveryCallCard.astro';
+import PackagesSection from '../components/PackagesSection.astro';
 ---
 
 <!doctype html>
@@ -97,15 +99,18 @@ import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 							in the <strong>United States and internationally</strong>.
 						</p>
 					</div>
+				</div>
+			</div>
 
-					<div style="text-align: center; margin-top: 48px;">
-						<a href="/services" class="btn-cta">
-							View Packages &amp; Pricing
-						</a>
-						<p style="font-size:0.82rem; color:rgba(45,45,45,0.45); margin-top:12px; margin-bottom:0;">
-							→ See all sleep consulting packages
-						</p>
+			<!-- Packages + free discovery call -->
+			<div class="section" id="packages">
+				<div class="section-inner">
+					<div class="section-header">
+						<p class="section-eyebrow">Packages</p>
+						<h2 class="section-title">Sleep Consulting Packages</h2>
 					</div>
+					<PackagesSection category="sleep" showHeading={false} />
+					<DiscoveryCallCard />
 				</div>
 			</div>
 
