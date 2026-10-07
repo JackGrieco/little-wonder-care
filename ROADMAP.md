@@ -44,9 +44,10 @@ _Cosa impari: com'è fatto un file `.astro` (frontmatter + template), componenti
 - [x] Header: togliere "Blog" dal menu
 - [x] Home: nascondere (non cancellare) la sezione "From the Blog"
 - [x] Home: nascondere (non cancellare) la sezione "Free Newborn Sleep Guide" (lead magnet)
-- [ ] About: "Book a Free Call" apre il popup della discovery call di Cal.com invece di andare a `/contact`
-- [ ] Contact: aggiungere un bottone ben visibile "Free Discovery Call" accanto al form "Send a message"
-- [ ] Rivedere gli altri bottoni "Book a Free Discovery Call" che oggi portano a `/contact` (es. `sleep-consulting.astro`)
+- [x] About: "Book a Free Call" apre il popup della discovery call di Cal.com invece di andare a `/contact`
+- [x] Contact: aggiungere un bottone ben visibile "Free Discovery Call" accanto al form "Send a message"
+- [x] Tutti i bottoni della discovery call usano il componente `DiscoveryCallButton` (link in `CAL_LINKS` in `src/consts.ts`)
+- [ ] Email di contatto: il sito mostra `hello@littlewondercare.com`, ma **quel dominio non è nostro** (contact + privacy policy) → decidere l'indirizzo giusto con Silvia
 - [x] Pagine `/blog`: non vengono generate (`/blog` rimanda alla home), sono fuori dalla sitemap e l'RSS è vuoto
   - Si riaccendono con i flag `IS_BLOG_ENABLED` / `IS_LEAD_MAGNET_ENABLED` in `src/consts.ts`
 - [ ] Pulizia del template: `src/content/blog/`, `content.config.ts`, `layouts/BlogPost.astro` e l'RSS leggono post di esempio in Markdown, mentre il blog vero sta su Sanity. Da sistemare quando si riaccende il blog
@@ -63,7 +64,7 @@ _Cosa impari: generare l'HTML da dati (array + `.map()`), riuso con un component
 - [ ] Card doula → apre la call conoscitiva di 15 min (niente pagamento)
 - [ ] Card sleep → apre la prenotazione della call di 1 h (il pagamento arriva in Fase 5)
 - [ ] Rimuovere la sezione "Request Availability"
-- [ ] Correggere le incoerenze: la CTA dice "20-minute call", ma la discovery call è di 15
+- [x] Correggere le incoerenze: la CTA diceva "20-minute call", ma la discovery call è di 15
 
 ## Fase 3 — Contenuti su Sanity
 

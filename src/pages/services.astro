@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 import { getServicePackages, type SanityServicePackage } from '../lib/sanity';
 
 const sanityPackages = await getServicePackages().catch(() => []);
@@ -253,13 +254,10 @@ const staticPackages = [
 						together.
 						<br />
 						<br />
-						<button
-							data-cal-link="littlewondercare/discovery-call"
-							data-cal-namespace=""
-							class="btn-outline"
-						>
-							Free Discovery Call
-						</button>
+						<DiscoveryCallButton
+							variant="btn-outline"
+							label="Free Discovery Call"
+						/>
 					</div>
 				</div>
 			</div>
@@ -335,16 +333,13 @@ const staticPackages = [
 			<section class="cta-band">
 				<h2>Ready to Take the First Step?</h2>
 				<p>
-					Book a free 20-minute call. Let's talk about your needs and find the
+					Book a free 15-minute call. Let's talk about your needs and find the
 					right solution for your family.
 				</p>
-				<button
-					data-cal-link="littlewondercare/discovery-call"
-					data-cal-namespace=""
-					class="btn-cta-light"
-				>
-					Book Your Free Call
-				</button>
+				<DiscoveryCallButton
+					variant="btn-cta-light"
+					label="Book Your Free Call"
+				/>
 			</section>
 		</main>
 

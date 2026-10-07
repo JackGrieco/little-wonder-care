@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 import {
 	SITE_TITLE,
 	SITE_DESCRIPTION,
@@ -122,7 +123,7 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 						<div class="step-number">1</div>
 						<h3>Book a Free Call</h3>
 						<p>
-							20 minutes to get to know each other, understand your needs, and
+							15 minutes to get to know each other, understand your needs, and
 							find the right path for you.
 						</p>
 					</div>
@@ -291,12 +292,13 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 			<section class="cta-band">
 				<h2>Ready to Take the First Step?</h2>
 				<p>
-					Book a free 20-minute call. Let's talk about your needs and find the
+					Book a free 15-minute call. Let's talk about your needs and find the
 					right solution for your family.
 				</p>
-				<a href="/contact" class="btn-cta-light">
-					Book Your Free Call
-				</a>
+				<DiscoveryCallButton
+					variant="btn-cta-light"
+					label="Book Your Free Call"
+				/>
 			</section>
 		</main>
 

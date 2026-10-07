@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 ---
 
 <!doctype html>
@@ -87,6 +88,15 @@ import Footer from '../components/Footer.astro';
 
 						<!-- RIGHT: Contact Info Card -->
 						<div>
+							<div class="discovery-card">
+								<h2 class="contact-col-heading">Prefer to Talk?</h2>
+								<p>
+									Book a free 15-minute discovery call. No pressure, just a
+									conversation.
+								</p>
+								<DiscoveryCallButton />
+							</div>
+
 							<h2 class="contact-col-heading">Contact Info</h2>
 							<div class="contact-info-card">
 								<div class="contact-info-item">
@@ -207,9 +217,7 @@ import Footer from '../components/Footer.astro';
 					A free 15-minute discovery call is the easiest way to find out. No
 					pressure, just a conversation.
 				</p>
-				<a href="https://formspree.io/f/PLACEHOLDER" class="btn-cta-light">
-					Book a Free Discovery Call
-				</a>
+				<DiscoveryCallButton variant="btn-cta-light" />
 			</section>
 		</main>
 
@@ -360,6 +368,25 @@ import Footer from '../components/Footer.astro';
 
 	a.contact-info-value:hover {
 		color: var(--corallo);
+	}
+
+	/* Free discovery call: Silvia wants it highly visible next to the form */
+	.discovery-card {
+		background: var(--crema);
+		border-radius: 16px;
+		padding: 28px;
+		margin-bottom: 40px;
+	}
+
+	.discovery-card .contact-col-heading {
+		margin-bottom: 8px;
+	}
+
+	.discovery-card p {
+		font-size: 0.92rem;
+		color: var(--charcoal);
+		line-height: 1.6;
+		margin: 0 0 20px;
 	}
 
 	.contact-note {

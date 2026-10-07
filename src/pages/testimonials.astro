@@ -2,6 +2,7 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 import { getTestimonials, urlFor } from '../lib/sanity';
 
 const testimonials = await getTestimonials().catch(() => []);
@@ -121,9 +122,7 @@ const categories = ['All', 'Sleep Consulting', 'Postpartum Doula'] as const;
 					Book a free discovery call and let's talk about how I can support your
 					family.
 				</p>
-				<a href="/contact" class="btn-cta-light">
-					Book a Free Discovery Call
-				</a>
+				<DiscoveryCallButton variant="btn-cta-light" />
 			</section>
 		</main>
 
