@@ -1,4 +1,6 @@
 ---
+import { IS_BLOG_ENABLED } from '../consts';
+
 const serviceLinks = [
 	{ href: '/services', label: 'All Services' },
 	{ href: '/postpartum-doula', label: 'Postpartum Doula' },
@@ -7,7 +9,7 @@ const serviceLinks = [
 
 const navLinks = [
 	{ href: '/about', label: 'About' },
-	{ href: '/blog', label: 'Blog' },
+	...(IS_BLOG_ENABLED ? [{ href: '/blog', label: 'Blog' }] : []),
 ];
 
 const currentPath = Astro.url.pathname;

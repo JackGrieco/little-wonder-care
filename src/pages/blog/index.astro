@@ -3,6 +3,11 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { getBlogPosts, urlFor } from '../../lib/sanity';
+import { IS_BLOG_ENABLED } from '../../consts';
+
+if (!IS_BLOG_ENABLED) {
+	return Astro.redirect('/');
+}
 
 const posts = await getBlogPosts().catch(() => []);
 

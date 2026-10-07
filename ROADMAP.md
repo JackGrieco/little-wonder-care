@@ -40,14 +40,16 @@ Tutti gli account sono intestati all'**email dell'attività** (il Gmail di Littl
 
 _Cosa impari: com'è fatto un file `.astro` (frontmatter + template), componenti e props, layout condivisi, rendering condizionale._
 
-- [ ] Header: "Book Now" → "Get in Touch", che porta a `/contact` (desktop + menu mobile)
-- [ ] Header: togliere "Blog" dal menu
-- [ ] Home: nascondere (non cancellare) la sezione "From the Blog"
-- [ ] Home: nascondere (non cancellare) la sezione "Free Newborn Sleep Guide" (lead magnet)
+- [x] Header: "Book Now" → "Get in Touch", che porta a `/contact` (desktop + menu mobile)
+- [x] Header: togliere "Blog" dal menu
+- [x] Home: nascondere (non cancellare) la sezione "From the Blog"
+- [x] Home: nascondere (non cancellare) la sezione "Free Newborn Sleep Guide" (lead magnet)
 - [ ] About: "Book a Free Call" apre il popup della discovery call di Cal.com invece di andare a `/contact`
 - [ ] Contact: aggiungere un bottone ben visibile "Free Discovery Call" accanto al form "Send a message"
 - [ ] Rivedere gli altri bottoni "Book a Free Discovery Call" che oggi portano a `/contact` (es. `sleep-consulting.astro`)
-- [ ] Le pagine `/blog` restano raggiungibili da URL? Decidere se nasconderle del tutto
+- [x] Pagine `/blog`: non vengono generate (`/blog` rimanda alla home), sono fuori dalla sitemap e l'RSS è vuoto
+  - Si riaccendono con i flag `IS_BLOG_ENABLED` / `IS_LEAD_MAGNET_ENABLED` in `src/consts.ts`
+- [ ] Pulizia del template: `src/content/blog/`, `content.config.ts`, `layouts/BlogPost.astro` e l'RSS leggono post di esempio in Markdown, mentre il blog vero sta su Sanity. Da sistemare quando si riaccende il blog
 
 ## Fase 2 — Pagina Services e flussi di prenotazione
 

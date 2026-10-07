@@ -4,7 +4,7 @@
 import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/blog-placeholder-1.jpg';
-import { SITE_TITLE } from '../consts';
+import { IS_BLOG_ENABLED, SITE_TITLE } from '../consts';
 import PostHog from './PostHog.astro';
 
 const isStudioPage = Astro.url.pathname.startsWith('/studio');
@@ -34,12 +34,14 @@ const { title, description, image = FallbackImage } = Astro.props;
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" href="/favicon.ico" />
 <link rel="sitemap" href="/sitemap-index.xml" />
-<link
-	rel="alternate"
-	type="application/rss+xml"
-	title={SITE_TITLE}
-	href={new URL('rss.xml', Astro.site)}
-/>
+{IS_BLOG_ENABLED && (
+	<link
+		rel="alternate"
+		type="application/rss+xml"
+		title={SITE_TITLE}
+		href={new URL('rss.xml', Astro.site)}
+	/>
+)}
 <meta name="generator" content={Astro.generator} />
 
 <!-- Font preloads -->

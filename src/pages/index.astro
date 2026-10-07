@@ -2,7 +2,12 @@
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import {
+	SITE_TITLE,
+	SITE_DESCRIPTION,
+	IS_BLOG_ENABLED,
+	IS_LEAD_MAGNET_ENABLED,
+} from '../consts';
 import { getFeaturedTestimonials } from '../lib/sanity';
 
 const testimonials = await getFeaturedTestimonials().catch(() => []);
@@ -211,72 +216,76 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 			</section>
 
 			<!-- ===== BLOG PREVIEW ===== -->
-			<section class="blog-preview" id="blog">
-				<div class="section-header">
-					<p class="section-eyebrow">From the Blog</p>
-					<h2 class="section-title">Resources for Parents</h2>
-				</div>
-				<div class="blog-grid">
-					<div class="blog-card">
-						<div class="blog-card-image">
-							<span>Sleep</span>
+			{IS_BLOG_ENABLED && (
+				<section class="blog-preview" id="blog">
+					<div class="section-header">
+						<p class="section-eyebrow">From the Blog</p>
+						<h2 class="section-title">Resources for Parents</h2>
+					</div>
+					<div class="blog-grid">
+						<div class="blog-card">
+							<div class="blog-card-image">
+								<span>Sleep</span>
+							</div>
+							<div class="blog-card-body">
+								<h3>
+									What Does a Postpartum Doula Do? Everything You Need to Know
+								</h3>
+								<p>
+									The complete guide to understanding how a doula can support
+									you in the early weeks.
+								</p>
+							</div>
 						</div>
-						<div class="blog-card-body">
-							<h3>
-								What Does a Postpartum Doula Do? Everything You Need to Know
-							</h3>
-							<p>
-								The complete guide to understanding how a doula can support you
-								in the early weeks.
-							</p>
+						<div class="blog-card">
+							<div class="blog-card-image">
+								<span>Postpartum</span>
+							</div>
+							<div class="blog-card-body">
+								<h3>5 Signs Your Baby Is Ready for Sleep Training</h3>
+								<p>How to recognize the right time to start a sleep journey.</p>
+							</div>
+						</div>
+						<div class="blog-card">
+							<div class="blog-card-image">
+								<span>Guide</span>
+							</div>
+							<div class="blog-card-body">
+								<h3>How to Survive the 4-Month Sleep Regression</h3>
+								<p>
+									Practical strategies to navigate one of the toughest moments
+									of the first year.
+								</p>
+							</div>
 						</div>
 					</div>
-					<div class="blog-card">
-						<div class="blog-card-image">
-							<span>Postpartum</span>
-						</div>
-						<div class="blog-card-body">
-							<h3>5 Signs Your Baby Is Ready for Sleep Training</h3>
-							<p>How to recognize the right time to start a sleep journey.</p>
-						</div>
+					<div style="text-align:center; margin-top: 40px;">
+						<a href="/blog" class="btn-cta-outline">
+							Read All Articles
+						</a>
 					</div>
-					<div class="blog-card">
-						<div class="blog-card-image">
-							<span>Guide</span>
-						</div>
-						<div class="blog-card-body">
-							<h3>How to Survive the 4-Month Sleep Regression</h3>
-							<p>
-								Practical strategies to navigate one of the toughest moments of
-								the first year.
-							</p>
-						</div>
-					</div>
-				</div>
-				<div style="text-align:center; margin-top: 40px;">
-					<a href="/blog" class="btn-cta-outline">
-						Read All Articles
-					</a>
-				</div>
-			</section>
+				</section>
+			)}
 
 			<!-- ===== LEAD MAGNET ===== -->
-			<section class="lead-magnet">
-				<div class="lead-magnet-inner">
-					<h2 class="section-title">Free Newborn Sleep Guide</h2>
-					<p>
-						Download the guide and get practical tips straight to your inbox.
-					</p>
-					<form class="email-form" onsubmit="return false;">
-						<input
-							type="email"
-							placeholder="Your email address..."
-							aria-label="Email address"
-						/>
-						<button type="submit">Download</button>
-					</form>
-				</div>
-			</section>
+			{IS_LEAD_MAGNET_ENABLED && (
+				<section class="lead-magnet">
+					<div class="lead-magnet-inner">
+						<h2 class="section-title">Free Newborn Sleep Guide</h2>
+						<p>
+							Download the guide and get practical tips straight to your inbox.
+						</p>
+						<form class="email-form" onsubmit="return false;">
+							<input
+								type="email"
+								placeholder="Your email address..."
+								aria-label="Email address"
+							/>
+							<button type="submit">Download</button>
+						</form>
+					</div>
+				</section>
+			)}
 
 			<!-- ===== FINAL CTA BAND ===== -->
 			<section class="cta-band">
