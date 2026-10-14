@@ -98,8 +98,10 @@ _Cosa impari: integrare servizi esterni, con o senza codice._
 
 _Cosa impari: design token e variabili CSS, Tailwind v4._
 
-- [ ] Logo nuovo (stesso logo, font cambiato)
-- [ ] Palette con i codici colore → variabili CSS in `src/styles/global.css`
+- [x] Logo nuovo (stesso logo, font cambiato) + favicon dal logo
+- [x] Palette con i codici colore → variabili CSS in `src/styles/global.css` (navy `#1f3864` al posto del teal)
+- [x] Font: Caveat Brush (titoli) + Poppins (testo)
+- [ ] Logo in PNG/SVG ad alta risoluzione (ora abbiamo un JPEG 1200px da Canva)
 - [ ] Testi About
 - [ ] Pagina Sleep: il testo dice "Available Worldwide… internationally", ma il sito è solo per gli USA. Da rivedere con Silvia
 - [ ] Pagine Sleep/Doula: "How It Works" e "What to Expect" descrivono pacchetti vecchi. Da allineare ai pacchetti veri
@@ -120,7 +122,7 @@ _Cosa impari: design token e variabili CSS, Tailwind v4._
 
 - [ ] Accesso al Gmail dell'attività
 - [ ] Invito su Stripe come team member
-- [ ] Logo aggiornato + palette (codici colore)
+- [x] Logo aggiornato + palette (codici colore)
 - [ ] Testi About
 - [ ] Elenco dei 10 pacchetti: nome, descrizione, prezzo, durata
 - [ ] Durate e regole di preavviso definitive per ogni tipo di call

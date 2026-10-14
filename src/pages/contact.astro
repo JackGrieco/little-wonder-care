@@ -242,10 +242,10 @@ import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 	}
 
 	.contact-col-heading {
-		font-family: var(--font-serif);
+		font-family: var(--font-display);
 		font-size: 1.5rem;
 		font-weight: 600;
-		color: var(--teal-scuro);
+		color: var(--navy);
 		margin-bottom: 24px;
 	}
 
@@ -300,8 +300,8 @@ import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 
 	.contact-submit {
 		display: inline-block;
-		background: var(--corallo);
-		color: #fff;
+		background: var(--pesca);
+		color: var(--navy);
 		border: none;
 		padding: 14px 36px;
 		border-radius: 50px;
@@ -313,12 +313,13 @@ import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 		transition:
 			background 0.2s,
 			transform 0.15s;
-		box-shadow: 0 4px 16px rgba(204, 128, 107, 0.25);
+		box-shadow: 0 4px 16px rgba(232, 153, 132, 0.25);
 	}
 
 	.contact-submit:hover {
-		background: var(--pesca);
+		background: var(--navy);
 		transform: translateY(-2px);
+		color: #fff !important;
 	}
 
 	/* Info card */
@@ -346,7 +347,7 @@ import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: var(--teal-scuro);
+		color: var(--navy);
 		flex-shrink: 0;
 	}
 
@@ -355,7 +356,7 @@ import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		font-weight: 600;
-		color: var(--teal-chiaro);
+		color: var(--navy-soft);
 		margin: 0 0 4px;
 	}
 
@@ -368,7 +369,7 @@ import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 	}
 
 	a.contact-info-value:hover {
-		color: var(--corallo);
+		color: var(--pesca);
 	}
 
 	/* Free discovery call: Silvia wants it highly visible next to the form */
@@ -400,7 +401,7 @@ import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 	}
 
 	.contact-note a {
-		color: var(--corallo);
+		color: var(--navy);
 		font-weight: 500;
 	}
 

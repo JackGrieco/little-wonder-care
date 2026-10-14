@@ -197,10 +197,10 @@ const servicesActive = serviceLinks.some(
 	}
 
 	.navbar-logo span {
-		font-family: 'Cormorant Garamond', Georgia, serif;
+		font-family: var(--font-display);
 		font-size: 1.35rem;
 		font-weight: 600;
-		color: #5a7a82;
+		color: var(--navy);
 		letter-spacing: -0.01em;
 	}
 
@@ -221,7 +221,7 @@ const servicesActive = serviceLinks.some(
 		font-weight: 500;
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
-		color: #5c4a2a;
+		color: var(--navy);
 		transition: color 0.2s;
 		background: none;
 		border: none;
@@ -237,12 +237,12 @@ const servicesActive = serviceLinks.some(
 	.navbar-links a.active,
 	.dropdown-trigger:hover,
 	.dropdown-trigger.active {
-		color: #cc806b;
+		color: var(--pesca);
 	}
 
 	.navbar-cta {
-		background: #cc806b !important;
-		color: #fff !important;
+		background: var(--pesca) !important;
+		color: var(--navy) !important;
 		padding: 10px 24px;
 		border-radius: 50px;
 		font-size: 0.82rem !important;
@@ -259,7 +259,8 @@ const servicesActive = serviceLinks.some(
 	}
 
 	.navbar-cta:hover {
-		background: #e89984 !important;
+		background: var(--navy) !important;
+		color: #fff !important;
 		transform: translateY(-1px);
 	}
 
@@ -317,7 +318,7 @@ const servicesActive = serviceLinks.some(
 		font-weight: 500;
 		text-transform: uppercase;
 		letter-spacing: 0.06em;
-		color: #5c4a2a;
+		color: var(--navy);
 		text-decoration: none;
 		transition:
 			background 0.15s,
@@ -327,8 +328,8 @@ const servicesActive = serviceLinks.some(
 
 	.dropdown-menu a:hover,
 	.dropdown-menu a.active {
-		background: rgba(204, 128, 107, 0.1);
-		color: #cc806b;
+		background: rgba(232, 153, 132, 0.1);
+		color: var(--pesca);
 	}
 
 	/* ── Hamburger ── */
@@ -344,7 +345,7 @@ const servicesActive = serviceLinks.some(
 		display: block;
 		width: 24px;
 		height: 2px;
-		background: #5a7a82;
+		background: var(--navy);
 		margin: 5px 0;
 		border-radius: 2px;
 		transition: 0.3s;
@@ -380,7 +381,7 @@ const servicesActive = serviceLinks.some(
 		font-weight: 500;
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
-		color: #5c4a2a;
+		color: var(--navy);
 		border-radius: 8px;
 		transition:
 			background 0.2s,
@@ -388,8 +389,8 @@ const servicesActive = serviceLinks.some(
 	}
 
 	.mobile-menu a:hover {
-		background: rgba(204, 128, 107, 0.08);
-		color: #cc806b;
+		background: rgba(232, 153, 132, 0.08);
+		color: var(--pesca);
 	}
 
 	.mobile-menu .navbar-cta {
@@ -412,7 +413,7 @@ const servicesActive = serviceLinks.some(
 		font-weight: 500;
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
-		color: #5c4a2a;
+		color: var(--navy);
 		border-radius: 8px;
 		font-family: inherit;
 		transition:
@@ -422,8 +423,8 @@ const servicesActive = serviceLinks.some(
 
 	.mobile-dropdown-trigger:hover,
 	.mobile-dropdown-trigger.active {
-		background: rgba(204, 128, 107, 0.08);
-		color: #cc806b;
+		background: rgba(232, 153, 132, 0.08);
+		color: var(--pesca);
 	}
 
 	.mobile-dropdown-trigger[aria-expanded='true'] .chevron {
@@ -444,7 +445,7 @@ const servicesActive = serviceLinks.some(
 	.mobile-dropdown a {
 		font-size: 0.8rem;
 		padding: 8px 12px;
-		color: #5c4a2a;
+		color: var(--navy);
 	}
 
 	@media (max-width: 900px) {

@@ -7,28 +7,29 @@
 }
 
 :root {
-	/* Brand palette */
-	--celeste: #b7c9ce;
+	/* Brand palette (chosen by Silvia on Canva, 2026-10-14) */
+	--celeste: #b7c9cf;
 	--crema: #ede8de;
-	--corallo: #cc806b;
+	--verde-salvia: #8fa68e;
 	--pesca: #e89984;
+	--navy: #1f3864;
+	/* Lighter navy for secondary text (eyebrows, dates); still AA on light backgrounds */
+	--navy-soft: #4b5f86;
+
+	/* Secondary tones from the older palette, kept for testimonials and the free-call card */
 	--rosa-cipria: #f6d4db;
 	--lilla: #daccdb;
-	--verde-salvia: #8fa68e;
-	--teal-scuro: #5a7a82;
-	--teal-medio: #3d6570;
-	--teal-chiaro: #7a9da6;
-	--warm-brown: #5c4a2a;
 	--rosa-scuro: #8a4a5a;
 	--rosa-medio: #b07080;
+
 	--charcoal: #2d2d2d;
 	--off-white: #faf9f6;
 	--white: #ffffff;
 
-	/* Typography */
-	--font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+	/* Typography: Caveat Brush for headings, Poppins for everything else */
+	--font-display: 'Caveat Brush', 'Comic Sans MS', cursive;
 	--font-sans:
-		-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+		'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
 
 	--section-padding: 80px 24px;
 	--max-width: 1100px;
@@ -50,6 +51,8 @@ body {
 	background-color: var(--off-white);
 	line-height: 1.6;
 	-webkit-font-smoothing: antialiased;
+	/* Caveat Brush has a single weight: never let the browser fake a bold version */
+	font-synthesis: none;
 }
 
 img {
@@ -68,7 +71,7 @@ h6 {
 }
 
 a {
-	color: var(--corallo);
+	color: var(--navy);
 }
 a:hover {
 	color: var(--pesca);
@@ -108,7 +111,7 @@ pre > code {
 }
 
 blockquote {
-	border-left: 4px solid var(--corallo);
+	border-left: 4px solid var(--pesca);
 	padding: 0 0 0 20px;
 	margin: 0;
 	font-size: 1.2em;
@@ -142,17 +145,17 @@ hr {
 	font-size: 0.72rem;
 	text-transform: uppercase;
 	letter-spacing: 0.14em;
-	color: var(--teal-medio);
+	color: var(--navy);
 	font-weight: 500;
 	margin-bottom: 12px;
 }
 
 .page-hero h1 {
-	font-family: var(--font-serif);
+	font-family: var(--font-display);
 	font-size: 2.6rem;
 	font-weight: 600;
 	line-height: 1.15;
-	color: var(--teal-scuro);
+	color: var(--navy);
 	margin-bottom: 16px;
 	max-width: 700px;
 	margin-left: auto;
@@ -161,7 +164,7 @@ hr {
 
 .page-hero .subtitle {
 	font-size: 1.05rem;
-	color: var(--teal-medio);
+	color: var(--navy);
 	line-height: 1.65;
 	max-width: 560px;
 	margin: 0 auto;
@@ -184,15 +187,15 @@ hr {
 	font-size: 0.72rem;
 	text-transform: uppercase;
 	letter-spacing: 0.14em;
-	color: var(--teal-chiaro);
+	color: var(--navy-soft);
 	font-weight: 500;
 	margin-bottom: 10px;
 }
 .section-title {
-	font-family: var(--font-serif);
+	font-family: var(--font-display);
 	font-size: 2.2rem;
 	font-weight: 600;
-	color: var(--teal-scuro);
+	color: var(--navy);
 	margin: 0;
 }
 
@@ -208,8 +211,8 @@ button.btn-outline {
 /* Shared buttons */
 .btn-cta {
 	display: inline-block;
-	background: var(--corallo);
-	color: #fff !important;
+	background: var(--pesca);
+	color: var(--navy) !important;
 	padding: 14px 36px;
 	border-radius: 50px;
 	text-decoration: none;
@@ -219,17 +222,18 @@ button.btn-outline {
 	transition:
 		background 0.2s,
 		transform 0.15s;
-	box-shadow: 0 4px 16px rgba(204, 128, 107, 0.25);
+	box-shadow: 0 4px 16px rgba(232, 153, 132, 0.25);
 }
 .btn-cta:hover {
-	background: var(--pesca);
+	background: var(--navy);
 	transform: translateY(-2px);
+	color: #fff !important;
 }
 
 .btn-outline {
 	display: inline-block;
-	border: 2px solid var(--corallo);
-	color: var(--corallo) !important;
+	border: 2px solid var(--pesca);
+	color: var(--navy) !important;
 	padding: 12px 32px;
 	border-radius: 50px;
 	text-decoration: none;
@@ -238,18 +242,18 @@ button.btn-outline {
 	transition: all 0.2s;
 }
 .btn-outline:hover {
-	background: var(--corallo);
+	background: var(--navy);
 	color: #fff !important;
 }
 
 /* CTA band */
 .cta-band {
-	background: var(--teal-scuro);
+	background: var(--navy);
 	padding: 80px 24px;
 	text-align: center;
 }
 .cta-band h2 {
-	font-family: var(--font-serif);
+	font-family: var(--font-display);
 	font-size: 2.2rem;
 	font-weight: 600;
 	color: rgba(255, 255, 255, 0.95);
@@ -264,8 +268,8 @@ button.btn-outline {
 }
 .btn-cta-light {
 	display: inline-block;
-	background: var(--corallo);
-	color: #fff !important;
+	background: var(--pesca);
+	color: var(--navy) !important;
 	padding: 16px 40px;
 	border-radius: 50px;
 	text-decoration: none;
@@ -274,11 +278,12 @@ button.btn-outline {
 	transition:
 		background 0.2s,
 		transform 0.15s;
-	box-shadow: 0 4px 20px rgba(204, 128, 107, 0.35);
+	box-shadow: 0 4px 20px rgba(232, 153, 132, 0.35);
 }
 .btn-cta-light:hover {
-	background: var(--pesca);
+	background: var(--navy);
 	transform: translateY(-2px);
+	color: #fff !important;
 }
 
 /* Content section (doula / sleep pages) */
@@ -287,10 +292,10 @@ button.btn-outline {
 	margin: 0 auto;
 }
 .content-section h2 {
-	font-family: var(--font-serif);
+	font-family: var(--font-display);
 	font-size: 1.8rem;
 	font-weight: 600;
-	color: var(--teal-scuro);
+	color: var(--navy);
 	margin-bottom: 16px;
 	margin-top: 0;
 }
@@ -312,10 +317,10 @@ button.btn-outline {
 	margin: 32px 0;
 }
 .highlight-box h2 {
-	font-family: var(--font-serif);
+	font-family: var(--font-display);
 	font-size: 1.4rem !important;
 	font-weight: 600;
-	color: var(--teal-scuro);
+	color: var(--navy);
 	margin-bottom: 8px !important;
 	margin-top: 0 !important;
 }
@@ -347,7 +352,7 @@ button.btn-outline {
 	font-size: 1.5rem;
 }
 .feature-item h3 {
-	font-family: var(--font-serif);
+	font-family: var(--font-display);
 	font-size: 1.15rem;
 	font-weight: 600;
 	margin-bottom: 8px;
@@ -379,7 +384,7 @@ button.btn-outline {
 	margin-bottom: 8px;
 }
 .age-card h4 {
-	font-family: var(--font-serif);
+	font-family: var(--font-display);
 	font-size: 1rem;
 	font-weight: 600;
 	color: var(--charcoal);
@@ -437,16 +442,16 @@ button.btn-outline {
 	margin-bottom: 16px;
 }
 .package-card.sleep .package-tag {
-	background: var(--teal-scuro);
+	background: var(--navy);
 	color: #fff;
 }
 .package-card.doula .package-tag {
-	background: var(--warm-brown);
+	background: var(--navy);
 	color: #fff;
 }
 .package-card.online .package-tag {
-	background: var(--corallo);
-	color: #fff;
+	background: var(--pesca);
+	color: var(--navy);
 }
 .package-card.bundle .package-tag {
 	background: var(--rosa-scuro);
@@ -454,7 +459,7 @@ button.btn-outline {
 }
 
 .package-card h3 {
-	font-family: var(--font-serif);
+	font-family: var(--font-display);
 	font-size: 1.5rem;
 	font-weight: 600;
 	margin-bottom: 12px;
@@ -467,7 +472,7 @@ button.btn-outline {
 	margin-bottom: 8px;
 }
 .package-price {
-	font-family: var(--font-serif);
+	font-family: var(--font-display);
 	font-size: 1.8rem;
 	font-weight: 700;
 	color: var(--charcoal);
@@ -556,7 +561,7 @@ button.btn-outline {
 	align-items: center;
 	justify-content: center;
 	font-size: 0.82rem;
-	color: var(--teal-medio);
+	color: var(--navy);
 	text-transform: uppercase;
 	letter-spacing: 0.1em;
 	overflow: hidden;
@@ -568,10 +573,10 @@ button.btn-outline {
 	border-radius: 0;
 }
 .about-story h2 {
-	font-family: var(--font-serif);
+	font-family: var(--font-display);
 	font-size: 2rem;
 	font-weight: 600;
-	color: var(--teal-scuro);
+	color: var(--navy);
 	margin-bottom: 20px;
 }
 .about-story p {
@@ -601,7 +606,7 @@ button.btn-outline {
 	margin-bottom: 16px;
 }
 .credential-card h3 {
-	font-family: var(--font-serif);
+	font-family: var(--font-display);
 	font-size: 1.2rem;
 	font-weight: 600;
 	color: var(--charcoal);
@@ -631,12 +636,12 @@ button.btn-outline {
 	width: 10px;
 	height: 10px;
 	border-radius: 50%;
-	background: var(--corallo);
+	background: var(--pesca);
 	margin-top: 6px;
 	flex-shrink: 0;
 }
 .value-item h4 {
-	font-family: var(--font-serif);
+	font-family: var(--font-display);
 	font-size: 1.1rem;
 	font-weight: 600;
 	color: var(--charcoal);
