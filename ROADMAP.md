@@ -101,7 +101,7 @@ _Cosa impari: design token e variabili CSS, Tailwind v4._
 - [x] Logo nuovo (stesso logo, font cambiato) + favicon dal logo
 - [x] Palette con i codici colore → variabili CSS in `src/styles/global.css` (navy `#1f3864` al posto del teal)
 - [x] Font: Caveat Brush (titoli) + Poppins (testo)
-- [ ] Logo in PNG/SVG ad alta risoluzione (ora abbiamo un JPEG 1200px da Canva)
+- [x] Logo in PNG con sfondo trasparente (1200px da Canva)
 - [ ] Testi About
 - [ ] Pagina Sleep: il testo dice "Available Worldwide… internationally", ma il sito è solo per gli USA. Da rivedere con Silvia
 - [ ] Pagine Sleep/Doula: "How It Works" e "What to Expect" descrivono pacchetti vecchi. Da allineare ai pacchetti veri
