@@ -1,0 +1,100 @@
+---
+// Sky box with a floating icon circle and a drifting cloud, for one key fact
+// (e.g. where the service is available). The text goes in the default slot.
+import Cloud from './Cloud.astro';
+import Icon, { type IconName } from './Icon.astro';
+
+interface Props {
+	icon: IconName;
+	title: string;
+}
+
+const { icon, title } = Astro.props;
+---
+
+<section class="highlight-section">
+	<div class="highlight-box" data-reveal="scale">
+		<Cloud
+			width={180}
+			opacity={0.4}
+			duration="20s"
+			style="right:-30px;bottom:-14px"
+		/>
+		<div class="icon-float anim-float" style="--anim-dur:6s">
+			<span class="icon-circle">
+				<Icon name={icon} size={38} />
+			</span>
+		</div>
+		<div class="text">
+			<h2>{title}</h2>
+			<p>
+				<slot />
+			</p>
+		</div>
+	</div>
+</section>
+
+<style>
+	.highlight-section {
+		padding: 100px 24px 0;
+	}
+
+	.highlight-box {
+		position: relative;
+		overflow: hidden;
+		max-width: 860px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: 32px;
+		align-items: center;
+		background: var(--celeste);
+		border-radius: 32px;
+		padding: 44px 48px;
+	}
+
+	.icon-float,
+	.text {
+		position: relative;
+	}
+
+	.icon-circle {
+		width: 84px;
+		height: 84px;
+		border-radius: 50%;
+		background: var(--off-white);
+		color: var(--navy);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	h2 {
+		font-family: var(--font-display);
+		font-size: 2.2rem;
+		font-weight: 400;
+		line-height: 1.1;
+		color: var(--navy);
+		margin: 0 0 8px;
+	}
+
+	p {
+		font-size: 1rem;
+		line-height: 1.7;
+		color: var(--navy);
+		margin: 0;
+	}
+
+	@media (max-width: 600px) {
+		.highlight-section {
+			padding: 64px 20px 0;
+		}
+		.highlight-box {
+			grid-template-columns: 1fr;
+			justify-items: center;
+			text-align: center;
+			gap: 20px;
+			padding: 36px 28px;
+		}
+	}
+</style>

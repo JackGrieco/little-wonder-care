@@ -1,0 +1,65 @@
+---
+// Scalloped bottom edge for heroes: overlapping half-ellipses painted in the
+// next section's color. The parent needs position: relative.
+interface Props {
+	/** Background color of the section below. */
+	color?: string;
+	/** "lg" is the taller version used on the home hero. */
+	size?: 'md' | 'lg';
+}
+
+const { color = 'var(--off-white)', size = 'md' } = Astro.props;
+
+// [left %, width %, height px] for each bump, tuned in the design
+const BUMPS = {
+	md: [
+		[-4, 24, 80],
+		[15, 30, 58],
+		[40, 26, 88],
+		[60, 28, 54],
+		[82, 24, 76],
+	],
+	lg: [
+		[-4, 24, 110],
+		[15, 30, 80],
+		[40, 26, 120],
+		[60, 28, 76],
+		[82, 24, 104],
+	],
+} as const;
+---
+
+<div class:list={['scallop', size]} aria-hidden="true">
+	{BUMPS[size].map(([left, width, height]) => (
+		<span
+			style={`left:${left}%;width:${width}%;height:${height}px;background:${color}`}
+		/>
+	))}
+</div>
+
+<style>
+	.scallop {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: -2px;
+		height: 90px;
+		pointer-events: none;
+	}
+	.scallop.lg {
+		height: 120px;
+	}
+	.scallop span {
+		position: absolute;
+		bottom: 0;
+		border-radius: 50% 50% 0 0;
+	}
+
+	/* Flatter bumps on phones so they don't eat into the hero content */
+	@media (max-width: 600px) {
+		.scallop span {
+			transform: scaleY(0.55);
+			transform-origin: bottom;
+		}
+	}
+</style>

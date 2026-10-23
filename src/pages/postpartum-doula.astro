@@ -1,138 +1,311 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import Cloud from '../components/Cloud.astro';
+import CtaBand from '../components/CtaBand.astro';
 import DiscoveryCallCard from '../components/DiscoveryCallCard.astro';
+import Dot from '../components/Dot.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import HighlightBox from '../components/HighlightBox.astro';
+import Icon from '../components/Icon.astro';
+import IconHalo from '../components/IconHalo.astro';
 import PackagesSection from '../components/PackagesSection.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead
-			title="Postpartum Doula — Little Wonder Care"
-			description="Professional postpartum doula support in Waco, TX and online. Emotional care, newborn guidance, and hands-on help in the weeks after birth."
-		/>
-	</head>
-	<body>
-		<Header />
+<MainLayout
+	title="Postpartum Doula — Little Wonder Care"
+	description="Professional postpartum doula support in Waco, TX and online. Emotional care, newborn guidance, and hands-on help in the weeks after birth."
+>
+	<PageHero
+		eyebrow="Postpartum Doula · Waco, TX"
+		title="You Don't Have to Do This Alone"
+		subtitle="A postpartum doula is the steady, experienced presence every new parent deserves — and very few know they can have."
+		background="var(--rosa-cipria)"
+	>
+		<Fragment slot="decor">
+			<Cloud
+				width={170}
+				opacity={0.6}
+				duration="22s"
+				style="top:60px;left:5%"
+			/>
+			<Cloud
+				width={140}
+				opacity={0.55}
+				duration="26s"
+				delay="-6s"
+				style="top:40px;right:7%"
+			/>
+			<Dot size={18} color="var(--pesca)" style="top:44%;left:14%" />
+			<Dot
+				size={12}
+				color="var(--navy)"
+				opacity={0.45}
+				duration="7s"
+				delay="-2s"
+				style="top:28%;right:18%"
+			/>
+			<span
+				class="hero-heart anim-float"
+				style="--anim-dur:8s;--anim-delay:-3s;bottom:130px;right:12%;color:var(--pesca);opacity:0.8"
+			>
+				<Icon name="heart" size={40} />
+			</span>
+			<span
+				class="hero-heart anim-float"
+				style="--anim-dur:9s;--anim-delay:-1s;top:120px;left:22%;color:var(--off-white)"
+			>
+				<Icon name="heart" size={24} />
+			</span>
+		</Fragment>
+	</PageHero>
 
-		<main>
-			<!-- Page Hero -->
-			<div class="page-hero bg-crema">
-				<p class="eyebrow">Postpartum Doula · Waco, TX</p>
-				<h1>You Don't Have to Do This Alone</h1>
-				<p class="subtitle">
-					A postpartum doula is the steady, experienced presence every new
-					parent deserves — and very few know they can have.
-				</p>
-			</div>
-
-			<!-- Main Content -->
-			<div class="section">
-				<div class="content-section">
-					<h2>What Is a Postpartum Doula?</h2>
-					<p>
-						A postpartum doula is a trained professional who supports families
-						during the weeks and months after birth. Unlike a night nurse or
-						nanny, a doula cares for the whole family — not just the baby.
-					</p>
-					<p>
-						I help with the emotional adjustment, answer the questions you
-						didn't know you'd have, and provide hands-on support so you can
-						rest, recover, and bond with your baby.
-					</p>
-
-					<div class="feature-grid">
-						<div class="feature-item">
-							<div class="feature-icon" style="background: var(--crema);">
-								💛
-							</div>
-							<h3>Emotional Support</h3>
-							<p>
-								A listening ear, a calm presence, and reassurance that what
-								you're feeling is completely normal.
-							</p>
-						</div>
-						<div class="feature-item">
-							<div class="feature-icon" style="background: var(--celeste);">
-								👶
-							</div>
-							<h3>Newborn Care</h3>
-							<p>
-								Diapering, soothing, bathing, safe sleep — I'll help you feel
-								confident with your baby.
-							</p>
-						</div>
-						<div class="feature-item">
-							<div class="feature-icon" style="background: var(--rosa-cipria);">
-								🤱
-							</div>
-							<h3>Feeding Support</h3>
-							<p>
-								Whether breastfeeding, pumping, or bottle-feeding, I'll help you
-								find what works for your family.
-							</p>
-						</div>
-					</div>
-
-					<h2>What to Expect</h2>
-					<p>
-						Every family is different, so we start with a prenatal visit to
-						understand your needs, your values, and your vision for the
-						postpartum period. After your baby arrives, I visit your home weekly
-						to provide hands-on help and emotional support.
-					</p>
-					<p>
-						My goal is simple: by the time our work together ends, you feel
-						confident, rested, and connected to your baby.
-					</p>
-
-					<div class="highlight-box">
-						<h2>Service Area</h2>
-						<p>
-							In-home visits are available in{' '}
-							<strong>Waco, TX and surrounding areas</strong> (approximately
-							50-mile radius). Virtual postpartum support is available{' '}
-							<strong>nationwide</strong>.
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<!-- Packages + free discovery call -->
-			<div class="section" id="packages">
-				<div class="section-inner">
-					<div class="section-header">
-						<p class="section-eyebrow">Packages</p>
-						<h2 class="section-title">Postpartum Doula Packages</h2>
-					</div>
-					<PackagesSection category="doula" showHeading={false} />
-					<DiscoveryCallCard />
-				</div>
-			</div>
-
-			<!-- CTA Band -->
-			<section class="cta-band">
-				<h2>Wondering If a Doula Is Right for You?</h2>
+	<!-- What is a postpartum doula -->
+	<section class="intro">
+		<div class="split">
+			<div class="prose-block" data-reveal="left">
+				<p class="section-eyebrow">The Basics</p>
+				<h2 class="section-title">What Is a Postpartum Doula?</h2>
 				<p>
-					Let's talk. A free 15-minute call is all it takes to see if we're a
-					good fit.
+					A postpartum doula is a trained professional who supports families
+					during the weeks and months after birth. Unlike a night nurse or
+					nanny, a doula cares for the whole family — not just the baby.
 				</p>
-				<DiscoveryCallButton variant="btn-cta-light" />
-			</section>
-		</main>
+				<p>
+					I help with the emotional adjustment, answer the questions you didn't
+					know you'd have, and provide hands-on support so you can rest,
+					recover, and bond with your baby.
+				</p>
+			</div>
+			<div data-reveal="right" data-delay="150">
+				<IconHalo
+					icon="heart"
+					background="var(--rosa-cipria)"
+					iconColor="var(--pesca)"
+					haloColor="rgba(232, 153, 132, 0.6)"
+				>
+					<Dot
+						size={20}
+						color="var(--celeste)"
+						duration="5s"
+						style="top:30px;left:40px"
+					/>
+					<Dot
+						size={14}
+						color="var(--navy)"
+						opacity={0.5}
+						delay="-2s"
+						style="bottom:30px;right:40px"
+					/>
+				</IconHalo>
+			</div>
+		</div>
+	</section>
 
-		<Footer />
-	</body>
-</html>
+	<!-- Features -->
+	<section class="features">
+		<div class="section-inner">
+			<SectionHeader
+				eyebrow="How I Help"
+				title="Support for the Whole Family"
+			/>
+			<div class="features-grid">
+				<FeatureCard
+					icon="heart"
+					title="Emotional Support"
+					text="A listening ear, a calm presence, and reassurance that what you're feeling is completely normal."
+					background="var(--crema)"
+					iconColor="var(--pesca)"
+				/>
+				<FeatureCard
+					icon="baby"
+					title="Newborn Care"
+					text="Diapering, soothing, bathing, safe sleep — I'll help you feel confident with your baby."
+					background="var(--celeste)"
+					revealDelay={150}
+				/>
+				<FeatureCard
+					icon="milk"
+					title="Feeding Support"
+					text="Whether breastfeeding, pumping, or bottle-feeding, I'll help you find what works for your family."
+					background="var(--rosa-cipria)"
+					iconColor="var(--rosa-scuro)"
+					revealDelay={300}
+				/>
+			</div>
+		</div>
+	</section>
+
+	<!-- What to expect. TODO: outdated copy, waiting for Silvia (see ROADMAP.md) -->
+	<section class="expect">
+		<span
+			class="expect-circle sky anim-float"
+			style="--anim-dur:9s"
+			aria-hidden="true"
+		></span>
+		<span
+			class="expect-circle blush anim-float"
+			style="--anim-dur:11s;--anim-delay:-4s"
+			aria-hidden="true"
+		></span>
+		<div class="expect-content" data-reveal="up">
+			<p class="section-eyebrow">Together</p>
+			<h2 class="section-title">What to Expect</h2>
+			<p>
+				Every family is different, so we start with a prenatal visit to
+				understand your needs, your values, and your vision for the postpartum
+				period. After your baby arrives, I visit your home weekly to provide
+				hands-on help and emotional support.
+			</p>
+			<p class="expect-goal">
+				My goal is simple: by the time our work together ends, you feel
+				confident, rested, and connected to your baby.
+			</p>
+		</div>
+	</section>
+
+	<HighlightBox icon="map-pin" title="Service Area">
+		In-home visits are available in{' '}
+		<strong>Waco, TX and surrounding areas</strong> (approximately 50-mile
+		radius). Virtual postpartum support is available
+		<strong>nationwide</strong>.
+	</HighlightBox>
+
+	<!-- Packages + free discovery call -->
+	<section class="packages" id="packages">
+		<div class="section-inner">
+			<SectionHeader eyebrow="Packages" title="Postpartum Doula Packages" />
+			<PackagesSection category="doula" showHeading={false} />
+			<DiscoveryCallCard />
+		</div>
+	</section>
+
+	<CtaBand
+		title="Wondering If a Doula Is Right for You?"
+		text="Let's talk. A free 15-minute call is all it takes to see if we're a good fit."
+	/>
+</MainLayout>
 
 <style>
-	main {
-		width: 100%;
-		max-width: 100%;
-		margin: 0;
-		padding: 0;
+	.hero-heart {
+		position: absolute;
+		pointer-events: none;
+	}
+
+	.intro {
+		padding: 60px 24px 100px;
+	}
+
+	.split {
+		max-width: 1000px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+		gap: 72px;
+		align-items: center;
+	}
+
+	.prose-block .section-title {
+		margin-bottom: 20px;
+	}
+	.prose-block p:not(.section-eyebrow),
+	.expect-content p:not(.section-eyebrow) {
+		font-size: 1.02rem;
+		line-height: 1.8;
+		color: rgba(45, 45, 45, 0.82);
+		margin: 0 0 18px;
+		text-wrap: pretty;
+	}
+
+	.features {
+		padding: 0 24px 110px;
+	}
+
+	.features-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 28px;
+		align-items: stretch;
+	}
+
+	.expect {
+		position: relative;
+		overflow: hidden;
+		padding: 100px 24px;
+		background: var(--crema);
+	}
+
+	.expect-circle {
+		position: absolute;
+		border-radius: 50%;
+	}
+	.expect-circle.sky {
+		left: -80px;
+		top: 40px;
+		width: 240px;
+		height: 240px;
+		background: rgba(183, 201, 207, 0.3);
+	}
+	.expect-circle.blush {
+		right: -60px;
+		bottom: -60px;
+		width: 200px;
+		height: 200px;
+		background: rgba(246, 212, 219, 0.6);
+	}
+
+	.expect-content {
+		position: relative;
+		max-width: 760px;
+		margin: 0 auto;
+		text-align: center;
+	}
+	.expect-content .section-title {
+		margin-bottom: 24px;
+	}
+
+	.expect-content p.expect-goal {
+		font-family: var(--font-display);
+		font-size: 1.9rem;
+		line-height: 1.35;
+		color: var(--navy);
+		max-width: 600px;
+		margin: 32px auto 0;
+	}
+
+	.packages {
+		padding: 100px 24px 110px;
+	}
+
+	@media (max-width: 900px) {
+		.split {
+			grid-template-columns: 1fr;
+			gap: 24px;
+			text-align: center;
+		}
+		.features-grid {
+			grid-template-columns: minmax(0, 1fr);
+			max-width: 480px;
+			margin: 0 auto;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.intro {
+			padding: 32px 20px 72px;
+		}
+		.features {
+			padding: 0 20px 72px;
+		}
+		.expect {
+			padding: 72px 20px;
+		}
+		.expect-content p.expect-goal {
+			font-size: 1.6rem;
+		}
+		.packages {
+			padding: 72px 20px;
+		}
 	}
 </style>

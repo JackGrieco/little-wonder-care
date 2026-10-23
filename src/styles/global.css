@@ -16,7 +16,8 @@
 	/* Lighter navy for secondary text (eyebrows, dates); still AA on light backgrounds */
 	--navy-soft: #4b5f86;
 
-	/* Secondary tones from the older palette, kept for testimonials and the free-call card */
+	/* Secondary tones from the older palette. --rosa-cipria is the "blush" of
+	   the redesign; --rosa-scuro is the mauve used for Silvia's name. */
 	--rosa-cipria: #f6d4db;
 	--lilla: #daccdb;
 	--rosa-scuro: #8a4a5a;
@@ -53,6 +54,12 @@ body {
 	-webkit-font-smoothing: antialiased;
 	/* Caveat Brush has a single weight: never let the browser fake a bold version */
 	font-synthesis: none;
+}
+
+/* Drifting clouds and side reveals must never cause sideways scrolling.
+   `clip` (unlike `hidden`) keeps the sticky header working. */
+main {
+	overflow-x: clip;
 }
 
 img {
@@ -122,9 +129,191 @@ hr {
 	border-top: 1px solid rgba(183, 201, 206, 0.4);
 }
 
+/* ===== MOTION ===== */
+
+/* Soft looping motion. Durations and delays come from --anim-dur and
+   --anim-delay set inline on each element; negative delays keep repeated
+   shapes out of phase. Never put two of these on the same element (they all
+   use transform): nest a wrapper instead. */
+@keyframes lwcFloat {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-16px);
+	}
+}
+@keyframes lwcDrift {
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+	50% {
+		transform: translateX(40px);
+	}
+}
+@keyframes lwcBreathe {
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.035);
+	}
+}
+@keyframes lwcHalo {
+	0% {
+		transform: scale(0.9);
+		opacity: 0.55;
+	}
+	100% {
+		transform: scale(1.45);
+		opacity: 0;
+	}
+}
+@keyframes lwcFadeUp {
+	from {
+		opacity: 0;
+		transform: translateY(24px);
+	}
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+/* Non-inheriting, so a wrapper's timing never leaks into a nested shape */
+@property --anim-dur {
+	syntax: '*';
+	inherits: false;
+}
+@property --anim-delay {
+	syntax: '*';
+	inherits: false;
+}
+
+.anim-float {
+	animation: lwcFloat var(--anim-dur, 7s) ease-in-out var(--anim-delay, 0s)
+		infinite;
+}
+.anim-drift {
+	animation: lwcDrift var(--anim-dur, 24s) ease-in-out var(--anim-delay, 0s)
+		infinite;
+}
+.anim-breathe {
+	animation: lwcBreathe var(--anim-dur, 7s) ease-in-out var(--anim-delay, 0s)
+		infinite;
+}
+.anim-halo {
+	animation: lwcHalo var(--anim-dur, 5s) ease-out var(--anim-delay, 0s) infinite;
+}
+/* One-shot load-in for hero content */
+.anim-fade-up {
+	animation: lwcFadeUp var(--anim-dur, 0.9s) ease-out var(--anim-delay, 0s) both;
+}
+
+/* Scroll reveal (src/scripts/reveal.ts). The hidden state only applies once
+   JS has added `.js` to <html>, so without JS everything stays visible. */
+:root {
+	--ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+html.js [data-reveal] {
+	transition:
+		opacity 1s var(--ease-soft),
+		transform 1s var(--ease-soft);
+}
+html.js [data-reveal]:not(.is-revealed) {
+	opacity: 0;
+	transform: translateY(36px);
+}
+html.js [data-reveal='left']:not(.is-revealed) {
+	transform: translateX(-40px);
+}
+html.js [data-reveal='right']:not(.is-revealed) {
+	transform: translateX(40px);
+}
+html.js [data-reveal='scale']:not(.is-revealed) {
+	transform: scale(0.92);
+}
+html.js [data-reveal='growY'] {
+	transform-origin: top center;
+	transition:
+		opacity 1s var(--ease-soft),
+		transform 1.8s var(--ease-soft);
+}
+html.js [data-reveal='growY']:not(.is-revealed) {
+	transform: scaleY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.anim-float,
+	.anim-drift,
+	.anim-breathe,
+	.anim-fade-up {
+		animation: none;
+	}
+	/* A frozen halo would look like a stray ring: hide it */
+	.anim-halo {
+		animation: none;
+		opacity: 0;
+	}
+	html.js [data-reveal],
+	html.js [data-reveal]:not(.is-revealed) {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}
+
+/* ===== SHARED TYPE ===== */
+
+.eyebrow,
+.section-eyebrow {
+	font-size: 0.72rem;
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: var(--navy-soft);
+	font-weight: 500;
+	margin: 0 0 10px;
+}
+
+/* Hero eyebrow: pill with a peach dot */
+.hero-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 0.72rem;
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	color: var(--navy);
+	font-weight: 500;
+	margin: 0 0 20px;
+	background: rgba(250, 249, 246, 0.6);
+	padding: 8px 16px;
+	border-radius: 50px;
+}
+.hero-pill::before {
+	content: '';
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--pesca);
+	flex-shrink: 0;
+}
+
+.section-title {
+	font-family: var(--font-display);
+	font-size: 3rem;
+	font-weight: 400;
+	line-height: 1.1;
+	color: var(--navy);
+	margin: 0;
+}
+
 /* ===== INNER PAGE SHARED STYLES ===== */
 
-/* Page hero banner used on all inner pages */
+/* Simple page hero (FAQ, privacy, testimonials). Service pages use PageHero.astro. */
 .page-hero {
 	padding: 64px 24px 72px;
 	text-align: center;
@@ -140,28 +329,19 @@ hr {
 .page-hero.bg-rosa {
 	background: var(--rosa-cipria);
 }
-
 .page-hero .eyebrow {
-	font-size: 0.72rem;
-	text-transform: uppercase;
-	letter-spacing: 0.14em;
 	color: var(--navy);
-	font-weight: 500;
 	margin-bottom: 12px;
 }
-
 .page-hero h1 {
 	font-family: var(--font-display);
 	font-size: 2.6rem;
-	font-weight: 600;
+	font-weight: 400;
 	line-height: 1.15;
 	color: var(--navy);
-	margin-bottom: 16px;
+	margin: 0 auto 16px;
 	max-width: 700px;
-	margin-left: auto;
-	margin-right: auto;
 }
-
 .page-hero .subtitle {
 	font-size: 1.05rem;
 	color: var(--navy);
@@ -178,60 +358,51 @@ hr {
 	max-width: var(--max-width);
 	margin: 0 auto;
 }
-
 .section-header {
 	text-align: center;
-	margin-bottom: 48px;
+	margin-bottom: 64px;
 }
-.section-eyebrow {
-	font-size: 0.72rem;
-	text-transform: uppercase;
-	letter-spacing: 0.14em;
-	color: var(--navy-soft);
-	font-weight: 500;
-	margin-bottom: 10px;
-}
-.section-title {
-	font-family: var(--font-display);
-	font-size: 2.2rem;
-	font-weight: 600;
-	color: var(--navy);
-	margin: 0;
-}
+
+/* ===== BUTTONS ===== */
 
 /* Reset button defaults so Cal.com popup triggers look the same as <a> CTAs */
 button.btn-cta,
 button.btn-cta-light,
-button.btn-outline {
+button.btn-outline,
+button.btn-dark {
 	border: none;
 	cursor: pointer;
 	font-family: inherit;
 }
 
-/* Shared buttons */
+/* Primary: peach with navy text (white on peach fails contrast) */
 .btn-cta {
 	display: inline-block;
 	background: var(--pesca);
 	color: var(--navy) !important;
-	padding: 14px 36px;
+	padding: 16px 40px;
 	border-radius: 50px;
 	text-decoration: none;
 	font-size: 0.95rem;
 	font-weight: 600;
 	letter-spacing: 0.02em;
+	box-shadow: 0 6px 20px rgba(232, 153, 132, 0.35);
 	transition:
-		background 0.2s,
-		transform 0.15s;
-	box-shadow: 0 4px 16px rgba(232, 153, 132, 0.25);
+		background 0.3s,
+		color 0.3s,
+		transform 0.3s,
+		box-shadow 0.3s;
 }
 .btn-cta:hover {
 	background: var(--navy);
-	transform: translateY(-2px);
 	color: #fff !important;
+	transform: translateY(-3px);
+	box-shadow: 0 10px 28px rgba(31, 56, 100, 0.25);
 }
 
 .btn-outline {
 	display: inline-block;
+	background: none;
 	border: 2px solid var(--pesca);
 	color: var(--navy) !important;
 	padding: 12px 32px;
@@ -239,462 +410,116 @@ button.btn-outline {
 	text-decoration: none;
 	font-size: 0.9rem;
 	font-weight: 600;
-	transition: all 0.2s;
+	transition:
+		background 0.3s,
+		color 0.3s,
+		border-color 0.3s;
+}
+button.btn-outline {
+	border: 2px solid var(--pesca);
 }
 .btn-outline:hover {
 	background: var(--navy);
+	border-color: var(--navy);
 	color: #fff !important;
 }
 
-/* CTA band */
-.cta-band {
+/* Dark: navy pill for light boxes and package cards */
+.btn-dark {
+	display: inline-block;
 	background: var(--navy);
-	padding: 80px 24px;
-	text-align: center;
-}
-.cta-band h2 {
-	font-family: var(--font-display);
-	font-size: 2.2rem;
+	color: var(--off-white) !important;
+	padding: 13px 30px;
+	border-radius: 50px;
+	text-decoration: none;
+	font-size: 0.9rem;
 	font-weight: 600;
-	color: rgba(255, 255, 255, 0.95);
-	margin-bottom: 12px;
+	transition:
+		background 0.3s,
+		color 0.3s,
+		transform 0.3s;
 }
-.cta-band p {
-	font-size: 1rem;
-	color: rgba(255, 255, 255, 0.65);
-	max-width: 440px;
-	margin: 0 auto 32px;
-	line-height: 1.6;
+.btn-dark:hover {
+	background: var(--pesca);
+	color: var(--navy) !important;
+	transform: translateY(-2px);
 }
+
+/* Big peach button inside the navy CTA band */
 .btn-cta-light {
 	display: inline-block;
 	background: var(--pesca);
 	color: var(--navy) !important;
-	padding: 16px 40px;
+	padding: 18px 44px;
 	border-radius: 50px;
 	text-decoration: none;
 	font-size: 1rem;
 	font-weight: 600;
+	box-shadow: 0 6px 24px rgba(232, 153, 132, 0.4);
 	transition:
-		background 0.2s,
-		transform 0.15s;
-	box-shadow: 0 4px 20px rgba(232, 153, 132, 0.35);
+		background 0.3s,
+		transform 0.3s;
 }
 .btn-cta-light:hover {
-	background: var(--navy);
-	transform: translateY(-2px);
-	color: #fff !important;
-}
-
-/* Content section (doula / sleep pages) */
-.content-section {
-	max-width: 780px;
-	margin: 0 auto;
-}
-.content-section h2 {
-	font-family: var(--font-display);
-	font-size: 1.8rem;
-	font-weight: 600;
-	color: var(--navy);
-	margin-bottom: 16px;
-	margin-top: 0;
-}
-.content-section h2 + h2,
-.content-section p + h2 {
-	margin-top: 48px;
-}
-.content-section p {
-	font-size: 1rem;
-	line-height: 1.75;
-	color: rgba(45, 45, 45, 0.75);
-	margin-bottom: 20px;
-}
-.highlight-box {
-	background: #fff;
-	border-radius: 16px;
-	padding: 32px;
-	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-	margin: 32px 0;
-}
-.highlight-box h2 {
-	font-family: var(--font-display);
-	font-size: 1.4rem !important;
-	font-weight: 600;
-	color: var(--navy);
-	margin-bottom: 8px !important;
-	margin-top: 0 !important;
-}
-.highlight-box p {
-	margin-bottom: 0;
-}
-
-/* Feature grid (doula page) */
-.feature-grid {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 24px;
-	margin: 40px 0;
-}
-.feature-item {
-	text-align: center;
-	padding: 32px 20px;
-	border-radius: 16px;
-	background: #fff;
-}
-.feature-icon {
-	width: 56px;
-	height: 56px;
-	border-radius: 50%;
-	margin: 0 auto 16px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 1.5rem;
-}
-.feature-item h3 {
-	font-family: var(--font-display);
-	font-size: 1.15rem;
-	font-weight: 600;
-	margin-bottom: 8px;
-	color: var(--charcoal);
-}
-.feature-item p {
-	font-size: 0.85rem;
-	color: rgba(45, 45, 45, 0.65);
-	line-height: 1.55;
-	margin: 0;
-}
-
-/* Ages grid (sleep page) */
-.ages-grid {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 16px;
-	margin: 32px 0;
-}
-.age-card {
-	text-align: center;
-	padding: 24px 16px;
-	border-radius: 16px;
-	background: #fff;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-}
-.age-card .age-emoji {
-	font-size: 2rem;
-	margin-bottom: 8px;
-}
-.age-card h4 {
-	font-family: var(--font-display);
-	font-size: 1rem;
-	font-weight: 600;
-	color: var(--charcoal);
-	margin: 0 0 4px;
-}
-.age-card p {
-	font-size: 0.78rem;
-	color: rgba(45, 45, 45, 0.55);
-	margin: 0;
-}
-
-/* Services / packages grid */
-.packages-grid {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 24px;
-}
-@media (max-width: 1100px) {
-	.packages-grid {
-		grid-template-columns: repeat(2, 1fr);
-	}
-}
-.package-card {
-	border-radius: 20px;
-	padding: 40px 32px;
-	transition:
-		transform 0.2s,
-		box-shadow 0.2s;
-}
-.package-card:hover {
-	transform: translateY(-4px);
-	box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
-}
-.package-card.sleep {
-	background: var(--celeste);
-}
-.package-card.doula {
 	background: var(--crema);
-}
-.package-card.online {
-	background: var(--rosa-cipria);
-}
-.package-card.bundle {
-	background: var(--lilla);
+	color: var(--navy) !important;
+	transform: translateY(-3px) scale(1.03);
 }
 
-.package-tag {
-	display: inline-block;
-	font-size: 0.68rem;
-	text-transform: uppercase;
-	letter-spacing: 0.1em;
-	font-weight: 600;
-	padding: 4px 12px;
-	border-radius: 20px;
-	margin-bottom: 16px;
-}
-.package-card.sleep .package-tag {
+/* Navy CTA band. CtaBand.astro adds the floating decorations. */
+.cta-band {
 	background: var(--navy);
-	color: #fff;
-}
-.package-card.doula .package-tag {
-	background: var(--navy);
-	color: #fff;
-}
-.package-card.online .package-tag {
-	background: var(--pesca);
-	color: var(--navy);
-}
-.package-card.bundle .package-tag {
-	background: var(--rosa-scuro);
-	color: #fff;
-}
-
-.package-card h3 {
-	font-family: var(--font-display);
-	font-size: 1.5rem;
-	font-weight: 600;
-	margin-bottom: 12px;
-	color: var(--charcoal);
-}
-.package-card > p {
-	font-size: 0.9rem;
-	line-height: 1.6;
-	color: rgba(45, 45, 45, 0.7);
-	margin-bottom: 8px;
-}
-.package-price {
-	font-family: var(--font-display);
-	font-size: 1.8rem;
-	font-weight: 700;
-	color: var(--charcoal);
-	margin: 16px 0;
-}
-.package-price span {
-	font-size: 0.9rem;
-	font-weight: 400;
-	color: rgba(45, 45, 45, 0.5);
-}
-
-.package-includes {
-	list-style: none;
-	margin: 16px 0 24px;
-	padding: 0;
-}
-.package-includes li {
-	font-size: 0.88rem;
-	color: rgba(45, 45, 45, 0.7);
-	padding: 6px 0 6px 24px;
+	padding: 110px 24px;
+	text-align: center;
 	position: relative;
-}
-.package-includes li::before {
-	content: '✓';
-	position: absolute;
-	left: 0;
-	color: var(--verde-salvia);
-	font-weight: 700;
-}
-.package-booking-note {
-	font-size: 0.78rem;
-	color: rgba(45, 45, 45, 0.45);
-	font-style: italic;
-	margin-top: 12px;
-	margin-bottom: 0;
-}
-.form-field {
-	margin-bottom: 20px;
-}
-.form-field label {
-	display: block;
-	font-size: 0.82rem;
-	font-weight: 600;
-	color: var(--charcoal);
-	margin-bottom: 6px;
-}
-.form-field input,
-.form-field select,
-.form-field textarea {
-	width: 100%;
-	padding: 12px 16px;
-	border: 1px solid rgba(183, 201, 206, 0.5);
-	border-radius: 12px;
-	font-size: 0.9rem;
-	font-family: var(--font-sans);
-	background: var(--off-white);
-	color: var(--charcoal);
-	outline: none;
-	transition: border-color 0.2s;
-}
-.form-field input:focus,
-.form-field select:focus,
-.form-field textarea:focus {
-	border-color: var(--celeste);
-}
-.form-field textarea {
-	resize: vertical;
-	min-height: 90px;
-}
-
-/* About page */
-.about-hero-grid {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 60px;
-	align-items: center;
-	max-width: var(--max-width);
-	margin: 0 auto;
-}
-.about-photo-placeholder {
-	width: 100%;
-	aspect-ratio: 3/4;
-	border-radius: 24px;
-	background: var(--celeste);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 0.82rem;
-	color: var(--navy);
-	text-transform: uppercase;
-	letter-spacing: 0.1em;
 	overflow: hidden;
 }
-.about-photo-placeholder img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	border-radius: 0;
-}
-.about-story h2 {
+.cta-band h2 {
 	font-family: var(--font-display);
-	font-size: 2rem;
-	font-weight: 600;
-	color: var(--navy);
-	margin-bottom: 20px;
+	font-size: 3rem;
+	font-weight: 400;
+	line-height: 1.1;
+	color: rgba(255, 255, 255, 0.95);
+	margin: 0 0 14px;
 }
-.about-story p {
+.cta-band p {
 	font-size: 1rem;
-	line-height: 1.75;
-	color: rgba(45, 45, 45, 0.75);
-	margin-bottom: 16px;
+	color: rgba(255, 255, 255, 0.75);
+	max-width: 480px;
+	margin: 0 auto 36px;
+	line-height: 1.6;
 }
 
-/* Credentials grid */
-.credentials-grid {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 24px;
-	max-width: var(--max-width);
-	margin: 0 auto;
-}
-.credential-card {
-	text-align: center;
-	padding: 40px 24px;
-	border-radius: 20px;
-	background: #fff;
-	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-}
-.credential-card .cred-icon {
-	font-size: 2.2rem;
-	margin-bottom: 16px;
-}
-.credential-card h3 {
-	font-family: var(--font-display);
-	font-size: 1.2rem;
-	font-weight: 600;
-	color: var(--charcoal);
-	margin-bottom: 8px;
-}
-.credential-card p {
-	font-size: 0.88rem;
-	color: rgba(45, 45, 45, 0.6);
-	line-height: 1.55;
-	margin: 0;
-}
-
-/* Values grid */
-.values-grid {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: 24px;
-	max-width: 800px;
-	margin: 0 auto;
-}
-.value-item {
-	display: flex;
-	gap: 16px;
-	align-items: flex-start;
-}
-.value-dot {
-	width: 10px;
-	height: 10px;
-	border-radius: 50%;
-	background: var(--pesca);
-	margin-top: 6px;
-	flex-shrink: 0;
-}
-.value-item h4 {
-	font-family: var(--font-display);
-	font-size: 1.1rem;
-	font-weight: 600;
-	color: var(--charcoal);
-	margin-bottom: 4px;
-}
-.value-item p {
-	font-size: 0.88rem;
-	color: rgba(45, 45, 45, 0.65);
-	line-height: 1.55;
-	margin: 0;
-}
-
-/* ===== INNER PAGE RESPONSIVE ===== */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
-	.packages-grid {
-		grid-template-columns: 1fr;
-		max-width: 500px;
-		margin: 0 auto;
-	}
-	.feature-grid {
-		grid-template-columns: 1fr;
-		max-width: 400px;
-		margin: 40px auto;
-	}
-	.ages-grid {
-		grid-template-columns: repeat(2, 1fr);
-	}
-	.about-hero-grid {
-		grid-template-columns: 1fr;
-		text-align: center;
-	}
-	.credentials-grid {
-		grid-template-columns: 1fr;
-		max-width: 400px;
-		margin: 0 auto;
-	}
-	.values-grid {
-		grid-template-columns: 1fr;
+	.section-title,
+	.cta-band h2 {
+		font-size: 2.4rem;
 	}
 	.page-hero h1 {
 		font-size: 2rem;
 	}
-	.cta-band h2 {
-		font-size: 1.8rem;
+	.cta-band {
+		padding: 80px 24px;
 	}
 }
 
 @media (max-width: 600px) {
+	:root {
+		--section-padding: 56px 20px;
+	}
+	.section-title,
+	.cta-band h2 {
+		font-size: 2.1rem;
+	}
 	.page-hero {
 		padding: 48px 20px 56px;
 	}
 	.page-hero h1 {
 		font-size: 1.75rem;
+	}
+	.cta-band {
+		padding: 64px 20px;
 	}
 }
 

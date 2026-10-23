@@ -1,0 +1,94 @@
+---
+// Logo in a big circle that floats and breathes, with two expanding halo
+// rings and a few floating dots. Used in the home and about heroes.
+import Dot from './Dot.astro';
+
+interface Props {
+	alt: string;
+}
+
+const { alt } = Astro.props;
+---
+
+<div class="hero-logo">
+	<span class="halo anim-halo" aria-hidden="true"></span>
+	<span
+		class="halo anim-halo"
+		style="--anim-delay:2.5s"
+		aria-hidden="true"
+	></span>
+	<div class="anim-float" style="--anim-dur:7s">
+		<div class="logo-circle anim-breathe" style="--anim-dur:6s">
+			<img src="/logo.png" alt={alt} width="340" height="340" />
+		</div>
+	</div>
+	<Dot
+		size={28}
+		color="var(--pesca)"
+		duration="5s"
+		delay="-1s"
+		style="top:40px;right:40px"
+	/>
+	<Dot
+		size={18}
+		color="var(--rosa-cipria)"
+		delay="-3s"
+		style="bottom:50px;left:30px"
+	/>
+	<Dot
+		size={12}
+		color="var(--navy)"
+		opacity={0.6}
+		duration="8s"
+		delay="-2s"
+		style="bottom:20px;right:90px"
+	/>
+</div>
+
+<style>
+	.hero-logo {
+		position: relative;
+		height: 420px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.halo {
+		position: absolute;
+		width: 360px;
+		height: 360px;
+		border-radius: 50%;
+		border: 2px solid rgba(250, 249, 246, 0.8);
+	}
+
+	.logo-circle {
+		width: 340px;
+		height: 340px;
+		border-radius: 50%;
+		overflow: hidden;
+		border: 8px solid var(--off-white);
+		box-shadow: 0 30px 80px rgba(31, 56, 100, 0.18);
+	}
+
+	.logo-circle img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	@media (max-width: 600px) {
+		.hero-logo {
+			height: 280px;
+		}
+		.halo {
+			width: 250px;
+			height: 250px;
+		}
+		.logo-circle {
+			width: 230px;
+			height: 230px;
+			border-width: 6px;
+		}
+	}
+</style>

@@ -1,0 +1,54 @@
+---
+// Decorative drifting cloud: a pill base plus two circles, sized from `width`.
+// Position it with `style` (e.g. "top:60px;left:5%"); the parent needs
+// position: relative and overflow: hidden.
+interface Props {
+	width: number;
+	color?: string;
+	opacity?: number;
+	/** Drift loop length, e.g. "22s". */
+	duration?: string;
+	/** Negative values start the loop part-way through, e.g. "-6s". */
+	delay?: string;
+	style?: string;
+}
+
+const {
+	width,
+	color = 'var(--off-white)',
+	opacity = 0.5,
+	duration = '24s',
+	delay = '0s',
+	style = '',
+} = Astro.props;
+
+const base = Math.round(width * 0.245);
+const bigPuff = Math.round(width * 0.39);
+const smallPuff = Math.round(width * 0.3);
+---
+
+<div
+	class="cloud anim-drift"
+	aria-hidden="true"
+	style={`width:${width}px;height:${bigPuff + Math.round(base / 3)}px;opacity:${opacity};--cloud-color:${color};--anim-dur:${duration};--anim-delay:${delay};${style}`}
+>
+	<span style={`left:0;bottom:0;width:${width}px;height:${base}px`}></span>
+	<span
+		style={`left:${Math.round(width * 0.19)}px;bottom:${Math.round(base / 3)}px;width:${bigPuff}px;height:${bigPuff}px`}
+	></span>
+	<span
+		style={`left:${Math.round(width * 0.49)}px;bottom:${Math.round(base / 4)}px;width:${smallPuff}px;height:${smallPuff}px`}
+	></span>
+</div>
+
+<style>
+	.cloud {
+		position: absolute;
+		pointer-events: none;
+	}
+	.cloud span {
+		position: absolute;
+		border-radius: 999px;
+		background: var(--cloud-color);
+	}
+</style>

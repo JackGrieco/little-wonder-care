@@ -1,5 +1,6 @@
 ---
 import CalButton from './CalButton.astro';
+import Icon from './Icon.astro';
 import {
 	SERVICE_CATEGORIES,
 	formatPrice,
@@ -8,58 +9,100 @@ import {
 
 interface Props {
 	pkg: ServicePackage;
+	/** Stagger (ms) for the scroll reveal inside the grid. */
+	revealDelay?: number;
 }
 
-const { pkg } = Astro.props;
+const { pkg, revealDelay = 0 } = Astro.props;
 const category = SERVICE_CATEGORIES[pkg.category];
 const bookingLink = pkg.bookingLink ?? category.defaultBookingLink;
 ---
 
-<article
-	class:list={['package-card', category.cardClass, { popular: pkg.isPopular }]}
->
-	{pkg.isPopular && <span class="popular-badge">Most Popular</span>}
-	<span class="package-tag">{category.tag}</span>
-	<h3>{pkg.title}</h3>
-	{pkg.description && <p>{pkg.description}</p>}
+<div class="card-wrap" data-reveal="up" data-delay={revealDelay}>
+	<article
+		class:list={[
+			'package-card',
+			category.cardClass,
+			{ popular: pkg.isPopular },
+		]}
+	>
+		{pkg.isPopular && <span class="popular-badge">Most Popular</span>}
+		<span class="package-tag">{category.tag}</span>
+		<h3>{pkg.title}</h3>
+		{pkg.description && <p class="description">{pkg.description}</p>}
 
-	{pkg.price !== null && (
-		<div class="package-price">
-			{formatPrice(pkg.price)}
-			{pkg.priceNote && <span> / {pkg.priceNote}</span>}
+		{pkg.price !== null && (
+			<div class="package-price">
+				{formatPrice(pkg.price)}
+				{pkg.priceNote && <span> / {pkg.priceNote}</span>}
+			</div>
+		)}
+		{pkg.duration && <p class="package-duration">{pkg.duration}</p>}
+
+		{pkg.features.length > 0 && (
+			<ul class="package-includes">
+				{pkg.features.map((feature) => (
+					<li>
+						<span class="check">
+							<Icon name="check" size={13} />
+						</span>
+						{feature}
+					</li>
+				))}
+			</ul>
+		)}
+
+		<div class="package-cta">
+			<CalButton
+				calLink={bookingLink}
+				label={category.ctaText}
+				variant="btn-dark"
+				class="package-button"
+			/>
+			<p class="package-booking-note">{category.bookingNote}</p>
 		</div>
-	)}
-	{pkg.duration && <p class="package-duration">{pkg.duration}</p>}
-
-	{pkg.features.length > 0 && (
-		<ul class="package-includes">
-			{pkg.features.map((feature) => (
-				<li>{feature}</li>
-			))}
-		</ul>
-	)}
-
-	<div class="package-cta">
-		<CalButton calLink={bookingLink} label={category.ctaText} />
-		<p class="package-booking-note">{category.bookingNote}</p>
-	</div>
-</article>
+	</article>
+</div>
 
 <style>
-	/* Column layout so the button sits at the bottom of every card */
-	.package-card {
-		position: relative;
+	/* Each category tints its tag and check circles */
+	.package-card.sleep {
+		--tint: var(--celeste);
+	}
+	.package-card.doula {
+		--tint: var(--rosa-cipria);
+	}
+
+	/* The reveal transform lives on the wrapper so it never fights the hover */
+	.card-wrap {
 		display: flex;
 		flex-direction: column;
 	}
 
-	.package-card.popular {
-		border: 2px solid var(--pesca);
+	/* Column layout so the button sits at the bottom of every card */
+	.package-card {
+		position: relative;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		background: #fff;
+		border-radius: 28px;
+		padding: 40px 32px 32px;
+		border: 2px solid rgba(31, 56, 100, 0.06);
+		transition:
+			transform 0.4s var(--ease-soft),
+			box-shadow 0.4s,
+			border-color 0.4s;
+	}
+	.package-card:hover {
+		transform: translateY(-8px);
+		box-shadow: 0 20px 50px rgba(31, 56, 100, 0.12);
+		border-color: var(--pesca);
 	}
 
 	.popular-badge {
 		position: absolute;
-		top: -12px;
+		top: -13px;
 		left: 50%;
 		transform: translateX(-50%);
 		background: var(--pesca);
@@ -68,22 +111,105 @@ const bookingLink = pkg.bookingLink ?? category.defaultBookingLink;
 		font-weight: 700;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
-		padding: 3px 12px;
+		padding: 4px 14px;
 		border-radius: 20px;
 		white-space: nowrap;
 	}
 
 	.package-tag {
 		align-self: flex-start;
+		font-size: 0.68rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		font-weight: 600;
+		padding: 4px 12px;
+		border-radius: 20px;
+		background: var(--tint);
+		color: var(--navy);
+		margin-bottom: 18px;
 	}
 
-	.package-card .package-duration {
+	h3 {
+		font-family: var(--font-display);
+		font-size: 1.8rem;
+		font-weight: 400;
+		line-height: 1.1;
+		color: var(--navy);
+		margin: 0 0 8px;
+	}
+
+	.description {
+		font-size: 0.88rem;
+		line-height: 1.6;
+		color: rgba(45, 45, 45, 0.72);
+		margin: 0 0 20px;
+	}
+
+	.package-price {
+		font-family: var(--font-display);
+		font-size: 2.6rem;
+		line-height: 1;
+		color: var(--navy);
+		margin-bottom: 4px;
+	}
+	.package-price span {
+		font-family: var(--font-sans);
+		font-size: 0.85rem;
+		color: rgba(45, 45, 45, 0.6);
+	}
+
+	.package-duration {
 		font-size: 0.8rem;
-		color: rgba(45, 45, 45, 0.5);
-		margin: -8px 0 12px;
+		color: rgba(45, 45, 45, 0.6);
+		margin: 0 0 20px;
+	}
+
+	.package-includes {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 28px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+	.package-includes li {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-size: 0.88rem;
+		color: var(--charcoal);
+	}
+	.check {
+		width: 22px;
+		height: 22px;
+		border-radius: 50%;
+		background: var(--tint);
+		color: var(--navy);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
 	}
 
 	.package-cta {
 		margin-top: auto;
+	}
+	/* CalButton renders outside this component's scope, hence :global */
+	.package-cta :global(.package-button) {
+		display: block;
+		width: 100%;
+		text-align: center;
+		padding: 13px 24px;
+		font-size: 0.88rem;
+	}
+	.package-cta :global(.package-button:hover) {
+		transform: none;
+	}
+
+	.package-booking-note {
+		font-size: 0.74rem;
+		color: rgba(45, 45, 45, 0.6);
+		text-align: center;
+		margin: 10px 0 0;
 	}
 </style>

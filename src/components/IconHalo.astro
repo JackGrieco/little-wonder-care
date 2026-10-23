@@ -1,0 +1,60 @@
+---
+// Big breathing circle with an icon and two expanding halo rings.
+// Put extra floating dots in the default slot.
+import Icon, { type IconName } from './Icon.astro';
+
+interface Props {
+	icon: IconName;
+	background: string;
+	iconColor: string;
+	haloColor: string;
+}
+
+const { icon, background, iconColor, haloColor } = Astro.props;
+---
+
+<div class="icon-halo" style={`--halo:${haloColor}`} aria-hidden="true">
+	<span class="halo anim-halo"></span>
+	<span class="halo anim-halo" style="--anim-delay:2.5s"></span>
+	<span
+		class="circle anim-breathe"
+		style={`background:${background};color:${iconColor};--anim-dur:6s`}
+	>
+		<Icon name={icon} size={96} />
+	</span>
+	<slot />
+</div>
+
+<style>
+	.icon-halo {
+		position: relative;
+		height: 320px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.halo {
+		position: absolute;
+		width: 260px;
+		height: 260px;
+		border-radius: 50%;
+		border: 2px solid var(--halo);
+	}
+
+	.circle {
+		width: 240px;
+		height: 240px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	@media (max-width: 600px) {
+		.icon-halo {
+			height: 240px;
+			transform: scale(0.75);
+		}
+	}
+</style>

@@ -2,9 +2,17 @@
 import { IS_BLOG_ENABLED } from '../consts';
 
 const serviceLinks = [
-	{ href: '/services', label: 'All Services' },
-	{ href: '/postpartum-doula', label: 'Postpartum Doula' },
-	{ href: '/sleep-consulting', label: 'Sleep Consulting' },
+	{ href: '/services', label: 'All Services', hint: 'Packages & pricing' },
+	{
+		href: '/sleep-consulting',
+		label: 'Sleep Consulting',
+		hint: 'Gentle sleep coaching',
+	},
+	{
+		href: '/postpartum-doula',
+		label: 'Postpartum Doula',
+		hint: 'Support after birth',
+	},
 ];
 
 const navLinks = [
@@ -29,6 +37,8 @@ const servicesActive = serviceLinks.some(
 				alt="Little Wonder Care logo"
 				width="48"
 				height="48"
+				class="anim-breathe"
+				style="--anim-dur:6s"
 			/>
 			<span>Little Wonder Care</span>
 		</a>
@@ -61,7 +71,7 @@ const servicesActive = serviceLinks.some(
 					</svg>
 				</button>
 				<ul class="dropdown-menu" role="menu">
-					{serviceLinks.map(({ href, label }) => (
+					{serviceLinks.map(({ href, label, hint }) => (
 						<li role="none">
 							<a
 								href={href}
@@ -73,7 +83,8 @@ const servicesActive = serviceLinks.some(
 										: ''
 								}
 							>
-								{label}
+								<span class="item-title">{label}</span>
+								<span class="item-hint">{hint}</span>
 							</a>
 						</li>
 					))}
@@ -165,7 +176,9 @@ const servicesActive = serviceLinks.some(
 
 <style>
 	.navbar {
-		background: #ede8de;
+		background: rgba(237, 232, 222, 0.92);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
 		border-bottom: 1px solid rgba(92, 74, 42, 0.08);
 		padding: 0 24px;
 		position: sticky;
@@ -199,7 +212,7 @@ const servicesActive = serviceLinks.some(
 	.navbar-logo span {
 		font-family: var(--font-display);
 		font-size: 1.35rem;
-		font-weight: 600;
+		font-weight: 400;
 		color: var(--navy);
 		letter-spacing: -0.01em;
 	}
@@ -249,8 +262,9 @@ const servicesActive = serviceLinks.some(
 		font-weight: 600 !important;
 		letter-spacing: 0.04em !important;
 		transition:
-			background 0.2s,
-			transform 0.15s !important;
+			background 0.25s,
+			color 0.25s,
+			transform 0.25s !important;
 	}
 
 	/* `.navbar-links a` resets padding to 0 and is more specific than `.navbar-cta` */
@@ -261,7 +275,7 @@ const servicesActive = serviceLinks.some(
 	.navbar-cta:hover {
 		background: var(--navy) !important;
 		color: #fff !important;
-		transform: translateY(-1px);
+		transform: translateY(-2px);
 	}
 
 	/* ── Dropdown ── */
@@ -280,25 +294,33 @@ const servicesActive = serviceLinks.some(
 
 	.dropdown-menu {
 		position: absolute;
-		top: calc(100% + 12px);
-		left: 50%;
-		transform: translateX(-50%);
-		min-width: 200px;
-		background: #ede8de;
-		border: 1px solid rgba(92, 74, 42, 0.1);
-		border-radius: 10px;
-		box-shadow: 0 8px 24px rgba(92, 74, 42, 0.12);
+		top: calc(100% + 18px);
+		left: -24px;
+		width: 260px;
+		background: var(--off-white);
+		border-radius: 20px;
+		box-shadow: 0 18px 50px rgba(31, 56, 100, 0.14);
 		list-style: none;
 		margin: 0;
-		padding: 6px;
+		padding: 8px;
 		opacity: 0;
 		visibility: hidden;
-		transform: translateX(-50%) translateY(-6px);
+		transform: translateY(12px);
 		transition:
-			opacity 0.18s,
-			transform 0.18s,
-			visibility 0.18s;
+			opacity 0.25s ease-out,
+			transform 0.25s ease-out,
+			visibility 0.25s;
 		pointer-events: none;
+	}
+
+	/* Invisible bridge over the gap so the menu doesn't close on the way down */
+	.dropdown-menu::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: -18px;
+		height: 18px;
 	}
 
 	.has-dropdown:hover .dropdown-menu,
@@ -306,30 +328,43 @@ const servicesActive = serviceLinks.some(
 	.dropdown-trigger[aria-expanded='true'] ~ .dropdown-menu {
 		opacity: 1;
 		visibility: visible;
-		transform: translateX(-50%) translateY(0);
+		transform: translateY(0);
 		pointer-events: auto;
 	}
 
-	.dropdown-menu a {
+	.navbar-links .dropdown-menu a {
 		display: block;
-		padding: 9px 14px;
-		border-radius: 6px;
-		font-size: 0.78rem;
-		font-weight: 500;
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
-		color: var(--navy);
+		padding: 12px 16px;
+		border-radius: 14px;
+		text-transform: none;
+		letter-spacing: normal;
 		text-decoration: none;
-		transition:
-			background 0.15s,
-			color 0.15s;
-		white-space: nowrap;
+		transition: background 0.2s;
 	}
 
 	.dropdown-menu a:hover,
 	.dropdown-menu a.active {
-		background: rgba(232, 153, 132, 0.1);
-		color: var(--pesca);
+		background: var(--crema);
+	}
+
+	.item-title {
+		display: block;
+		font-size: 0.88rem;
+		font-weight: 600;
+		color: var(--navy);
+	}
+
+	.item-hint {
+		display: block;
+		font-size: 0.76rem;
+		font-weight: 400;
+		color: rgba(45, 45, 45, 0.65);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.dropdown-menu {
+			transform: none;
+		}
 	}
 
 	/* ── Hamburger ── */
@@ -354,7 +389,7 @@ const servicesActive = serviceLinks.some(
 	/* ── Mobile drawer ── */
 	.mobile-menu {
 		display: none;
-		background: #ede8de;
+		background: transparent;
 		border-top: 1px solid rgba(92, 74, 42, 0.08);
 		padding: 16px 24px 24px;
 	}

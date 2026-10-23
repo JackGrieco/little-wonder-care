@@ -3,7 +3,8 @@
 // BaseHead.astro) attaches the popup to every element with data-cal-link.
 import type { HTMLAttributes } from 'astro/types';
 
-export type ButtonVariant = 'btn-cta' | 'btn-cta-light' | 'btn-outline';
+export type ButtonVariant =
+	'btn-cta' | 'btn-cta-light' | 'btn-outline' | 'btn-dark';
 
 interface Props extends HTMLAttributes<'button'> {
 	calLink: string;
@@ -11,9 +12,20 @@ interface Props extends HTMLAttributes<'button'> {
 	variant?: ButtonVariant;
 }
 
-const { calLink, label, variant = 'btn-cta', ...attrs } = Astro.props;
+const {
+	calLink,
+	label,
+	variant = 'btn-cta',
+	class: className,
+	...attrs
+} = Astro.props;
 ---
 
-<button type="button" data-cal-link={calLink} class={variant} {...attrs}>
+<button
+	type="button"
+	data-cal-link={calLink}
+	class:list={[variant, className]}
+	{...attrs}
+>
 	{label}
 </button>

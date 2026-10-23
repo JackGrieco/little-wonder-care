@@ -1,165 +1,319 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import Cloud from '../components/Cloud.astro';
+import CtaBand from '../components/CtaBand.astro';
 import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import HeroLogo from '../components/HeroLogo.astro';
+import Scallop from '../components/Scallop.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+
+const VALUES = [
+	{
+		title: 'No Judgment, Ever',
+		text: "However you feed, sleep, or parent your baby — I'm here to support you, not to judge.",
+		hoverBg: 'var(--rosa-cipria)',
+	},
+	{
+		title: 'Gentle & Respectful',
+		text: "My methods honor your baby's developmental needs and your instincts as a parent.",
+		hoverBg: 'var(--celeste)',
+	},
+	{
+		title: 'Evidence-Based',
+		text: 'Everything I recommend is grounded in current research and best practices.',
+		hoverBg: 'var(--crema)',
+	},
+	{
+		title: 'You Know Your Baby Best',
+		text: "I'm here to guide, not to prescribe. You always have the final say.",
+		hoverBg: 'var(--rosa-cipria)',
+	},
+];
+
+// Reveal delays for the 2×2 grid: left column first, right column a beat later
+const VALUE_DELAYS_MS = [0, 150, 100, 250];
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead
-			title="About Silvia — Little Wonder Care"
-			description="Meet Silvia, DONA certified postpartum doula and gentle sleep coach based in Waco, TX. Supporting families with warmth, knowledge, and zero judgment."
+<MainLayout
+	title="About Silvia — Little Wonder Care"
+	description="Meet Silvia, DONA certified postpartum doula and gentle sleep coach based in Waco, TX. Supporting families with warmth, knowledge, and zero judgment."
+>
+	<!-- Hero: logo on the left, Silvia's story on the right -->
+	<section class="hero">
+		<Cloud width={170} duration="22s" style="top:50px;left:3%" />
+		<Cloud
+			width={120}
+			color="var(--crema)"
+			opacity={0.45}
+			duration="28s"
+			delay="-8s"
+			style="top:36px;right:40%"
 		/>
-	</head>
-	<body>
-		<Header />
 
-		<main>
-			<!-- About Hero — two-column grid -->
-			<div class="section" style="padding-top: 64px;">
-				<div class="about-hero-grid">
-					<div class="about-photo-placeholder">
-						<img src="/logo.png" alt="Silvia — Little Wonder Care" />
-					</div>
-					<div class="about-story">
-						<p class="section-eyebrow" style="text-align:left;">
-							About Me
-						</p>
-						<h2>Hi, I'm Silvia.</h2>
-						<p>
-							I know what it feels like to wake up at 3 a.m. wondering if you're
-							doing everything wrong. I know the loneliness of those early
-							weeks, when everyone says "enjoy every moment" but no one asks how
-							you're really doing.
-						</p>
-						<p>
-							That experience changed me. It's why I became a postpartum doula
-							and sleep consultant — to be the calm, knowledgeable,
-							judgment-free presence I wished I'd had.
-						</p>
-						<p>
-							I believe that when a mother is supported, the whole family
-							thrives. And I believe every baby can learn to sleep well, gently,
-							when we understand their unique needs.
-						</p>
-						<DiscoveryCallButton
-							label="Book a Free Call"
-							style="margin-top: 8px;"
-						/>
-					</div>
-				</div>
+		<div class="hero-inner">
+			<div class="anim-fade-up" style="--anim-dur:1s;--anim-delay:0.2s">
+				<HeroLogo alt="Silvia — Little Wonder Care" />
 			</div>
-
-			<!-- Credentials -->
-			<div class="section" style="background: var(--crema);">
-				<div class="section-inner">
-					<div class="section-header">
-						<p class="section-eyebrow">Credentials</p>
-						<h2 class="section-title">Training &amp; Certifications</h2>
-					</div>
-					<div class="credentials-grid">
-						<div class="credential-card">
-							<div class="cred-icon">📜</div>
-							<h3>DONA Certified</h3>
-							<p>
-								Certified Postpartum Doula through DONA International, the gold
-								standard in doula certification.
-							</p>
-						</div>
-						<div class="credential-card">
-							<div class="cred-icon">🌙</div>
-							<h3>GSC Program Certified</h3>
-							<p>
-								Certified Gentle Sleep Coach, trained in evidence-based,
-								attachment-friendly sleep methods.
-							</p>
-						</div>
-						<div class="credential-card">
-							<div class="cred-icon">📚</div>
-							<h3>Continuing Education</h3>
-							<p>
-								I invest in ongoing training to stay current with the latest
-								research in infant sleep and postpartum care.
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- Values -->
-			<div class="section">
-				<div class="section-inner">
-					<div class="section-header">
-						<p class="section-eyebrow">What I Believe</p>
-						<h2 class="section-title">My Values</h2>
-					</div>
-					<div class="values-grid">
-						<div class="value-item">
-							<div class="value-dot"></div>
-							<div>
-								<h4>No Judgment, Ever</h4>
-								<p>
-									However you feed, sleep, or parent your baby — I'm here to
-									support you, not to judge.
-								</p>
-							</div>
-						</div>
-						<div class="value-item">
-							<div class="value-dot"></div>
-							<div>
-								<h4>Gentle &amp; Respectful</h4>
-								<p>
-									My methods honor your baby's developmental needs and your
-									instincts as a parent.
-								</p>
-							</div>
-						</div>
-						<div class="value-item">
-							<div class="value-dot"></div>
-							<div>
-								<h4>Evidence-Based</h4>
-								<p>
-									Everything I recommend is grounded in current research and
-									best practices.
-								</p>
-							</div>
-						</div>
-						<div class="value-item">
-							<div class="value-dot"></div>
-							<div>
-								<h4>You Know Your Baby Best</h4>
-								<p>
-									I'm here to guide, not to prescribe. You always have the final
-									say.
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<!-- CTA Band -->
-			<section class="cta-band">
-				<h2>Let's Work Together</h2>
-				<p>
-					I'd love to hear your story. Book a free call and let's talk about how
-					I can support your family.
+			<div class="hero-story">
+				<p class="hero-pill anim-fade-up" style="--anim-dur:0.8s">
+					About Me
 				</p>
-				<DiscoveryCallButton variant="btn-cta-light" />
-			</section>
-		</main>
+				<h1 class="anim-fade-up" style="--anim-delay:0.15s">
+					Hi, I'm Silvia.
+				</h1>
+				<div class="anim-fade-up" style="--anim-delay:0.35s">
+					<p>
+						I know what it feels like to wake up at 3 a.m. wondering if you're
+						doing everything wrong. I know the loneliness of those early weeks,
+						when everyone says "enjoy every moment" but no one asks how you're
+						really doing.
+					</p>
+					<p>
+						That experience changed me. It's why I became a postpartum doula and
+						sleep consultant — to be the calm, knowledgeable, judgment-free
+						presence I wished I'd had.
+					</p>
+					<p>
+						I believe that when a mother is supported, the whole family thrives.
+						And I believe every baby can learn to sleep well, gently, when we
+						understand their unique needs.
+					</p>
+				</div>
+				<div class="anim-fade-up" style="--anim-delay:0.55s">
+					<DiscoveryCallButton label="Book a Free Call" />
+				</div>
+			</div>
+		</div>
 
-		<Footer />
-	</body>
-</html>
+		<Scallop color="var(--crema)" />
+	</section>
+
+	<!-- Credentials -->
+	<section class="credentials">
+		<div class="section-inner">
+			<SectionHeader eyebrow="Credentials" title="Training & Certifications" />
+			<div class="credentials-grid">
+				<FeatureCard
+					icon="award"
+					title="DONA Certified"
+					text="Certified Postpartum Doula through DONA International, the gold standard in doula certification."
+					background="var(--off-white)"
+					decorColor="rgba(183, 201, 207, 0.3)"
+					iconBackground="var(--celeste)"
+				/>
+				<FeatureCard
+					icon="moon-star"
+					title="GSC Program Certified"
+					text="Certified Gentle Sleep Coach, trained in evidence-based, attachment-friendly sleep methods."
+					background="var(--off-white)"
+					decorColor="rgba(246, 212, 219, 0.45)"
+					iconBackground="var(--rosa-cipria)"
+					revealDelay={150}
+				/>
+				<FeatureCard
+					icon="book-open"
+					title="Continuing Education"
+					text="I invest in ongoing training to stay current with the latest research in infant sleep and postpartum care."
+					background="var(--off-white)"
+					decorColor="rgba(232, 153, 132, 0.2)"
+					iconBackground="var(--crema)"
+					revealDelay={300}
+				/>
+			</div>
+		</div>
+	</section>
+
+	<!-- Values -->
+	<section class="values">
+		<Cloud
+			width={160}
+			color="var(--celeste)"
+			opacity={0.35}
+			duration="26s"
+			style="right:4%;top:60px"
+		/>
+		<div class="values-inner">
+			<SectionHeader eyebrow="What I Believe" title="My Values" />
+			<div class="values-grid">
+				{VALUES.map((value, i) => (
+					<div
+						class="value-wrap"
+						data-reveal="up"
+						data-delay={VALUE_DELAYS_MS[i]}
+					>
+						<div class="value-card" style={`--hover-bg:${value.hoverBg}`}>
+							<span class="value-dot" aria-hidden="true"></span>
+							<div>
+								<h3>{value.title}</h3>
+								<p>{value.text}</p>
+							</div>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<CtaBand
+		title="Let's Work Together"
+		text="I'd love to hear your story. Book a free call and let's talk about how I can support your family."
+	/>
+</MainLayout>
 
 <style>
-	main {
-		width: 100%;
-		max-width: 100%;
+	/* ===== HERO ===== */
+	.hero {
+		position: relative;
+		overflow: hidden;
+		background: var(--celeste);
+		padding: 80px 24px 160px;
+	}
+
+	.hero-inner {
+		position: relative;
+		z-index: 1;
+		max-width: var(--max-width);
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+		gap: 72px;
+		align-items: center;
+	}
+
+	h1 {
+		font-family: var(--font-display);
+		font-size: 4rem;
+		font-weight: 400;
+		line-height: 1.05;
+		color: var(--navy);
+		margin: 0 0 24px;
+	}
+
+	.hero-story p:not(.hero-pill) {
+		font-size: 1.02rem;
+		line-height: 1.75;
+		color: var(--navy);
+		margin: 0 0 16px;
+		text-wrap: pretty;
+	}
+	.hero-story p:last-child {
+		margin-bottom: 32px;
+	}
+
+	/* ===== CREDENTIALS ===== */
+	.credentials {
+		padding: 80px 24px 110px;
+		background: var(--crema);
+	}
+
+	.credentials-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 28px;
+		align-items: stretch;
+	}
+
+	/* ===== VALUES ===== */
+	.values {
+		position: relative;
+		overflow: hidden;
+		padding: 110px 24px;
+	}
+
+	.values-inner {
+		position: relative;
+		max-width: 1000px;
+		margin: 0 auto;
+	}
+
+	.values-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 24px;
+	}
+
+	.value-wrap {
+		display: flex;
+	}
+
+	.value-card {
+		flex: 1;
+		display: flex;
+		gap: 20px;
+		align-items: flex-start;
+		padding: 32px;
+		border-radius: 24px;
+		background: #fff;
+		border: 1px solid rgba(31, 56, 100, 0.06);
+		transition:
+			transform 0.4s var(--ease-soft),
+			box-shadow 0.4s,
+			background 0.4s;
+	}
+	.value-card:hover {
+		transform: translateY(-6px);
+		box-shadow: 0 18px 44px rgba(31, 56, 100, 0.1);
+		background: var(--hover-bg);
+	}
+
+	.value-dot {
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		background: var(--pesca);
+		margin-top: 10px;
+		flex-shrink: 0;
+		box-shadow: 0 0 0 6px rgba(232, 153, 132, 0.2);
+	}
+
+	.value-card h3 {
+		font-family: var(--font-display);
+		font-size: 1.7rem;
+		font-weight: 400;
+		line-height: 1.15;
+		color: var(--navy);
+		margin: 0 0 6px;
+	}
+
+	.value-card p {
+		font-size: 0.94rem;
+		line-height: 1.65;
+		color: rgba(45, 45, 45, 0.78);
 		margin: 0;
-		padding: 0;
+	}
+
+	/* ===== RESPONSIVE ===== */
+	@media (max-width: 900px) {
+		.hero-inner {
+			grid-template-columns: 1fr;
+			gap: 24px;
+			text-align: center;
+		}
+		h1 {
+			font-size: 3.2rem;
+		}
+		.credentials-grid,
+		.values-grid {
+			grid-template-columns: minmax(0, 1fr);
+			max-width: 480px;
+			margin: 0 auto;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.hero {
+			padding: 48px 20px 120px;
+		}
+		h1 {
+			font-size: 2.6rem;
+		}
+		.credentials,
+		.values {
+			padding: 72px 20px;
+		}
+		.value-card {
+			padding: 24px;
+		}
 	}
 </style>

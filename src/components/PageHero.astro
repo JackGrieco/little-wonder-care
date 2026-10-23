@@ -1,0 +1,90 @@
+---
+// Centered hero for inner pages: background color, load-in text, a slot for
+// decorations (clouds, dots…) and a scalloped bottom edge.
+//
+// Slots: "decor" for background shapes, default for anything under the subtitle.
+import Scallop from './Scallop.astro';
+
+interface Props {
+	eyebrow: string;
+	title: string;
+	subtitle: string;
+	background: string;
+	/** Color of the section below, used for the scalloped edge. */
+	nextColor?: string;
+}
+
+const {
+	eyebrow,
+	title,
+	subtitle,
+	background,
+	nextColor = 'var(--off-white)',
+} = Astro.props;
+---
+
+<section class="hero" style={`background:${background}`}>
+	<slot name="decor" />
+	<div class="hero-content">
+		<p class="hero-pill anim-fade-up" style="--anim-dur:0.8s">
+			{eyebrow}
+		</p>
+		<h1 class="anim-fade-up" style="--anim-delay:0.15s">
+			{title}
+		</h1>
+		<p class="subtitle anim-fade-up" style="--anim-delay:0.35s">
+			{subtitle}
+		</p>
+		<slot />
+	</div>
+	<Scallop color={nextColor} />
+</section>
+
+<style>
+	.hero {
+		position: relative;
+		overflow: hidden;
+		padding: 96px 24px 150px;
+		text-align: center;
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 1;
+		max-width: 720px;
+		margin: 0 auto;
+	}
+
+	h1 {
+		font-family: var(--font-display);
+		font-size: 3.8rem;
+		font-weight: 400;
+		line-height: 1.05;
+		color: var(--navy);
+		margin: 0 0 20px;
+	}
+
+	.subtitle {
+		font-size: 1.08rem;
+		color: var(--navy);
+		line-height: 1.7;
+		max-width: 560px;
+		margin: 0 auto;
+		text-wrap: pretty;
+	}
+
+	@media (max-width: 900px) {
+		h1 {
+			font-size: 3rem;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.hero {
+			padding: 64px 20px 110px;
+		}
+		h1 {
+			font-size: 2.5rem;
+		}
+	}
+</style>

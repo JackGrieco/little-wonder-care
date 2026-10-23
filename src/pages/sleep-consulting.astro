@@ -1,139 +1,341 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import Cloud from '../components/Cloud.astro';
+import CtaBand from '../components/CtaBand.astro';
 import DiscoveryCallCard from '../components/DiscoveryCallCard.astro';
+import Dot from '../components/Dot.astro';
+import HighlightBox from '../components/HighlightBox.astro';
+import Icon, { type IconName } from '../components/Icon.astro';
+import IconHalo from '../components/IconHalo.astro';
 import PackagesSection from '../components/PackagesSection.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Timeline from '../components/Timeline.astro';
+
+const AGES: { icon: IconName; title: string; range: string; bg: string }[] = [
+	{
+		icon: 'milk',
+		title: 'Newborn',
+		range: '0–4 months',
+		bg: 'var(--celeste)',
+	},
+	{ icon: 'baby', title: 'Infant', range: '4–12 months', bg: 'var(--crema)' },
+	{
+		icon: 'toy-brick',
+		title: 'Toddler',
+		range: '1–3 years',
+		bg: 'var(--rosa-cipria)',
+	},
+	{
+		icon: 'moon-star',
+		title: 'Preschool',
+		range: '3–5 years',
+		bg: 'var(--celeste)',
+	},
+];
+
+// TODO: still the old steps; Silvia is rewriting "How It Works" (see ROADMAP.md)
+const STEPS = [
+	{
+		title: 'Intake questionnaire',
+		text: "Before we meet, you'll fill out a detailed form about your child's sleep habits, schedule, and your family's goals.",
+	},
+	{
+		title: 'Consultation call',
+		text: "We meet via video to discuss everything in depth. I'll ask questions, listen, and start building your plan.",
+	},
+	{
+		title: 'Custom sleep plan',
+		text: "Within 48 hours, you'll receive a detailed, step-by-step plan tailored to your child and your comfort level.",
+	},
+	{
+		title: 'Ongoing support',
+		text: "For package clients, I'm with you daily for two weeks via text and email, plus follow-up calls to adjust the plan as needed.",
+	},
+];
+
+// Tiny twinkling stars scattered across the hero
+const STARS = [
+	{ style: 'top:18%;left:10%', size: 6 },
+	{ style: 'top:30%;left:24%', size: 4 },
+	{ style: 'top:62%;left:8%', size: 5 },
+	{ style: 'top:20%;right:24%', size: 5 },
+	{ style: 'top:48%;right:10%', size: 6 },
+	{ style: 'top:66%;right:22%', size: 4 },
+];
+const STAR_DURATIONS = ['4s', '5s', '6s'];
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead
-			title="Gentle Sleep Consulting — Little Wonder Care"
-			description="Pediatric sleep consulting for newborns, infants, and toddlers. A gentle, respectful approach to help your whole family sleep better."
-		/>
-	</head>
-	<body>
-		<Header />
+<MainLayout
+	title="Gentle Sleep Consulting — Little Wonder Care"
+	description="Pediatric sleep consulting for newborns, infants, and toddlers. A gentle, respectful approach to help your whole family sleep better."
+>
+	<PageHero
+		eyebrow="Pediatric Sleep Consulting"
+		title="Better Sleep Starts Here"
+		subtitle="You're exhausted. Your baby is exhausted. It doesn't have to stay this way. I'll help your family sleep better — gently, respectfully, and at your own pace."
+		background="var(--celeste)"
+	>
+		<Fragment slot="decor">
+			<Cloud
+				width={180}
+				opacity={0.55}
+				duration="22s"
+				style="top:70px;left:4%"
+			/>
+			<Cloud
+				width={150}
+				opacity={0.45}
+				duration="26s"
+				delay="-8s"
+				style="bottom:120px;right:6%"
+			/>
+			{STARS.map((star, i) => (
+				<Dot
+					size={star.size}
+					color="var(--off-white)"
+					opacity={0.9}
+					duration={STAR_DURATIONS[i % STAR_DURATIONS.length]}
+					delay={`-${i}s`}
+					style={star.style}
+				/>
+			))}
+			<!-- Crescent moon: a light circle with a sky circle cut out of it -->
+			<div
+				class="moon anim-float"
+				style="--anim-dur:9s"
+				aria-hidden="true"
+			></div>
+		</Fragment>
+	</PageHero>
 
-		<main>
-			<!-- Page Hero -->
-			<div class="page-hero bg-celeste">
-				<p class="eyebrow">Pediatric Sleep Consulting</p>
-				<h1>Better Sleep Starts Here</h1>
-				<p class="subtitle">
-					You're exhausted. Your baby is exhausted. It doesn't have to stay this
-					way. I'll help your family sleep better — gently, respectfully, and at
-					your own pace.
-				</p>
+	<!-- Approach -->
+	<section class="approach">
+		<div class="split">
+			<div data-reveal="left">
+				<IconHalo
+					icon="moon-star"
+					background="var(--celeste)"
+					iconColor="var(--navy)"
+					haloColor="rgba(183, 201, 207, 0.9)"
+				>
+					<Dot
+						size={20}
+						color="var(--pesca)"
+						duration="5s"
+						style="top:30px;right:40px"
+					/>
+					<Dot
+						size={14}
+						color="var(--rosa-cipria)"
+						delay="-2s"
+						style="bottom:30px;left:40px"
+					/>
+				</IconHalo>
 			</div>
-
-			<!-- Main Content -->
-			<div class="section">
-				<div class="content-section">
-					<h2>My Approach</h2>
-					<p>
-						I believe every child can learn to sleep well — without crying it
-						out, without rigid schedules, and without ignoring your instincts as
-						a parent.
-					</p>
-					<p>
-						My gentle approach is built around your child's temperament, your
-						family's values, and the science of infant sleep. There's no
-						one-size-fits-all plan. Every sleep plan I create is custom.
-					</p>
-
-					<h2>Ages I Work With</h2>
-					<div class="ages-grid">
-						<div class="age-card">
-							<div class="age-emoji">🍼</div>
-							<h4>Newborn</h4>
-							<p>0–4 months</p>
-						</div>
-						<div class="age-card">
-							<div class="age-emoji">👶</div>
-							<h4>Infant</h4>
-							<p>4–12 months</p>
-						</div>
-						<div class="age-card">
-							<div class="age-emoji">🧸</div>
-							<h4>Toddler</h4>
-							<p>1–3 years</p>
-						</div>
-						<div class="age-card">
-							<div class="age-emoji">🌙</div>
-							<h4>Preschool</h4>
-							<p>3–5 years</p>
-						</div>
-					</div>
-
-					<h2>How It Works</h2>
-					<p>
-						<strong>1. Intake questionnaire</strong> — Before we meet, you'll
-						fill out a detailed form about your child's sleep habits, schedule,
-						and your family's goals.
-					</p>
-					<p>
-						<strong>2. Consultation call</strong> — We meet via video to discuss
-						everything in depth. I'll ask questions, listen, and start building
-						your plan.
-					</p>
-					<p>
-						<strong>3. Custom sleep plan</strong> — Within 48 hours, you'll
-						receive a detailed, step-by-step plan tailored to your child and
-						your comfort level.
-					</p>
-					<p>
-						<strong>4. Ongoing support</strong> — For package clients, I'm with
-						you daily for two weeks via text and email, plus follow-up calls to
-						adjust the plan as needed.
-					</p>
-
-					<div class="highlight-box">
-						<h2>Available Worldwide</h2>
-						<p>
-							All sleep consulting sessions are conducted via{' '}
-							<strong>video call</strong>, so I can work with families anywhere
-							in the <strong>United States and internationally</strong>.
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<!-- Packages + free discovery call -->
-			<div class="section" id="packages">
-				<div class="section-inner">
-					<div class="section-header">
-						<p class="section-eyebrow">Packages</p>
-						<h2 class="section-title">Sleep Consulting Packages</h2>
-					</div>
-					<PackagesSection category="sleep" showHeading={false} />
-					<DiscoveryCallCard />
-				</div>
-			</div>
-
-			<!-- CTA Band -->
-			<section class="cta-band">
-				<h2>Ready for Better Nights?</h2>
+			<div class="prose-block" data-reveal="right" data-delay="150">
+				<p class="section-eyebrow">Gentle Sleep</p>
+				<h2 class="section-title">My Approach</h2>
 				<p>
-					A free 15-minute call is all it takes. Let's talk about your child's
-					sleep and see how I can help.
+					I believe every child can learn to sleep well — without crying it out,
+					without rigid schedules, and without ignoring your instincts as a
+					parent.
 				</p>
-				<DiscoveryCallButton variant="btn-cta-light" />
-			</section>
-		</main>
+				<p>
+					My gentle approach is built around your child's temperament, your
+					family's values, and the science of infant sleep. There's no
+					one-size-fits-all plan. Every sleep plan I create is custom.
+				</p>
+			</div>
+		</div>
+	</section>
 
-		<Footer />
-	</body>
-</html>
+	<!-- Ages -->
+	<section class="ages">
+		<div class="section-inner">
+			<SectionHeader eyebrow="Who I Help" title="Ages I Work With" />
+			<div class="ages-grid">
+				{AGES.map((age, i) => (
+					<div class="age-wrap" data-reveal="up" data-delay={i * 120}>
+						<div class="age-card" style={`background:${age.bg}`}>
+							<div
+								class="age-icon anim-float"
+								style={`--anim-dur:${6 + i}s;--anim-delay:-${i}s`}
+							>
+								<span>
+									<Icon name={age.icon} size={32} />
+								</span>
+							</div>
+							<h3>{age.title}</h3>
+							<p>{age.range}</p>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<Timeline eyebrow="Step by Step" title="How It Works" steps={STEPS} />
+
+	<!-- TODO: the site is US-only; this copy is waiting for Silvia (see ROADMAP.md) -->
+	<HighlightBox icon="globe" title="Available Worldwide">
+		All sleep consulting sessions are conducted via <strong>video call</strong>,
+		so I can work with families anywhere in the
+		<strong>United States and internationally</strong>.
+	</HighlightBox>
+
+	<!-- Packages + free discovery call -->
+	<section class="packages" id="packages">
+		<div class="section-inner">
+			<SectionHeader eyebrow="Packages" title="Sleep Consulting Packages" />
+			<PackagesSection category="sleep" showHeading={false} />
+			<DiscoveryCallCard />
+		</div>
+	</section>
+
+	<CtaBand
+		title="Ready for Better Nights?"
+		text="A free 15-minute call is all it takes. Let's talk about your child's sleep and see how I can help."
+	/>
+</MainLayout>
 
 <style>
-	main {
-		width: 100%;
-		max-width: 100%;
+	.moon {
+		position: absolute;
+		top: 56px;
+		right: 10%;
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		background: var(--off-white);
+		box-shadow: 0 0 50px 10px rgba(250, 249, 246, 0.45);
+		overflow: hidden;
+	}
+	.moon::after {
+		content: '';
+		position: absolute;
+		top: -12px;
+		left: -26px;
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		background: var(--celeste);
+	}
+
+	.approach {
+		padding: 60px 24px 100px;
+	}
+
+	.split {
+		max-width: 1000px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+		gap: 72px;
+		align-items: center;
+	}
+
+	.prose-block .section-title {
+		margin-bottom: 20px;
+	}
+	.prose-block p:not(.section-eyebrow) {
+		font-size: 1.02rem;
+		line-height: 1.8;
+		color: rgba(45, 45, 45, 0.82);
+		margin: 0 0 18px;
+		text-wrap: pretty;
+	}
+
+	.ages {
+		padding: 0 24px 100px;
+	}
+
+	.ages-grid {
+		display: grid;
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 24px;
+	}
+
+	.age-wrap {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.age-card {
+		flex: 1;
+		text-align: center;
+		padding: 40px 24px;
+		border-radius: 28px;
+		transition:
+			transform 0.4s var(--ease-soft),
+			box-shadow 0.4s;
+	}
+	.age-card:hover {
+		transform: translateY(-8px);
+		box-shadow: 0 20px 50px rgba(31, 56, 100, 0.12);
+	}
+
+	.age-icon {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 20px;
+	}
+	.age-icon span {
+		width: 72px;
+		height: 72px;
+		border-radius: 50%;
+		background: var(--off-white);
+		color: var(--navy);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.age-card h3 {
+		font-family: var(--font-display);
+		font-size: 1.7rem;
+		font-weight: 400;
+		line-height: 1.1;
+		color: var(--navy);
+		margin: 0 0 4px;
+	}
+
+	.age-card p {
+		font-size: 0.88rem;
+		color: rgba(45, 45, 45, 0.72);
 		margin: 0;
-		padding: 0;
+	}
+
+	.packages {
+		padding: 100px 24px 110px;
+	}
+
+	@media (max-width: 900px) {
+		.split {
+			grid-template-columns: 1fr;
+			gap: 24px;
+			text-align: center;
+		}
+		.ages-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 600px) {
+		.approach {
+			padding: 32px 20px 72px;
+		}
+		.ages {
+			padding: 0 20px 72px;
+		}
+		.ages-grid {
+			gap: 16px;
+		}
+		.age-card {
+			padding: 28px 16px;
+		}
+		.packages {
+			padding: 72px 20px;
+		}
 	}
 </style>

@@ -1,4 +1,5 @@
 ---
+import Icon, { type IconName } from './Icon.astro';
 import ServiceCard from './ServiceCard.astro';
 import {
 	SERVICE_CATEGORIES,
@@ -15,30 +16,100 @@ interface Props {
 const { category, showHeading = true } = Astro.props;
 const packages = await getPackagesByCategory(category);
 const { label } = SERVICE_CATEGORIES[category];
+
+const HEADING_ICONS: Record<
+	ServiceCategory,
+	{ name: IconName; color: string; background: string }
+> = {
+	sleep: {
+		name: 'moon-star',
+		color: 'var(--navy)',
+		background: 'var(--celeste)',
+	},
+	doula: {
+		name: 'heart',
+		color: 'var(--pesca)',
+		background: 'var(--rosa-cipria)',
+	},
+};
+const headingIcon = HEADING_ICONS[category];
+
+// Cards reveal left to right within each row of three
+const COLUMNS = 3;
+const STAGGER_MS = 120;
 ---
 
 <section class="service-group" id={category} aria-label={label}>
-	{showHeading && <h3 class="group-heading">{label}</h3>}
+	{showHeading && (
+		<div class="group-heading" data-reveal="left">
+			<span
+				class="group-icon"
+				style={`color:${headingIcon.color};background:${headingIcon.background}`}
+			>
+				<Icon name={headingIcon.name} size={23} />
+			</span>
+			<h3>{label}</h3>
+		</div>
+	)}
 	<div class="packages-grid">
-		{packages.map((pkg) => (
-			<ServiceCard pkg={pkg} />
+		{packages.map((pkg, i) => (
+			<ServiceCard pkg={pkg} revealDelay={(i % COLUMNS) * STAGGER_MS} />
 		))}
 	</div>
 </section>
 
 <style>
 	.service-group {
-		margin-bottom: 64px;
+		margin-bottom: 72px;
 		scroll-margin-top: 96px; /* keeps #sleep / #doula below the sticky header */
 	}
 
 	.group-heading {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		margin: 0 0 36px;
+		padding-bottom: 18px;
+		border-bottom: 1px solid rgba(31, 56, 100, 0.12);
+	}
+
+	.group-icon {
+		width: 52px;
+		height: 52px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	h3 {
 		font-family: var(--font-display);
-		font-size: 1.6rem;
-		font-weight: 600;
+		font-size: 2.2rem;
+		font-weight: 400;
+		line-height: 1;
 		color: var(--navy);
-		margin: 0 0 32px;
-		padding-bottom: 12px;
-		border-bottom: 1px solid rgba(90, 122, 130, 0.2);
+		margin: 0;
+	}
+
+	.packages-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 28px;
+		align-items: stretch;
+	}
+
+	@media (max-width: 1100px) {
+		.packages-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 768px) {
+		.packages-grid {
+			grid-template-columns: minmax(0, 1fr);
+			max-width: 480px;
+			margin: 0 auto;
+		}
 	}
 </style>

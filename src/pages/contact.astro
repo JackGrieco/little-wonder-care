@@ -1,357 +1,234 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { CONTACT_EMAIL } from '../consts';
+import MainLayout from '../layouts/MainLayout.astro';
+import Cloud from '../components/Cloud.astro';
+import ContactForm from '../components/ContactForm.astro';
+import CtaBand from '../components/CtaBand.astro';
 import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
+import Dot from '../components/Dot.astro';
+import Icon, { type IconName } from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import { CONTACT_EMAIL } from '../consts';
+
+interface ContactItem {
+	icon: IconName;
+	label: string;
+	value: string[];
+	href?: string;
+}
+
+const CONTACT_ITEMS: ContactItem[] = [
+	{
+		icon: 'mail',
+		label: 'Email',
+		value: [CONTACT_EMAIL],
+		href: `mailto:${CONTACT_EMAIL}`,
+	},
+	{
+		icon: 'map-pin',
+		label: 'Service Area',
+		value: ['Waco, TX & surrounding areas (in-home)', 'Nationwide (virtual)'],
+	},
+	{
+		icon: 'clock',
+		label: 'Response Time',
+		value: ['I typically respond within 24 hours'],
+	},
+	// TODO: real Instagram URL still to come from Silvia
+	{
+		icon: 'instagram',
+		label: 'Instagram',
+		value: ['@littlewondercare'],
+		href: '#',
+	},
+];
+
+const ITEM_STAGGER_MS = 100;
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead
-			title="Contact — Little Wonder Care"
-			description="Get in touch with Silvia for postpartum doula and sleep consulting support. Serving Waco, TX and families nationwide."
-		/>
-	</head>
-	<body>
-		<Header />
+<MainLayout
+	title="Contact — Little Wonder Care"
+	description="Get in touch with Silvia for postpartum doula and sleep consulting support. Serving Waco, TX and families nationwide."
+>
+	<PageHero
+		eyebrow="Let's Connect"
+		title="Get in Touch"
+		subtitle="Have a question or ready to start? I'd love to hear from you."
+		background="var(--celeste)"
+	>
+		<Fragment slot="decor">
+			<Cloud
+				width={170}
+				opacity={0.55}
+				duration="22s"
+				style="top:60px;left:5%"
+			/>
+			<Cloud width={140} duration="26s" delay="-6s" style="top:40px;right:7%" />
+			<Dot size={18} color="var(--pesca)" style="top:42%;left:16%" />
+			<Dot
+				size={12}
+				color="var(--navy)"
+				opacity={0.5}
+				duration="7s"
+				delay="-2s"
+				style="top:30%;right:18%"
+			/>
+		</Fragment>
+	</PageHero>
 
-		<main>
-			<!-- Page Hero -->
-			<div class="page-hero bg-crema">
-				<p class="eyebrow">Let's Connect</p>
-				<h1>Get in Touch</h1>
-				<p class="subtitle">
-					Have a question or ready to start? I'd love to hear from you.
-				</p>
-			</div>
+	<section class="contact">
+		<div class="contact-grid">
+			<ContactForm />
 
-			<!-- Contact Two-Column Layout -->
-			<div class="section">
-				<div class="section-inner">
-					<div class="contact-grid">
-						<!-- LEFT: Contact Form -->
-						<div>
-							<h2 class="contact-col-heading">Send a Message</h2>
-							<form
-								class="contact-form"
-								action="https://formspree.io/f/PLACEHOLDER"
-								method="POST"
-							>
-								<div class="form-field">
-									<label for="c-name">Your Name</label>
-									<input
-										type="text"
-										id="c-name"
-										name="name"
-										placeholder="Jane Smith"
-										required
-									/>
-								</div>
-								<div class="form-field">
-									<label for="c-email">Email Address</label>
-									<input
-										type="email"
-										id="c-email"
-										name="email"
-										placeholder="jane@email.com"
-										required
-									/>
-								</div>
-								<div class="form-field">
-									<label for="c-subject">Subject</label>
-									<select id="c-subject" name="subject" required>
-										<option value="" disabled selected>
-											Select a topic…
-										</option>
-										<option value="General Question">General Question</option>
-										<option value="Postpartum Doula">Postpartum Doula</option>
-										<option value="Sleep Consulting">Sleep Consulting</option>
-										<option value="Other">Other</option>
-									</select>
-								</div>
-								<div class="form-field">
-									<label for="c-message">Message</label>
-									<textarea
-										id="c-message"
-										name="message"
-										placeholder="Tell me a little about where you are in your journey…"
-										rows="6"
-										required
-									></textarea>
-								</div>
-								<button type="submit" class="contact-submit">
-									Send Message
-								</button>
-							</form>
-						</div>
+			<div class="side">
+				<!-- Free discovery call: Silvia wants it highly visible next to the form -->
+				<div class="talk-card" data-reveal="right" data-delay="100">
+					<span class="talk-circle anim-breathe" aria-hidden="true"></span>
+					<div class="talk-content">
+						<h2>Prefer to Talk?</h2>
+						<p>
+							Book a free 15-minute discovery call. No pressure, just a
+							conversation.
+						</p>
+						<DiscoveryCallButton variant="btn-dark" />
+					</div>
+				</div>
 
-						<!-- RIGHT: Contact Info Card -->
-						<div>
-							<div class="discovery-card">
-								<h2 class="contact-col-heading">Prefer to Talk?</h2>
-								<p>
-									Book a free 15-minute discovery call. No pressure, just a
-									conversation.
-								</p>
-								<DiscoveryCallButton />
-							</div>
-
-							<h2 class="contact-col-heading">Contact Info</h2>
-							<div class="contact-info-card">
-								<div class="contact-info-item">
-									<div class="contact-info-icon">
-										<svg
-											width="18"
-											height="18"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-										>
-											<rect x="2" y="4" width="20" height="16" rx="2" />
-											<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-										</svg>
-									</div>
-									<div>
-										<p class="contact-info-label">Email</p>
-										<a
-											href={`mailto:${CONTACT_EMAIL}`}
-											class="contact-info-value"
-										>
-											{CONTACT_EMAIL}
-										</a>
-									</div>
-								</div>
-
-								<div class="contact-info-item">
-									<div class="contact-info-icon">
-										<svg
-											width="18"
-											height="18"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-										>
-											<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-											<circle cx="12" cy="10" r="3" />
-										</svg>
-									</div>
-									<div>
-										<p class="contact-info-label">Service Area</p>
-										<p class="contact-info-value">
-											Waco, TX &amp; surrounding areas (in-home)
-											<br />
-											Nationwide (virtual)
-										</p>
-									</div>
-								</div>
-
-								<div class="contact-info-item">
-									<div class="contact-info-icon">
-										<svg
-											width="18"
-											height="18"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-										>
-											<circle cx="12" cy="12" r="10" />
-											<polyline points="12 6 12 12 16 14" />
-										</svg>
-									</div>
-									<div>
-										<p class="contact-info-label">Response Time</p>
-										<p class="contact-info-value">
-											I typically respond within 24 hours
-										</p>
-									</div>
-								</div>
-
-								<div class="contact-info-item">
-									<div class="contact-info-icon">
-										<svg
-											width="18"
-											height="18"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-										>
-											<rect x="2" y="2" width="20" height="20" rx="5" />
-											<circle cx="12" cy="12" r="5" />
-											<circle
-												cx="17.5"
-												cy="6.5"
-												r="1.5"
-												fill="currentColor"
-												stroke="none"
-											/>
-										</svg>
-									</div>
-									<div>
-										<p class="contact-info-label">Instagram</p>
-										<a href="#" class="contact-info-value">
-											@littlewondercare
-										</a>
-									</div>
-								</div>
-
-								<div class="contact-note">
-									Not ready to send a message yet?
-									<br />
-									<a href="/services">Browse the services →</a>
-								</div>
+				<div class="info-card">
+					<h2 data-reveal="up">Contact Info</h2>
+					{CONTACT_ITEMS.map((item, i) => (
+						<div
+							class="info-item"
+							data-reveal="up"
+							data-delay={i * ITEM_STAGGER_MS}
+						>
+							<span class="info-icon">
+								<Icon name={item.icon} size={20} />
+							</span>
+							<div>
+								<p class="info-label">{item.label}</p>
+								{item.href ? (
+									<a href={item.href} class="info-value">
+										{item.value[0]}
+									</a>
+								) : (
+									<p class="info-value">
+										{item.value.map((line, j) => (
+											<>
+												{j > 0 && <br />}
+												{line}
+											</>
+										))}
+									</p>
+								)}
 							</div>
 						</div>
+					))}
+					<div class="info-note">
+						Not ready to send a message yet?
+						<br />
+						<a href="/services">Browse the services →</a>
 					</div>
 				</div>
 			</div>
+		</div>
+	</section>
 
-			<!-- CTA Band -->
-			<section class="cta-band">
-				<h2>Not Sure Which Service Is Right for You?</h2>
-				<p>
-					A free 15-minute discovery call is the easiest way to find out. No
-					pressure, just a conversation.
-				</p>
-				<DiscoveryCallButton variant="btn-cta-light" />
-			</section>
-		</main>
-
-		<Footer />
-	</body>
-</html>
+	<CtaBand
+		title="Not Sure Which Service Is Right for You?"
+		text="A free 15-minute discovery call is the easiest way to find out. No pressure, just a conversation."
+	/>
+</MainLayout>
 
 <style>
-	main {
-		width: 100%;
-		max-width: 100%;
-		margin: 0;
-		padding: 0;
+	.contact {
+		padding: 40px 24px 110px;
 	}
 
 	.contact-grid {
+		max-width: var(--max-width);
+		margin: 0 auto;
 		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 64px;
+		grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+		gap: 48px;
 		align-items: start;
 	}
 
-	.contact-col-heading {
-		font-family: var(--font-display);
-		font-size: 1.5rem;
-		font-weight: 600;
-		color: var(--navy);
-		margin-bottom: 24px;
-	}
-
-	/* Form */
-	.contact-form .form-field {
-		margin-bottom: 20px;
-	}
-
-	.contact-form .form-field label {
-		display: block;
-		font-size: 0.82rem;
-		font-weight: 600;
-		color: var(--charcoal);
-		margin-bottom: 6px;
-	}
-
-	.contact-form input,
-	.contact-form select,
-	.contact-form textarea {
-		width: 100%;
-		padding: 12px 16px;
-		border: 1px solid rgba(183, 201, 206, 0.5);
-		border-radius: 12px;
-		font-size: 0.92rem;
-		font-family: var(--font-sans);
-		background: var(--off-white);
-		color: var(--charcoal);
-		outline: none;
-		transition: border-color 0.2s;
-		-webkit-appearance: none;
-		appearance: none;
-	}
-
-	.contact-form select {
-		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a7a82' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-		background-repeat: no-repeat;
-		background-position: right 16px center;
-		padding-right: 40px;
-	}
-
-	.contact-form input:focus,
-	.contact-form select:focus,
-	.contact-form textarea:focus {
-		border-color: var(--celeste);
-		box-shadow: 0 0 0 3px rgba(183, 201, 206, 0.2);
-	}
-
-	.contact-form textarea {
-		resize: vertical;
-		min-height: 140px;
-	}
-
-	.contact-submit {
-		display: inline-block;
-		background: var(--pesca);
-		color: var(--navy);
-		border: none;
-		padding: 14px 36px;
-		border-radius: 50px;
-		font-size: 0.95rem;
-		font-weight: 600;
-		font-family: var(--font-sans);
-		letter-spacing: 0.02em;
-		cursor: pointer;
-		transition:
-			background 0.2s,
-			transform 0.15s;
-		box-shadow: 0 4px 16px rgba(232, 153, 132, 0.25);
-	}
-
-	.contact-submit:hover {
-		background: var(--navy);
-		transform: translateY(-2px);
-		color: #fff !important;
-	}
-
-	/* Info card */
-	.contact-info-card {
-		background: #fff;
-		border-radius: 20px;
-		padding: 36px 32px;
-		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+	.side {
 		display: flex;
 		flex-direction: column;
 		gap: 28px;
 	}
 
-	.contact-info-item {
+	h2 {
+		font-family: var(--font-display);
+		font-size: 2rem;
+		font-weight: 400;
+		line-height: 1.1;
+		color: var(--navy);
+		margin: 0;
+	}
+
+	.talk-card {
+		position: relative;
+		overflow: hidden;
+		background: var(--crema);
+		border-radius: 28px;
+		padding: 36px;
+	}
+
+	.talk-circle {
+		position: absolute;
+		right: -40px;
+		top: -40px;
+		width: 130px;
+		height: 130px;
+		border-radius: 50%;
+		background: var(--rosa-cipria);
+		opacity: 0.7;
+	}
+
+	.talk-content {
+		position: relative;
+	}
+	.talk-content h2 {
+		margin-bottom: 8px;
+	}
+	.talk-content p {
+		font-size: 0.94rem;
+		color: var(--charcoal);
+		line-height: 1.6;
+		margin: 0 0 22px;
+	}
+
+	.info-card {
+		background: #fff;
+		border-radius: 28px;
+		padding: 36px;
+		box-shadow: 0 10px 40px rgba(31, 56, 100, 0.06);
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+
+	.info-item {
 		display: flex;
 		gap: 16px;
 		align-items: flex-start;
 	}
 
-	.contact-info-icon {
-		width: 40px;
-		height: 40px;
+	.info-icon {
+		width: 44px;
+		height: 44px;
 		border-radius: 50%;
-		background: rgba(183, 201, 206, 0.25);
+		background: rgba(183, 201, 206, 0.35);
+		color: var(--navy);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: var(--navy);
 		flex-shrink: 0;
 	}
 
-	.contact-info-label {
+	.info-label {
 		font-size: 0.72rem;
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
@@ -360,55 +237,48 @@ import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 		margin: 0 0 4px;
 	}
 
-	.contact-info-value {
-		font-size: 0.92rem;
+	.info-value {
+		font-size: 0.94rem;
 		color: var(--charcoal);
 		line-height: 1.55;
 		margin: 0;
 		text-decoration: none;
+		overflow-wrap: anywhere;
 	}
-
-	a.contact-info-value:hover {
+	a.info-value:hover {
 		color: var(--pesca);
 	}
 
-	/* Free discovery call: Silvia wants it highly visible next to the form */
-	.discovery-card {
-		background: var(--crema);
-		border-radius: 16px;
-		padding: 28px;
-		margin-bottom: 40px;
-	}
-
-	.discovery-card .contact-col-heading {
-		margin-bottom: 8px;
-	}
-
-	.discovery-card p {
-		font-size: 0.92rem;
-		color: var(--charcoal);
+	.info-note {
+		font-size: 0.86rem;
+		color: rgba(45, 45, 45, 0.65);
 		line-height: 1.6;
-		margin: 0 0 20px;
-	}
-
-	.contact-note {
-		font-size: 0.85rem;
-		color: rgba(45, 45, 45, 0.55);
-		line-height: 1.6;
-		border-top: 1px solid rgba(183, 201, 206, 0.3);
+		border-top: 1px solid rgba(183, 201, 206, 0.4);
 		padding-top: 20px;
-		margin-top: -4px;
 	}
-
-	.contact-note a {
+	.info-note a {
 		color: var(--navy);
-		font-weight: 500;
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.info-note a:hover {
+		color: var(--pesca);
 	}
 
-	@media (max-width: 760px) {
+	@media (max-width: 900px) {
 		.contact-grid {
-			grid-template-columns: 1fr;
-			gap: 40px;
+			grid-template-columns: minmax(0, 1fr);
+			max-width: 600px;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.contact {
+			padding: 24px 20px 72px;
+		}
+		.talk-card,
+		.info-card {
+			padding: 28px 24px;
 		}
 	}
 </style>

@@ -1,0 +1,14 @@
+---
+// Centered eyebrow + Caveat title that opens most sections.
+interface Props {
+	eyebrow: string;
+	title: string;
+}
+
+const { eyebrow, title } = Astro.props;
+---
+
+<div class="section-header" data-reveal="up">
+	<p class="section-eyebrow">{eyebrow}</p>
+	<h2 class="section-title">{title}</h2>
+</div>

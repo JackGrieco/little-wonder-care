@@ -1,71 +1,122 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import Cloud from '../components/Cloud.astro';
+import CtaBand from '../components/CtaBand.astro';
 import DiscoveryCallCard from '../components/DiscoveryCallCard.astro';
+import Dot from '../components/Dot.astro';
+import Icon from '../components/Icon.astro';
 import PackagesSection from '../components/PackagesSection.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead
-			title="Services & Packages — Little Wonder Care"
-			description="Gentle sleep coaching and postpartum doula services. Find the right support package for your family."
-		/>
-	</head>
-	<body>
-		<Header />
+<MainLayout
+	title="Services & Packages — Little Wonder Care"
+	description="Gentle sleep coaching and postpartum doula services. Find the right support package for your family."
+>
+	<PageHero
+		eyebrow="Services & Packages"
+		title="Find the Right Support for Your Family"
+		subtitle="Whether you need help with sleep, postpartum recovery, or just someone to talk to — I'm here. Choose the option that fits your needs."
+		background="var(--crema)"
+	>
+		<Fragment slot="decor">
+			<Cloud
+				width={170}
+				color="var(--celeste)"
+				duration="22s"
+				style="top:60px;left:5%"
+			/>
+			<Cloud
+				width={140}
+				color="var(--rosa-cipria)"
+				opacity={0.7}
+				duration="26s"
+				delay="-6s"
+				style="top:40px;right:7%"
+			/>
+			<Dot size={18} color="var(--pesca)" style="top:42%;left:16%" />
+			<Dot
+				size={12}
+				color="var(--navy)"
+				opacity={0.5}
+				duration="7s"
+				delay="-2s"
+				style="top:30%;right:18%"
+			/>
+		</Fragment>
 
-		<main>
-			<!-- Page Hero -->
-			<div class="page-hero bg-crema">
-				<p class="eyebrow">Services &amp; Packages</p>
-				<h1>Find the Right Support for Your Family</h1>
-				<p class="subtitle">
-					Whether you need help with sleep, postpartum recovery, or just someone
-					to talk to — I'm here. Choose the option that fits your needs.
-				</p>
-			</div>
+		<nav
+			class="jump-links anim-fade-up"
+			style="--anim-delay:0.5s"
+			aria-label="Jump to a service"
+		>
+			<a href="#sleep">
+				<Icon name="moon-star" size={16} /> Sleep Consulting
+			</a>
+			<a href="#doula">
+				<Icon name="heart" size={16} class="heart" /> Postpartum Doula
+			</a>
+		</nav>
+	</PageHero>
 
-			<!-- Packages: sleep, doula, then the free discovery call -->
-			<div class="section">
-				<div class="section-inner">
-					<div class="section-header">
-						<p class="section-eyebrow">Packages</p>
-						<h2 class="section-title">Services &amp; Pricing</h2>
-					</div>
+	<!-- Packages: sleep, doula, then the free discovery call -->
+	<section class="packages">
+		<div class="section-inner">
+			<SectionHeader eyebrow="Packages" title="Services & Pricing" />
+			<PackagesSection category="sleep" />
+			<PackagesSection category="doula" />
+			<DiscoveryCallCard />
+		</div>
+	</section>
 
-					<PackagesSection category="sleep" />
-					<PackagesSection category="doula" />
-					<DiscoveryCallCard />
-				</div>
-			</div>
-
-			<!-- CTA Band -->
-			<section class="cta-band">
-				<h2>Ready to Take the First Step?</h2>
-				<p>
-					Book a free 15-minute call. Let's talk about your needs and find the
-					right solution for your family.
-				</p>
-				<DiscoveryCallButton
-					variant="btn-cta-light"
-					label="Book Your Free Call"
-				/>
-			</section>
-		</main>
-
-		<Footer />
-	</body>
-</html>
+	<CtaBand
+		title="Ready to Take the First Step?"
+		text="Book a free 15-minute call. Let's talk about your needs and find the right solution for your family."
+		buttonLabel="Book Your Free Call"
+	/>
+</MainLayout>
 
 <style>
-	main {
-		width: 100%;
-		max-width: 100%;
-		margin: 0;
-		padding: 0;
+	.jump-links {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin-top: 32px;
+	}
+
+	.jump-links a {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		background: var(--off-white);
+		color: var(--navy);
+		padding: 10px 20px;
+		border-radius: 50px;
+		text-decoration: none;
+		font-size: 0.85rem;
+		font-weight: 600;
+		transition:
+			transform 0.3s,
+			box-shadow 0.3s;
+	}
+	.jump-links a:hover {
+		color: var(--navy);
+		transform: translateY(-2px);
+		box-shadow: 0 8px 20px rgba(31, 56, 100, 0.1);
+	}
+	.jump-links :global(.heart) {
+		color: var(--pesca);
+	}
+
+	.packages {
+		padding: 60px 24px 110px;
+	}
+
+	@media (max-width: 600px) {
+		.packages {
+			padding: 40px 20px 72px;
+		}
 	}
 </style>

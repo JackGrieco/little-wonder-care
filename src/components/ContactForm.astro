@@ -1,0 +1,282 @@
+---
+// Contact form card. Without JS it is a plain POST to Formspree; with JS it
+// submits in the background and swaps to a thank-you panel (or shows an error).
+import Icon from './Icon.astro';
+import { CONTACT_EMAIL } from '../consts';
+
+// TODO: replace PLACEHOLDER with the real Formspree form ID (see ROADMAP.md)
+const FORM_ACTION = 'https://formspree.io/f/PLACEHOLDER';
+---
+
+<div class="form-card" data-reveal="up">
+	<div class="form-view" data-form-view>
+		<h2>Send a Message</h2>
+		<form class="contact-form" action={FORM_ACTION} method="POST">
+			<label>
+				<span>Your Name</span>
+				<input type="text" name="name" placeholder="Jane Smith" required />
+			</label>
+			<label>
+				<span>Email Address</span>
+				<input
+					type="email"
+					name="email"
+					placeholder="jane@email.com"
+					required
+				/>
+			</label>
+			<label>
+				<span>Subject</span>
+				<select name="subject" required>
+					<option value="" disabled selected>
+						Select a topic…
+					</option>
+					<option value="General Question">General Question</option>
+					<option value="Postpartum Doula">Postpartum Doula</option>
+					<option value="Sleep Consulting">Sleep Consulting</option>
+					<option value="Other">Other</option>
+				</select>
+			</label>
+			<label>
+				<span>Message</span>
+				<textarea
+					name="message"
+					rows="6"
+					placeholder="Tell me a little about where you are in your journey…"
+					required
+				></textarea>
+			</label>
+			<p class="form-error" role="alert" data-form-error hidden>
+				Sorry, your message couldn't be sent. Please try again, or email me at
+				<a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+			</p>
+			<div>
+				<button type="submit" class="btn-cta submit">
+					<span data-submit-label>Send Message</span>
+					<Icon name="send" size={16} />
+				</button>
+			</div>
+		</form>
+	</div>
+
+	<div class="success-view" data-success-view hidden>
+		<div class="success-icon anim-float" style="--anim-dur:5s">
+			<span>
+				<Icon name="heart" size={43} />
+			</span>
+		</div>
+		<h2 tabindex="-1" data-success-heading>
+			Thank you!
+		</h2>
+		<p>Your message is on its way. I typically respond within 24 hours.</p>
+		<button type="button" class="btn-outline" data-send-another>
+			Send another message
+		</button>
+	</div>
+</div>
+
+<style>
+	.form-card {
+		position: relative;
+		overflow: hidden;
+		background: #fff;
+		border-radius: 32px;
+		padding: 48px 44px;
+		box-shadow: 0 10px 40px rgba(31, 56, 100, 0.06);
+	}
+
+	h2 {
+		font-family: var(--font-display);
+		font-size: 2.2rem;
+		font-weight: 400;
+		line-height: 1.1;
+		color: var(--navy);
+		margin: 0 0 28px;
+	}
+
+	.contact-form {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	label {
+		display: block;
+	}
+	label > span {
+		display: block;
+		font-size: 0.82rem;
+		font-weight: 600;
+		color: var(--charcoal);
+		margin-bottom: 6px;
+	}
+
+	input,
+	select,
+	textarea {
+		width: 100%;
+		padding: 13px 18px;
+		border: 1.5px solid rgba(183, 201, 206, 0.6);
+		border-radius: 14px;
+		font-size: 0.92rem;
+		font-family: inherit;
+		background-color: var(--off-white);
+		color: var(--charcoal);
+		outline: none;
+		-webkit-appearance: none;
+		appearance: none;
+		transition:
+			border-color 0.25s,
+			box-shadow 0.25s,
+			background-color 0.25s;
+	}
+	input:focus,
+	select:focus,
+	textarea:focus {
+		border-color: var(--celeste);
+		background-color: #fff;
+		box-shadow: 0 0 0 4px rgba(183, 201, 207, 0.3);
+	}
+
+	select {
+		padding-right: 40px;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231f3864' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: right 18px center;
+	}
+
+	textarea {
+		resize: vertical;
+		min-height: 140px;
+	}
+
+	.submit {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		padding: 15px 36px;
+	}
+	.submit:disabled {
+		opacity: 0.7;
+		cursor: wait;
+		transform: none;
+	}
+
+	.form-error {
+		margin: 0;
+		padding: 12px 16px;
+		border-radius: 14px;
+		background: rgba(246, 212, 219, 0.5);
+		color: var(--rosa-scuro);
+		font-size: 0.88rem;
+		line-height: 1.55;
+	}
+	.form-error a {
+		color: inherit;
+		font-weight: 600;
+	}
+
+	.success-view {
+		text-align: center;
+		padding: 48px 0;
+		animation: lwcFadeUp 0.7s ease-out both;
+	}
+	.success-icon {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 24px;
+	}
+	.success-icon span {
+		width: 96px;
+		height: 96px;
+		border-radius: 50%;
+		background: var(--rosa-cipria);
+		color: var(--pesca);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.success-view h2 {
+		font-size: 2.4rem;
+		margin-bottom: 10px;
+	}
+	.success-view h2:focus {
+		outline: none;
+	}
+	.success-view p {
+		font-size: 0.98rem;
+		line-height: 1.65;
+		color: rgba(45, 45, 45, 0.78);
+		max-width: 340px;
+		margin: 0 auto 28px;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.success-view {
+			animation: none;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.form-card {
+			padding: 36px 24px;
+		}
+	}
+</style>
+
+<script>
+	type FormState = 'idle' | 'submitting' | 'success' | 'error';
+
+	const form = document.querySelector<HTMLFormElement>('.contact-form');
+	const formView = document.querySelector<HTMLElement>('[data-form-view]');
+	const successView = document.querySelector<HTMLElement>(
+		'[data-success-view]',
+	);
+	const errorMessage = document.querySelector<HTMLElement>('[data-form-error]');
+	const submitButton = form?.querySelector<HTMLButtonElement>(
+		'button[type="submit"]',
+	);
+	const submitLabel = form?.querySelector<HTMLElement>('[data-submit-label]');
+
+	function setState(state: FormState) {
+		if (!formView || !successView || !errorMessage) return;
+		formView.hidden = state === 'success';
+		successView.hidden = state !== 'success';
+		errorMessage.hidden = state !== 'error';
+		if (submitButton) submitButton.disabled = state === 'submitting';
+		if (submitLabel) {
+			submitLabel.textContent =
+				state === 'submitting' ? 'Sending…' : 'Send Message';
+		}
+		if (state === 'success') {
+			successView.querySelector<HTMLElement>('[data-success-heading]')?.focus();
+		}
+	}
+
+	form?.addEventListener('submit', async (event) => {
+		event.preventDefault();
+		setState('submitting');
+		try {
+			const response = await fetch(form.action, {
+				method: 'POST',
+				body: new FormData(form),
+				headers: { Accept: 'application/json' },
+			});
+			if (!response.ok) {
+				throw new Error(`Form endpoint answered ${response.status}`);
+			}
+			form.reset();
+			setState('success');
+		} catch (error: unknown) {
+			console.error('[contact] message not sent', error);
+			setState('error');
+		}
+	});
+
+	document
+		.querySelector('[data-send-another]')
+		?.addEventListener('click', () => {
+			setState('idle');
+			form?.querySelector<HTMLInputElement>('input')?.focus();
+		});
+</script>

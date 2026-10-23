@@ -1,0 +1,194 @@
+---
+// "How it works" block: title and a cluster of soft circles on the left,
+// numbered steps on a vertical line (which grows on scroll) on the right.
+interface Step {
+	title: string;
+	text: string;
+}
+
+interface Props {
+	eyebrow: string;
+	title: string;
+	steps: readonly Step[];
+}
+
+const { eyebrow, title, steps } = Astro.props;
+
+const FIRST_STEP_DELAY_MS = 200;
+const STEP_STAGGER_MS = 230;
+---
+
+<section class="timeline-section">
+	<div class="timeline-grid">
+		<div data-reveal="left">
+			<p class="section-eyebrow">{eyebrow}</p>
+			<h2 class="timeline-title">{title}</h2>
+			<div class="blobs" aria-hidden="true">
+				<span class="blob blob-sky anim-breathe" style="--anim-dur:8s"></span>
+				<span
+					class="blob blob-blush anim-float"
+					style="--anim-dur:7s;--anim-delay:-2s"
+				></span>
+				<span
+					class="blob blob-peach anim-float"
+					style="--anim-dur:9s;--anim-delay:-4s"
+				></span>
+			</div>
+		</div>
+
+		<div class="steps-wrap">
+			<div class="line" data-reveal="growY" aria-hidden="true"></div>
+			<ol class="steps">
+				{steps.map((step, i) => (
+					<li
+						class="step"
+						data-reveal="up"
+						data-delay={FIRST_STEP_DELAY_MS + i * STEP_STAGGER_MS}
+					>
+						<span class:list={['number', { last: i === steps.length - 1 }]}>
+							{i + 1}
+						</span>
+						<h3>{step.title}</h3>
+						<p>{step.text}</p>
+					</li>
+				))}
+			</ol>
+		</div>
+	</div>
+</section>
+
+<style>
+	.timeline-section {
+		padding: 100px 24px;
+		background: var(--crema);
+	}
+
+	.timeline-grid {
+		max-width: var(--max-width);
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+		gap: 80px;
+		align-items: center;
+	}
+
+	.timeline-title {
+		font-family: var(--font-display);
+		font-size: 3.4rem;
+		font-weight: 400;
+		line-height: 1;
+		color: var(--navy);
+		margin: 0;
+	}
+
+	.blobs {
+		position: relative;
+		width: 250px;
+		height: 250px;
+		margin-top: 36px;
+	}
+	.blob {
+		position: absolute;
+		border-radius: 50%;
+	}
+	.blob-sky {
+		inset: 0;
+		background: var(--celeste);
+	}
+	.blob-blush {
+		right: -10px;
+		top: 20px;
+		width: 78px;
+		height: 78px;
+		background: var(--rosa-cipria);
+	}
+	.blob-peach {
+		left: 30px;
+		bottom: -6px;
+		width: 39px;
+		height: 39px;
+		background: var(--pesca);
+	}
+
+	.steps-wrap {
+		position: relative;
+		padding-left: 48px;
+	}
+
+	.steps {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.line {
+		position: absolute;
+		left: 27px;
+		top: 28px;
+		bottom: 28px;
+		width: 2px;
+		background: rgba(31, 56, 100, 0.15);
+	}
+
+	.step {
+		position: relative;
+		padding: 0 0 46px 36px;
+	}
+	.step:last-child {
+		padding-bottom: 0;
+	}
+
+	.number {
+		position: absolute;
+		left: -48px;
+		top: 0;
+		width: 56px;
+		height: 56px;
+		border-radius: 50%;
+		background: var(--navy);
+		color: var(--crema);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: var(--font-display);
+		font-size: 1.6rem;
+	}
+	.number.last {
+		background: var(--pesca);
+		color: var(--navy);
+	}
+
+	h3 {
+		font-family: var(--font-display);
+		font-size: 1.8rem;
+		font-weight: 400;
+		line-height: 1.2;
+		color: var(--navy);
+		margin: 0 0 8px;
+	}
+
+	p {
+		font-size: 0.95rem;
+		color: rgba(45, 45, 45, 0.75);
+		line-height: 1.65;
+		margin: 0;
+		max-width: 460px;
+	}
+
+	@media (max-width: 900px) {
+		.timeline-section {
+			padding: 80px 24px;
+		}
+		.timeline-grid {
+			grid-template-columns: 1fr;
+			gap: 48px;
+		}
+		.timeline-title {
+			font-size: 2.6rem;
+		}
+		/* The blob cluster is pure decoration: drop it when stacked */
+		.blobs {
+			display: none;
+		}
+	}
+</style>

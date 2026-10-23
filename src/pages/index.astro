@@ -1,726 +1,509 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
-import {
-	SITE_TITLE,
-	SITE_DESCRIPTION,
-	IS_BLOG_ENABLED,
-	IS_LEAD_MAGNET_ENABLED,
-} from '../consts';
+import MainLayout from '../layouts/MainLayout.astro';
+import Cloud from '../components/Cloud.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Dot from '../components/Dot.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import HeroLogo from '../components/HeroLogo.astro';
+import Scallop from '../components/Scallop.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Timeline from '../components/Timeline.astro';
+import { IS_BLOG_ENABLED, IS_LEAD_MAGNET_ENABLED } from '../consts';
 import { getFeaturedTestimonials } from '../lib/sanity';
 
 const testimonials = await getFeaturedTestimonials().catch(() => []);
+
+const TRUST_POINTS = [
+	'DONA Certified',
+	'GSC Program Certified',
+	'Waco, TX & Online',
+	'Gentle Approach',
+];
+
+const STEPS = [
+	{
+		title: 'Book a Free Call',
+		text: '15 minutes to get to know each other, understand your needs, and find the right path for you.',
+	},
+	{
+		title: 'Personalized Plan',
+		text: "I create a custom plan for your family, honoring your values and your baby's temperament.",
+	},
+	{
+		title: 'Support & Results',
+		text: 'I walk with you step by step with dedicated follow-ups until you feel confident and at peace.',
+	},
+];
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
+<MainLayout>
+	<!-- ===== HERO ===== -->
+	<section class="hero">
+		<Cloud width={180} opacity={0.55} duration="22s" style="top:70px;left:4%" />
+		<Cloud
+			width={120}
+			opacity={0.4}
+			duration="28s"
+			delay="-9s"
+			style="top:44%;right:44%"
+		/>
+		<Cloud
+			width={150}
+			color="var(--crema)"
+			duration="26s"
+			delay="-4s"
+			style="top:40px;right:6%"
+		/>
 
-		<main>
-			<!-- ===== HERO ===== -->
-			<section class="hero">
-				<div class="hero::before-circle"></div>
-				<div class="hero::after-circle"></div>
-				<div class="hero-inner">
-					<div class="hero-content">
-						<p class="hero-eyebrow">Postpartum doula · Gentle sleep coach</p>
-						<h1 class="hero-headline">
-							You're in good hands.
-							<br />
-							And so is your baby.
-						</h1>
-						<p class="hero-subtitle">
-							Gentle, professional support for your postpartum journey and your
-							baby's sleep. In Waco and online nationwide.
-						</p>
-						<a href="/contact" class="btn-cta">
-							Let's Talk
-						</a>
+		<div class="hero-inner">
+			<div class="hero-content">
+				<p class="hero-pill anim-fade-up" style="--anim-dur:0.8s">
+					Postpartum doula · Gentle sleep coach
+				</p>
+				<h1 class="hero-headline">
+					<span class="anim-fade-up" style="--anim-delay:0.15s">
+						You're in good hands.
+					</span>
+					<span class="anim-fade-up" style="--anim-delay:0.35s">
+						And so is your baby.
+					</span>
+				</h1>
+				<p class="hero-subtitle anim-fade-up" style="--anim-delay:0.55s">
+					Gentle, professional support for your postpartum journey and your
+					baby's sleep. In Waco and online nationwide.
+				</p>
+				<div class="hero-actions anim-fade-up" style="--anim-delay:0.7s">
+					<a href="/contact" class="btn-cta">
+						Let's Talk
+					</a>
+					<a href="/services" class="text-link">
+						See services
+					</a>
+				</div>
+			</div>
+			<div class="anim-fade-up" style="--anim-dur:1s;--anim-delay:0.3s">
+				<HeroLogo alt="Little Wonder Care" />
+			</div>
+		</div>
+
+		<Scallop size="lg" />
+	</section>
+
+	<!-- ===== TRUST PILLS ===== -->
+	<div class="trust-bar">
+		<ul class="trust-list">
+			{TRUST_POINTS.map((point, i) => (
+				<li class="trust-pill" data-reveal="up" data-delay={i * 100}>
+					{point}
+				</li>
+			))}
+		</ul>
+	</div>
+
+	<!-- ===== SERVICES ===== -->
+	<section class="services" id="services">
+		<SectionHeader eyebrow="What I Do" title="My Services" />
+		<div class="services-grid">
+			<FeatureCard
+				icon="moon-star"
+				title="Gentle Sleep Coaching"
+				text="A respectful, personalized approach to help your baby sleep better — no tears, no stress."
+				background="var(--celeste)"
+				href="/sleep-consulting"
+			/>
+			<FeatureCard
+				icon="heart"
+				title="Postpartum Support"
+				text="Reassuring, hands-on support in the early weeks after birth. Emotional care, newborn guidance, and practical help."
+				background="var(--crema)"
+				decorColor="rgba(183, 201, 207, 0.35)"
+				iconColor="var(--pesca)"
+				href="/postpartum-doula"
+				tilt="right"
+				revealDelay={150}
+			/>
+			<FeatureCard
+				icon="video"
+				title="Online Consultation"
+				text="A dedicated call to answer your questions about sleep, routines, and your baby's wellbeing. From anywhere."
+				background="var(--rosa-cipria)"
+				decorColor="rgba(232, 153, 132, 0.25)"
+				iconColor="var(--rosa-scuro)"
+				href="/services"
+				revealDelay={300}
+			/>
+		</div>
+	</section>
+
+	<!-- ===== HOW IT WORKS ===== -->
+	<Timeline eyebrow="How It Works" title="Three Simple Steps" steps={STEPS} />
+
+	<!-- ===== ABOUT PREVIEW ===== -->
+	<section class="about" id="about">
+		<div class="about-inner">
+			<div class="about-visual" data-reveal="scale" aria-hidden="true">
+				<span class="about-glow anim-breathe"></span>
+				<!-- Placeholder until Silvia's photo arrives -->
+				<span class="about-avatar">S</span>
+				<Dot
+					size={22}
+					color="var(--celeste)"
+					duration="5s"
+					style="top:30px;right:30px"
+				/>
+				<Dot
+					size={14}
+					color="var(--navy)"
+					opacity={0.5}
+					delay="-2s"
+					style="bottom:40px;left:24px"
+				/>
+			</div>
+			<div data-reveal="right" data-delay="150">
+				<h2 class="about-name">Silvia</h2>
+				<p class="about-role">Postpartum Doula · Gentle Sleep Coach</p>
+				<p class="about-bio">
+					I know what it means to wake up for the fifth time in one night and
+					feel completely alone. That's why I chose this work: to be the person
+					I wished I'd had by my side. No judgment, just real support.
+				</p>
+				<a href="/about" class="btn-outline about-button">
+					Meet Silvia
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- ===== TESTIMONIALS (Sanity) ===== -->
+	<section class="testimonials">
+		<SectionHeader eyebrow="Moms Say" title="Real Stories" />
+
+		<div class="testimonials-list" data-reveal="up" data-delay="150">
+			{testimonials.length > 0 ? (
+				testimonials.map((t) => (
+					<figure class="testimonial-card">
+						{t.rating && t.rating > 0 && (
+							<div
+								class="testimonial-stars"
+								aria-label={`${t.rating} out of 5 stars`}
+							>
+								{'★'.repeat(t.rating)}
+								{'☆'.repeat(5 - t.rating)}
+							</div>
+						)}
+						<blockquote class="testimonial-quote">{t.quote}</blockquote>
+						<figcaption>
+							<p class="testimonial-author">{t.name}</p>
+							{(t.serviceType || t.childAge) && (
+								<p class="testimonial-detail">
+									{[t.serviceType, t.childAge ? `· ${t.childAge}` : '']
+										.filter(Boolean)
+										.join(' ')}
+								</p>
+							)}
+						</figcaption>
+					</figure>
+				))
+			) : (
+				/* Fallback when no featured testimonials exist in Sanity yet */
+				<figure class="testimonial-card">
+					<blockquote class="testimonial-quote">
+						Silvia was my anchor in the early weeks. I didn't know what was
+						normal and what wasn't, and she was always there with calm and
+						confidence. My baby started sleeping better and I started feeling
+						like myself again.
+					</blockquote>
+					<figcaption>
+						<p class="testimonial-author">Maria R.</p>
+						<p class="testimonial-detail">Mom of Luca, 4 months</p>
+					</figcaption>
+				</figure>
+			)}
+		</div>
+
+		<div class="testimonials-more">
+			<a href="/testimonials" class="btn-outline">
+				Read All Stories
+			</a>
+		</div>
+	</section>
+
+	<!-- ===== BLOG PREVIEW ===== -->
+	{IS_BLOG_ENABLED && (
+		<section class="blog-preview" id="blog">
+			<div class="section-header">
+				<p class="section-eyebrow">From the Blog</p>
+				<h2 class="section-title">Resources for Parents</h2>
+			</div>
+			<div class="blog-grid">
+				<div class="blog-card">
+					<div class="blog-card-image">
+						<span>Sleep</span>
 					</div>
-					<div class="hero-visual">
-						<div class="hero-logo-circle">
-							<img src="/logo.png" alt="Little Wonder Care" />
-						</div>
+					<div class="blog-card-body">
+						<h3>
+							What Does a Postpartum Doula Do? Everything You Need to Know
+						</h3>
+						<p>
+							The complete guide to understanding how a doula can support you in
+							the early weeks.
+						</p>
 					</div>
 				</div>
-			</section>
-
-			<!-- ===== TRUST BAR ===== -->
-			<div class="trust-bar">
-				<div class="trust-bar-inner">
-					<div class="trust-item">
-						<div class="trust-dot"></div>DONA Certified
+				<div class="blog-card">
+					<div class="blog-card-image">
+						<span>Postpartum</span>
 					</div>
-					<div class="trust-item">
-						<div class="trust-dot"></div>GSC Program Certified
+					<div class="blog-card-body">
+						<h3>5 Signs Your Baby Is Ready for Sleep Training</h3>
+						<p>How to recognize the right time to start a sleep journey.</p>
 					</div>
-					<div class="trust-item">
-						<div class="trust-dot"></div>Waco, TX &amp; Online
+				</div>
+				<div class="blog-card">
+					<div class="blog-card-image">
+						<span>Guide</span>
 					</div>
-					<div class="trust-item">
-						<div class="trust-dot"></div>Gentle Approach
+					<div class="blog-card-body">
+						<h3>How to Survive the 4-Month Sleep Regression</h3>
+						<p>
+							Practical strategies to navigate one of the toughest moments of
+							the first year.
+						</p>
 					</div>
 				</div>
 			</div>
+			<div style="text-align:center; margin-top: 40px;">
+				<a href="/blog" class="btn-outline">
+					Read All Articles
+				</a>
+			</div>
+		</section>
+	)}
 
-			<!-- ===== SERVICES ===== -->
-			<section class="services" id="services">
-				<div class="section-header">
-					<p class="section-eyebrow">What I Do</p>
-					<h2 class="section-title">My Services</h2>
-				</div>
-				<div class="services-grid">
-					<div class="service-card">
-						<div class="service-dot"></div>
-						<h3>Gentle Sleep Coaching</h3>
-						<p>
-							A respectful, personalized approach to help your baby sleep better
-							— no tears, no stress.
-						</p>
-						<a href="/sleep-consulting" class="card-link">
-							Learn More →
-						</a>
-					</div>
-					<div class="service-card">
-						<div class="service-dot"></div>
-						<h3>Postpartum Support</h3>
-						<p>
-							Reassuring, hands-on support in the early weeks after birth.
-							Emotional care, newborn guidance, and practical help.
-						</p>
-						<a href="/postpartum-doula" class="card-link">
-							Learn More →
-						</a>
-					</div>
-					<div class="service-card">
-						<div class="service-dot"></div>
-						<h3>Online Consultation</h3>
-						<p>
-							A dedicated call to answer your questions about sleep, routines,
-							and your baby's wellbeing. From anywhere.
-						</p>
-						<a href="/services" class="card-link">
-							Learn More →
-						</a>
-					</div>
-				</div>
-			</section>
+	<!-- ===== LEAD MAGNET ===== -->
+	{IS_LEAD_MAGNET_ENABLED && (
+		<section class="lead-magnet">
+			<div class="lead-magnet-inner">
+				<h2 class="section-title">Free Newborn Sleep Guide</h2>
+				<p>Download the guide and get practical tips straight to your inbox.</p>
+				<form class="email-form" onsubmit="return false;">
+					<input
+						type="email"
+						placeholder="Your email address..."
+						aria-label="Email address"
+					/>
+					<button type="submit">Download</button>
+				</form>
+			</div>
+		</section>
+	)}
 
-			<!-- ===== HOW IT WORKS ===== -->
-			<section class="how-it-works">
-				<div class="section-header">
-					<p class="section-eyebrow">How It Works</p>
-					<h2 class="section-title">Three Simple Steps</h2>
-				</div>
-				<div class="steps">
-					<div class="step">
-						<div class="step-number">1</div>
-						<h3>Book a Free Call</h3>
-						<p>
-							15 minutes to get to know each other, understand your needs, and
-							find the right path for you.
-						</p>
-					</div>
-					<div class="step">
-						<div class="step-number">2</div>
-						<h3>Personalized Plan</h3>
-						<p>
-							I create a custom plan for your family, honoring your values and
-							your baby's temperament.
-						</p>
-					</div>
-					<div class="step">
-						<div class="step-number">3</div>
-						<h3>Support &amp; Results</h3>
-						<p>
-							I walk with you step by step with dedicated follow-ups until you
-							feel confident and at peace.
-						</p>
-					</div>
-				</div>
-			</section>
-
-			<!-- ===== ABOUT PREVIEW ===== -->
-			<section class="about" id="about">
-				<div class="about-inner">
-					<div class="about-avatar">S</div>
-					<h2 class="about-name">Silvia</h2>
-					<p class="about-role">Postpartum Doula · Gentle Sleep Coach</p>
-					<p class="about-bio">
-						I know what it means to wake up for the fifth time in one night and
-						feel completely alone. That's why I chose this work: to be the
-						person I wished I'd had by my side. No judgment, just real support.
-					</p>
-					<a href="/about" class="btn-cta-outline">
-						Meet Silvia
-					</a>
-				</div>
-			</section>
-
-			<!-- ===== TESTIMONIALS (Sanity) ===== -->
-			<section class="testimonials">
-				<div class="section-header">
-					<p class="section-eyebrow">Moms Say</p>
-					<h2 class="section-title">Real Stories</h2>
-				</div>
-
-				{testimonials.length > 0 ? (
-					<div class="testimonials-list">
-						{testimonials.map((t) => (
-							<div class="testimonial-card">
-								{t.rating && t.rating > 0 && (
-									<div
-										class="testimonial-stars"
-										aria-label={`${t.rating} out of 5 stars`}
-									>
-										{'★'.repeat(t.rating)}
-										{'☆'.repeat(5 - t.rating)}
-									</div>
-								)}
-								<p class="testimonial-quote">"{t.quote}"</p>
-								<p class="testimonial-author">{t.name}</p>
-								{(t.serviceType || t.childAge) && (
-									<p class="testimonial-detail">
-										{[t.serviceType, t.childAge ? `· ${t.childAge}` : '']
-											.filter(Boolean)
-											.join(' ')}
-									</p>
-								)}
-							</div>
-						))}
-					</div>
-				) : (
-					/* Fallback when no featured testimonials exist in Sanity yet */
-					<div class="testimonial-card">
-						<p class="testimonial-quote">
-							"Silvia was my anchor in the early weeks. I didn't know what was
-							normal and what wasn't, and she was always there with calm and
-							confidence. My baby started sleeping better and I started feeling
-							like myself again."
-						</p>
-						<p class="testimonial-author">Maria R.</p>
-						<p class="testimonial-detail">Mom of Luca, 4 months</p>
-					</div>
-				)}
-
-				<div style="text-align:center; margin-top: 40px;">
-					<a href="/testimonials" class="btn-cta-outline">
-						Read All Stories
-					</a>
-				</div>
-			</section>
-
-			<!-- ===== BLOG PREVIEW ===== -->
-			{IS_BLOG_ENABLED && (
-				<section class="blog-preview" id="blog">
-					<div class="section-header">
-						<p class="section-eyebrow">From the Blog</p>
-						<h2 class="section-title">Resources for Parents</h2>
-					</div>
-					<div class="blog-grid">
-						<div class="blog-card">
-							<div class="blog-card-image">
-								<span>Sleep</span>
-							</div>
-							<div class="blog-card-body">
-								<h3>
-									What Does a Postpartum Doula Do? Everything You Need to Know
-								</h3>
-								<p>
-									The complete guide to understanding how a doula can support
-									you in the early weeks.
-								</p>
-							</div>
-						</div>
-						<div class="blog-card">
-							<div class="blog-card-image">
-								<span>Postpartum</span>
-							</div>
-							<div class="blog-card-body">
-								<h3>5 Signs Your Baby Is Ready for Sleep Training</h3>
-								<p>How to recognize the right time to start a sleep journey.</p>
-							</div>
-						</div>
-						<div class="blog-card">
-							<div class="blog-card-image">
-								<span>Guide</span>
-							</div>
-							<div class="blog-card-body">
-								<h3>How to Survive the 4-Month Sleep Regression</h3>
-								<p>
-									Practical strategies to navigate one of the toughest moments
-									of the first year.
-								</p>
-							</div>
-						</div>
-					</div>
-					<div style="text-align:center; margin-top: 40px;">
-						<a href="/blog" class="btn-cta-outline">
-							Read All Articles
-						</a>
-					</div>
-				</section>
-			)}
-
-			<!-- ===== LEAD MAGNET ===== -->
-			{IS_LEAD_MAGNET_ENABLED && (
-				<section class="lead-magnet">
-					<div class="lead-magnet-inner">
-						<h2 class="section-title">Free Newborn Sleep Guide</h2>
-						<p>
-							Download the guide and get practical tips straight to your inbox.
-						</p>
-						<form class="email-form" onsubmit="return false;">
-							<input
-								type="email"
-								placeholder="Your email address..."
-								aria-label="Email address"
-							/>
-							<button type="submit">Download</button>
-						</form>
-					</div>
-				</section>
-			)}
-
-			<!-- ===== FINAL CTA BAND ===== -->
-			<section class="cta-band">
-				<h2>Ready to Take the First Step?</h2>
-				<p>
-					Book a free 15-minute call. Let's talk about your needs and find the
-					right solution for your family.
-				</p>
-				<DiscoveryCallButton
-					variant="btn-cta-light"
-					label="Book Your Free Call"
-				/>
-			</section>
-		</main>
-
-		<Footer />
-	</body>
-</html>
+	<!-- ===== FINAL CTA BAND ===== -->
+	<CtaBand
+		title="Ready to Take the First Step?"
+		text="Book a free 15-minute call. Let's talk about your needs and find the right solution for your family."
+		buttonLabel="Book Your Free Call"
+	/>
+</MainLayout>
 
 <style>
-	/* Reset for this page */
-	main {
-		width: 100%;
-		max-width: 100%;
-		margin: 0;
-		padding: 0;
-	}
-
 	/* ===== HERO ===== */
 	.hero {
-		background: var(--celeste);
-		padding: 80px 24px 100px;
 		position: relative;
 		overflow: hidden;
-	}
-
-	.hero::before {
-		content: '';
-		position: absolute;
-		width: 300px;
-		height: 300px;
-		border-radius: 50%;
-		background: rgba(237, 232, 222, 0.25);
-		top: -60px;
-		right: -80px;
-	}
-
-	.hero::after {
-		content: '';
-		position: absolute;
-		width: 200px;
-		height: 200px;
-		border-radius: 50%;
-		background: rgba(246, 212, 219, 0.2);
-		bottom: -40px;
-		left: 10%;
+		background: var(--celeste);
+		padding: 96px 24px 180px;
 	}
 
 	.hero-inner {
+		position: relative;
+		z-index: 1;
 		max-width: var(--max-width);
 		margin: 0 auto;
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1.1fr 1fr;
 		gap: 60px;
 		align-items: center;
-		position: relative;
-		z-index: 1;
 	}
 
 	.hero-content {
-		max-width: 520px;
-	}
-
-	.hero-eyebrow {
-		font-size: 0.72rem;
-		text-transform: uppercase;
-		letter-spacing: 0.14em;
-		color: var(--navy);
-		font-weight: 500;
-		margin-bottom: 16px;
+		max-width: 540px;
 	}
 
 	.hero-headline {
 		font-family: var(--font-display);
-		font-size: 2.8rem;
-		font-weight: 600;
-		line-height: 1.15;
+		font-size: 4rem;
+		font-weight: 400;
+		line-height: 1.05;
 		color: var(--navy);
-		margin-bottom: 20px;
-		letter-spacing: -0.01em;
+		margin: 0 0 24px;
+	}
+	.hero-headline span {
+		display: block;
 	}
 
 	.hero-subtitle {
-		font-size: 1.05rem;
+		font-size: 1.08rem;
 		color: var(--navy);
-		line-height: 1.65;
-		margin-bottom: 32px;
+		line-height: 1.7;
 		max-width: 440px;
+		margin: 0 0 36px;
 	}
 
-	.btn-cta {
-		display: inline-block;
-		background: var(--pesca);
-		color: var(--navy);
-		padding: 14px 36px;
-		border-radius: 50px;
-		text-decoration: none;
-		font-size: 0.95rem;
-		font-weight: 600;
-		letter-spacing: 0.02em;
-		transition:
-			background 0.2s,
-			transform 0.15s,
-			box-shadow 0.2s;
-		box-shadow: 0 4px 16px rgba(232, 153, 132, 0.25);
-	}
-
-	.btn-cta:hover {
-		background: var(--navy);
-		transform: translateY(-2px);
-		box-shadow: 0 6px 24px rgba(232, 153, 132, 0.35);
-		color: #fff;
-	}
-
-	.btn-cta-outline {
-		display: inline-block;
-		border: 2px solid var(--pesca);
-		color: var(--navy);
-		padding: 12px 32px;
-		border-radius: 50px;
-		text-decoration: none;
-		font-size: 0.9rem;
-		font-weight: 600;
-		letter-spacing: 0.02em;
-		margin-top: 24px;
-		transition:
-			background 0.2s,
-			color 0.2s;
-	}
-
-	.btn-cta-outline:hover {
-		background: var(--navy);
-		color: #fff;
-	}
-
-	.hero-visual {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.hero-logo-circle {
-		width: 280px;
-		height: 280px;
-		border-radius: 50%;
-		overflow: hidden;
-		box-shadow: 0 20px 60px rgba(90, 122, 130, 0.15);
-	}
-
-	.hero-logo-circle img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		border-radius: 0;
-	}
-
-	/* Hero animation */
-	.hero-content {
-		animation: fadeInUp 0.8s ease-out;
-	}
-	.hero-visual {
-		animation: fadeInUp 0.8s ease-out 0.2s both;
-	}
-
-	@keyframes fadeInUp {
-		from {
-			opacity: 0;
-			transform: translateY(24px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-
-	/* ===== TRUST BAR ===== */
-	.trust-bar {
-		background: var(--off-white);
-		padding: 28px 24px;
-		text-align: center;
-		border-bottom: 1px solid rgba(183, 201, 206, 0.3);
-	}
-
-	.trust-bar-inner {
-		max-width: var(--max-width);
-		margin: 0 auto;
+	.hero-actions {
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		gap: 48px;
+		gap: 20px;
 		flex-wrap: wrap;
 	}
 
-	.trust-item {
+	.text-link {
+		font-size: 0.88rem;
+		font-weight: 600;
+		color: var(--navy);
+		text-decoration: none;
+		border-bottom: 2px solid rgba(31, 56, 100, 0.25);
+		padding-bottom: 2px;
+		transition:
+			border-color 0.2s,
+			color 0.2s;
+	}
+	.text-link:hover {
+		color: var(--navy);
+		border-color: var(--pesca);
+	}
+
+	/* ===== TRUST PILLS ===== */
+	.trust-bar {
+		padding: 12px 24px 40px;
+	}
+
+	.trust-list {
+		max-width: var(--max-width);
+		margin: 0 auto;
+		padding: 0;
+		list-style: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 16px;
+		flex-wrap: wrap;
+	}
+
+	.trust-pill {
 		display: flex;
 		align-items: center;
 		gap: 10px;
 		font-size: 0.82rem;
-		color: var(--navy);
 		font-weight: 500;
-		letter-spacing: 0.02em;
+		color: var(--navy);
+		background: #fff;
+		padding: 10px 20px;
+		border-radius: 50px;
+		box-shadow: 0 2px 12px rgba(31, 56, 100, 0.06);
 	}
-
-	.trust-dot {
+	.trust-pill::before {
+		content: '';
 		width: 8px;
 		height: 8px;
 		border-radius: 50%;
 		background: var(--pesca);
-		flex-shrink: 0;
-	}
-
-	/* ===== SECTION SHARED ===== */
-	.section-header {
-		text-align: center;
-		margin-bottom: 56px;
-	}
-
-	.section-eyebrow {
-		font-size: 0.72rem;
-		text-transform: uppercase;
-		letter-spacing: 0.14em;
-		color: var(--navy-soft);
-		font-weight: 500;
-		margin-bottom: 10px;
-	}
-
-	.section-title {
-		font-family: var(--font-display);
-		font-size: 2.2rem;
-		font-weight: 600;
-		color: var(--navy);
-		letter-spacing: -0.01em;
-		margin: 0;
 	}
 
 	/* ===== SERVICES ===== */
 	.services {
-		padding: var(--section-padding);
+		padding: 80px 24px 120px;
 	}
 
 	.services-grid {
 		max-width: var(--max-width);
 		margin: 0 auto;
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 28px;
-	}
-
-	.service-card {
-		padding: 40px 32px;
-		border-radius: 20px;
-		transition:
-			transform 0.2s,
-			box-shadow 0.2s;
-	}
-
-	.service-card:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
-	}
-
-	.service-card:nth-child(1) {
-		background: var(--celeste);
-	}
-	.service-card:nth-child(2) {
-		background: var(--crema);
-	}
-	.service-card:nth-child(3) {
-		background: var(--rosa-cipria);
-	}
-
-	.service-dot {
-		width: 10px;
-		height: 10px;
-		border-radius: 50%;
-		margin-bottom: 20px;
-	}
-
-	.service-card:nth-child(1) .service-dot {
-		background: var(--navy);
-	}
-	.service-card:nth-child(2) .service-dot {
-		background: var(--navy);
-	}
-	.service-card:nth-child(3) .service-dot {
-		background: var(--pesca);
-	}
-
-	.service-card h3 {
-		font-family: var(--font-display);
-		font-size: 1.4rem;
-		font-weight: 600;
-		margin-bottom: 12px;
-		color: var(--charcoal);
-	}
-
-	.service-card p {
-		font-size: 0.92rem;
-		line-height: 1.65;
-		color: rgba(45, 45, 45, 0.75);
-		margin: 0;
-	}
-
-	.card-link {
-		display: inline-block;
-		margin-top: 20px;
-		font-size: 0.82rem;
-		font-weight: 600;
-		color: var(--navy);
-		text-decoration: none;
-		letter-spacing: 0.02em;
-		transition: color 0.2s;
-	}
-
-	.card-link:hover {
-		color: var(--pesca);
-	}
-
-	/* ===== HOW IT WORKS ===== */
-	.how-it-works {
-		padding: var(--section-padding);
-		background: var(--crema);
-	}
-
-	.steps {
-		max-width: var(--max-width);
-		margin: 0 auto;
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 40px;
-	}
-
-	.step {
-		text-align: center;
-		padding: 0 20px;
-	}
-
-	.step-number {
-		width: 56px;
-		height: 56px;
-		border-radius: 50%;
-		background: var(--pesca);
-		color: var(--navy);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-family: var(--font-display);
-		font-size: 1.4rem;
-		font-weight: 600;
-		margin: 0 auto 20px;
-	}
-
-	.step h3 {
-		font-family: var(--font-display);
-		font-size: 1.2rem;
-		font-weight: 600;
-		margin-bottom: 10px;
-		color: var(--navy);
-	}
-
-	.step p {
-		font-size: 0.9rem;
-		color: rgba(45, 45, 45, 0.7);
-		line-height: 1.6;
-		margin: 0;
+		align-items: stretch;
 	}
 
 	/* ===== ABOUT PREVIEW ===== */
 	.about {
 		background: var(--rosa-cipria);
-		padding: var(--section-padding);
+		padding: 110px 24px;
+		overflow: hidden;
 	}
 
 	.about-inner {
-		max-width: 720px;
+		max-width: 1000px;
 		margin: 0 auto;
-		text-align: center;
+		display: grid;
+		grid-template-columns: 320px minmax(0, 1fr);
+		gap: 72px;
+		align-items: center;
+	}
+
+	.about-visual {
+		position: relative;
+		height: 320px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.about-glow {
+		position: absolute;
+		width: 300px;
+		height: 300px;
+		border-radius: 50%;
+		background: rgba(250, 249, 246, 0.5);
 	}
 
 	.about-avatar {
-		width: 100px;
-		height: 100px;
+		position: relative;
+		width: 200px;
+		height: 200px;
 		border-radius: 50%;
 		background: var(--pesca);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin: 0 auto 24px;
 		font-family: var(--font-display);
-		font-size: 2.4rem;
-		font-weight: 600;
+		font-size: 5rem;
 		color: var(--navy);
 	}
 
 	.about-name {
 		font-family: var(--font-display);
-		font-size: 1.8rem;
-		font-weight: 600;
+		font-size: 3rem;
+		font-weight: 400;
+		line-height: 1;
 		color: var(--rosa-scuro);
-		margin-bottom: 6px;
+		margin: 0 0 4px;
 	}
 
 	.about-role {
 		font-size: 0.72rem;
 		text-transform: uppercase;
 		letter-spacing: 0.12em;
-		color: var(--rosa-medio);
+		color: var(--rosa-scuro);
 		font-weight: 500;
-		margin-bottom: 24px;
+		margin: 0 0 28px;
 	}
 
 	.about-bio {
-		font-size: 1.05rem;
+		font-size: 1.2rem;
 		line-height: 1.75;
-		color: rgba(45, 45, 45, 0.8);
+		color: rgba(45, 45, 45, 0.85);
 		font-style: italic;
-		max-width: 560px;
-		margin: 0 auto;
+		margin: 0;
+		text-wrap: pretty;
+	}
+
+	.about-button {
+		margin-top: 32px;
 	}
 
 	/* ===== TESTIMONIALS ===== */
 	.testimonials {
-		padding: var(--section-padding);
-		background: var(--off-white);
+		padding: 110px 24px;
 	}
 
 	.testimonials-list {
@@ -728,27 +511,44 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		margin: 0 auto;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 28px;
+		gap: 64px 28px;
+		padding-top: 34px; /* room for the quote circle */
 	}
 
-	/* Single testimonial (fallback or one result) stays centred */
+	/* A single testimonial (fallback or one result) stays centred */
 	.testimonials-list:has(> :only-child) {
-		grid-template-columns: minmax(0, 680px);
+		grid-template-columns: minmax(0, 760px);
 		justify-content: center;
 	}
 
 	.testimonial-card {
+		position: relative;
+		margin: 0;
 		background: var(--crema);
-		border-left: 3px solid var(--pesca);
-		padding: 36px 40px;
-		border-radius: 0 16px 16px 0;
+		border-radius: 32px;
+		padding: 64px 64px 48px;
+		text-align: center;
 	}
 
-	/* Fallback single card retains original centred look */
-	.testimonials > .testimonial-card {
-		max-width: 680px;
-		margin: 0 auto;
-		padding: 40px 44px;
+	/* Peach circle with an opening quote mark, overlapping the top edge */
+	.testimonial-card::before {
+		content: '\201C';
+		position: absolute;
+		top: -34px;
+		left: 50%;
+		margin-left: -34px;
+		width: 68px;
+		height: 68px;
+		border-radius: 50%;
+		background: var(--pesca);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding-top: 18px;
+		font-family: var(--font-display);
+		font-size: 3.4rem;
+		line-height: 1;
+		color: var(--navy);
 	}
 
 	.testimonial-stars {
@@ -759,16 +559,18 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 	}
 
 	.testimonial-quote {
+		border: none;
+		padding: 0;
+		margin: 0 0 28px;
 		font-family: var(--font-display);
-		font-size: 1.15rem;
-		font-style: italic;
-		line-height: 1.7;
+		font-size: 1.6rem;
+		line-height: 1.5;
 		color: var(--charcoal);
-		margin-bottom: 20px;
+		text-wrap: pretty;
 	}
 
 	.testimonial-author {
-		font-size: 0.85rem;
+		font-size: 0.88rem;
 		font-weight: 600;
 		color: var(--navy);
 		margin: 0;
@@ -776,18 +578,13 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 
 	.testimonial-detail {
 		font-size: 0.78rem;
-		color: rgba(92, 74, 42, 0.65);
-		margin-top: 2px;
-		margin-bottom: 0;
+		color: rgba(92, 74, 42, 0.75);
+		margin: 2px 0 0;
 	}
 
-	@media (max-width: 600px) {
-		.testimonials-list {
-			grid-template-columns: 1fr;
-		}
-		.testimonial-card {
-			padding: 28px 24px;
-		}
+	.testimonials-more {
+		text-align: center;
+		margin-top: 40px;
 	}
 
 	/* ===== BLOG PREVIEW ===== */
@@ -857,7 +654,7 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 	.blog-card-body h3 {
 		font-family: var(--font-display);
 		font-size: 1.1rem;
-		font-weight: 600;
+		font-weight: 400;
 		color: var(--charcoal);
 		margin-bottom: 8px;
 		line-height: 1.35;
@@ -940,82 +737,39 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 		color: #fff !important;
 	}
 
-	/* ===== FINAL CTA BAND ===== */
-	.cta-band {
-		background: var(--navy);
-		padding: 80px 24px;
-		text-align: center;
-	}
-
-	.cta-band h2 {
-		font-family: var(--font-display);
-		font-size: 2.2rem;
-		font-weight: 600;
-		color: rgba(255, 255, 255, 0.95);
-		margin-bottom: 12px;
-	}
-
-	.cta-band p {
-		font-size: 1rem;
-		color: rgba(255, 255, 255, 0.65);
-		max-width: 440px;
-		margin: 0 auto 32px;
-		line-height: 1.6;
-	}
-
-	.btn-cta-light {
-		display: inline-block;
-		background: var(--pesca);
-		color: var(--navy);
-		padding: 16px 40px;
-		border-radius: 50px;
-		text-decoration: none;
-		font-size: 1rem;
-		font-weight: 600;
-		letter-spacing: 0.02em;
-		transition:
-			background 0.2s,
-			transform 0.15s;
-		box-shadow: 0 4px 20px rgba(232, 153, 132, 0.35);
-	}
-
-	.btn-cta-light:hover {
-		background: var(--navy);
-		transform: translateY(-2px);
-		color: #fff;
-	}
-
 	/* ===== RESPONSIVE ===== */
 	@media (max-width: 900px) {
 		.hero-inner {
 			grid-template-columns: 1fr;
 			text-align: center;
-			gap: 40px;
+			gap: 24px;
 		}
-
 		.hero-content {
 			margin: 0 auto;
 		}
 		.hero-subtitle {
 			margin: 0 auto 32px;
 		}
+		.hero-actions {
+			justify-content: center;
+		}
+		.hero-headline {
+			font-size: 3.2rem;
+		}
 
 		.services-grid,
-		.steps,
 		.blog-grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 			max-width: 480px;
-			margin: 0 auto;
 		}
 
-		.hero-headline {
-			font-size: 2.2rem;
+		.about-inner {
+			grid-template-columns: 1fr;
+			gap: 32px;
+			text-align: center;
 		}
-		.section-title {
-			font-size: 1.8rem;
-		}
-		.cta-band h2 {
-			font-size: 1.8rem;
+		.about-visual {
+			height: 280px;
 		}
 
 		.email-form {
@@ -1024,35 +778,28 @@ const testimonials = await getFeaturedTestimonials().catch(() => []);
 	}
 
 	@media (max-width: 600px) {
-		:root {
-			--section-padding: 56px 20px;
-		}
-
 		.hero {
-			padding: 56px 20px 72px;
+			padding: 56px 20px 120px;
 		}
 		.hero-headline {
-			font-size: 1.85rem;
+			font-size: 2.6rem;
 		}
-		.hero-logo-circle {
-			width: 200px;
-			height: 200px;
+		.services,
+		.about,
+		.testimonials {
+			padding: 72px 20px;
 		}
-
-		.trust-bar-inner {
-			gap: 20px;
+		.about-bio {
+			font-size: 1.05rem;
 		}
-
 		.testimonial-card {
-			padding: 28px 24px;
+			padding: 56px 24px 36px;
 		}
-
+		.testimonial-quote {
+			font-size: 1.35rem;
+		}
 		.lead-magnet-inner {
 			padding: 32px 24px;
-		}
-
-		.cta-band {
-			padding: 56px 20px;
 		}
 	}
 </style>

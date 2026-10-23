@@ -1,0 +1,57 @@
+---
+// Navy closing band with a discovery-call button and soft floating shapes.
+import Cloud from './Cloud.astro';
+import Dot from './Dot.astro';
+import DiscoveryCallButton from './DiscoveryCallButton.astro';
+
+interface Props {
+	title: string;
+	text: string;
+	buttonLabel?: string;
+}
+
+const { title, text, buttonLabel } = Astro.props;
+---
+
+<section class="cta-band">
+	<Dot
+		size={10}
+		color="var(--crema)"
+		opacity={0.5}
+		duration="8s"
+		style="left:8%;top:30%"
+	/>
+	<Dot
+		size={16}
+		color="var(--pesca)"
+		opacity={0.7}
+		duration="10s"
+		delay="-3s"
+		style="right:12%;top:22%"
+	/>
+	<Dot
+		size={8}
+		color="var(--celeste)"
+		opacity={0.7}
+		duration="9s"
+		delay="-5s"
+		style="right:22%;bottom:18%"
+	/>
+	<Cloud
+		width={260}
+		opacity={0.08}
+		duration="30s"
+		style="left:-60px;bottom:-40px"
+	/>
+	<div class="cta-content" data-reveal="up">
+		<h2>{title}</h2>
+		<p>{text}</p>
+		<DiscoveryCallButton variant="btn-cta-light" label={buttonLabel} />
+	</div>
+</section>
+
+<style>
+	.cta-content {
+		position: relative;
+	}
+</style>

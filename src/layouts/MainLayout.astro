@@ -16,6 +16,10 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
+		<!-- Runs before first paint: lets CSS hide [data-reveal] only when JS is on -->
+		<script is:inline>
+			document.documentElement.classList.add('js');
+		</script>
 	</head>
 	<body class="min-h-screen flex flex-col">
 		<Header />
@@ -23,5 +27,8 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
 			<slot />
 		</main>
 		<Footer />
+		<script>
+			import '../scripts/reveal';
+		</script>
 	</body>
 </html>

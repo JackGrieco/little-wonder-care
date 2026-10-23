@@ -2,26 +2,57 @@
 // The "third service": a free 15-minute call for people who don't know which
 // package fits them. Shown under the packages on every services page.
 import DiscoveryCallButton from './DiscoveryCallButton.astro';
+import Dot from './Dot.astro';
 ---
 
-<section class="discovery-call-card" aria-label="Free discovery call">
-	<span class="discovery-tag">Free · 15 minutes</span>
-	<h3>Not Sure Which Package Is Right for You?</h3>
-	<p>
-		Book a free discovery call. We'll talk about where you are and figure out
-		together what would help your family the most.
-	</p>
-	<DiscoveryCallButton label="Free Discovery Call" />
+<section
+	class="discovery-call-card"
+	aria-label="Free discovery call"
+	data-reveal="scale"
+>
+	<span class="corner-circle anim-breathe" aria-hidden="true"></span>
+	<Dot
+		size={14}
+		color="var(--pesca)"
+		duration="5s"
+		style="left:30px;bottom:24px"
+	/>
+	<div class="content">
+		<span class="discovery-tag">Free · 15 minutes</span>
+		<h3>Not Sure Which Package Is Right for You?</h3>
+		<p>
+			Book a free discovery call. We'll talk about where you are and figure out
+			together what would help your family the most.
+		</p>
+		<DiscoveryCallButton label="Free Discovery Call" />
+	</div>
 </section>
 
 <style>
 	.discovery-call-card {
-		max-width: 640px;
-		margin: 0 auto;
-		padding: 40px 32px;
-		border-radius: 20px;
+		position: relative;
+		overflow: hidden;
+		max-width: 760px;
+		margin: 24px auto 0;
+		padding: 52px 48px;
+		border-radius: 32px;
 		background: var(--rosa-cipria);
 		text-align: center;
+	}
+
+	.corner-circle {
+		position: absolute;
+		right: -40px;
+		top: -40px;
+		width: 140px;
+		height: 140px;
+		border-radius: 50%;
+		background: var(--off-white);
+		opacity: 0.4;
+	}
+
+	.content {
+		position: relative;
 	}
 
 	.discovery-tag {
@@ -30,25 +61,36 @@ import DiscoveryCallButton from './DiscoveryCallButton.astro';
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		font-weight: 600;
-		padding: 4px 12px;
+		padding: 5px 14px;
 		border-radius: 20px;
-		margin-bottom: 16px;
+		margin-bottom: 18px;
 		background: var(--pesca);
 		color: var(--navy);
 	}
 
 	h3 {
 		font-family: var(--font-display);
-		font-size: 1.6rem;
-		font-weight: 600;
-		color: var(--charcoal);
+		font-size: 2.2rem;
+		font-weight: 400;
+		line-height: 1.1;
+		color: var(--navy);
 		margin: 0 0 12px;
 	}
 
 	p {
 		font-size: 0.95rem;
-		line-height: 1.6;
-		color: rgba(45, 45, 45, 0.7);
-		margin: 0 0 24px;
+		line-height: 1.65;
+		color: rgba(45, 45, 45, 0.8);
+		max-width: 480px;
+		margin: 0 auto 28px;
+	}
+
+	@media (max-width: 600px) {
+		.discovery-call-card {
+			padding: 44px 24px;
+		}
+		h3 {
+			font-size: 1.9rem;
+		}
 	}
 </style>
