@@ -33,9 +33,22 @@ function isIncludedInSitemap(page) {
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://littlewondercareco.com',
+
+	// English (US) at the root, Italian under /it. Keep in sync with
+	// LOCALES in src/i18n/locales.ts.
+	i18n: {
+		locales: ['en', 'it'],
+		defaultLocale: 'en',
+		routing: { prefixDefaultLocale: false },
+	},
+
 	integrations: [
 		mdx(),
-		sitemap({ filter: isIncludedInSitemap }),
+		sitemap({
+			filter: isIncludedInSitemap,
+			// Adds hreflang links between the two versions of each page.
+			i18n: { defaultLocale: 'en', locales: { en: 'en-US', it: 'it-IT' } },
+		}),
 		react(),
 		sanity({
 			projectId: SANITY_PROJECT_ID,
