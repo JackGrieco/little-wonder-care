@@ -10,7 +10,7 @@ async function expectItalianPage(page: Page, path: string, usPath: string) {
 	expect(response?.status()).toBe(200);
 	await expect(page.locator('html')).toHaveAttribute('lang', 'it');
 	await expect(
-		page.locator('.navbar-links .language-switcher a', { hasText: 'EN' }),
+		page.locator('.navbar-links .language-switcher a', { hasText: 'US' }),
 	).toHaveAttribute('href', usPath);
 }
 

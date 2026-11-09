@@ -20,7 +20,7 @@ export interface LocaleConfig {
 	/** Locale passed to Intl.NumberFormat for prices. */
 	numberFormat: 'en-US' | 'it-IT';
 	/** Text shown in the language switcher. */
-	label: 'EN' | 'IT';
+	label: 'US' | 'IT';
 	/** Full language name, read by screen readers on the switcher link. */
 	name: 'English' | 'Italiano';
 }
@@ -32,7 +32,7 @@ export const LOCALE_CONFIG: Record<Locale, LocaleConfig> = {
 		ogLocale: 'en_US',
 		currency: 'USD',
 		numberFormat: 'en-US',
-		label: 'EN',
+		label: 'US',
 		name: 'English',
 	},
 	it: {
