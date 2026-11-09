@@ -12,6 +12,8 @@ export default defineConfig({
 		command: `npm run dev -- --port ${PORT}`,
 		port: PORT,
 		reuseExistingServer: true,
+		// A fake key, so the analytics script renders wherever it is allowed.
+		env: { PUBLIC_POSTHOG_KEY: 'test-key' },
 		timeout: 120_000,
 	},
 });

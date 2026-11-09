@@ -73,3 +73,26 @@ describe('getPackagesByCategory', () => {
 		},
 	);
 });
+
+describe('getPackagesByCategory with sparse Sanity documents', () => {
+	test('fills in defaults for missing optional fields', async () => {
+		fetchPackages.mockResolvedValue([
+			{ _id: 'pkg-2', _type: 'servicePackage', title: 'Minimal' },
+		]);
+
+		const [pkg] = await getPackagesByCategory('doula', 'en');
+
+		expect(pkg).toEqual({
+			id: 'pkg-2',
+			category: 'doula',
+			title: 'Minimal',
+			description: '',
+			price: null,
+			priceNote: undefined,
+			duration: undefined,
+			features: [],
+			isPopular: false,
+			bookingLink: undefined,
+		});
+	});
+});
