@@ -1,0 +1,304 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Cloud from '../components/Cloud.astro';
+import CtaBand from '../components/CtaBand.astro';
+import DiscoveryCallCard from '../components/DiscoveryCallCard.astro';
+import Dot from '../components/Dot.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import HighlightBox from '../components/HighlightBox.astro';
+import Icon from '../components/Icon.astro';
+import IconHalo from '../components/IconHalo.astro';
+import PackagesSection from '../components/PackagesSection.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { POSTPARTUM_DOULA_COPY } from '../i18n/copy/postpartum-doula';
+import type { Locale } from '../i18n/locales';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = POSTPARTUM_DOULA_COPY[locale];
+const [emotional, newborn, feeding] = copy.features.items;
+---
+
+<MainLayout
+	locale={locale}
+	title={copy.meta.title}
+	description={copy.meta.description}
+>
+	<PageHero
+		eyebrow={copy.hero.eyebrow}
+		title={copy.hero.title}
+		subtitle={copy.hero.subtitle}
+		background="var(--rosa-cipria)"
+	>
+		<Fragment slot="decor">
+			<Cloud
+				width={170}
+				opacity={0.6}
+				duration="22s"
+				style="top:60px;left:5%"
+			/>
+			<Cloud
+				width={140}
+				opacity={0.55}
+				duration="26s"
+				delay="-6s"
+				style="top:40px;right:7%"
+			/>
+			<Dot size={18} color="var(--pesca)" style="top:44%;left:14%" />
+			<Dot
+				size={12}
+				color="var(--navy)"
+				opacity={0.45}
+				duration="7s"
+				delay="-2s"
+				style="top:28%;right:18%"
+			/>
+			<span
+				class="hero-heart anim-float"
+				style="--anim-dur:8s;--anim-delay:-3s;bottom:130px;right:12%;color:var(--pesca);opacity:0.8"
+			>
+				<Icon name="heart" size={40} />
+			</span>
+			<span
+				class="hero-heart anim-float"
+				style="--anim-dur:9s;--anim-delay:-1s;top:120px;left:22%;color:var(--off-white)"
+			>
+				<Icon name="heart" size={24} />
+			</span>
+		</Fragment>
+	</PageHero>
+
+	<!-- What is a postpartum doula -->
+	<section class="intro">
+		<div class="split">
+			<div class="prose-block" data-reveal="left">
+				<p class="section-eyebrow">{copy.intro.eyebrow}</p>
+				<h2 class="section-title">{copy.intro.title}</h2>
+				{copy.intro.paragraphs.map((paragraph) => (
+					<p>{paragraph}</p>
+				))}
+			</div>
+			<div data-reveal="right" data-delay="150">
+				<IconHalo
+					icon="heart"
+					background="var(--rosa-cipria)"
+					iconColor="var(--pesca)"
+					haloColor="rgba(232, 153, 132, 0.6)"
+				>
+					<Dot
+						size={20}
+						color="var(--celeste)"
+						duration="5s"
+						style="top:30px;left:40px"
+					/>
+					<Dot
+						size={14}
+						color="var(--navy)"
+						opacity={0.5}
+						delay="-2s"
+						style="bottom:30px;right:40px"
+					/>
+				</IconHalo>
+			</div>
+		</div>
+	</section>
+
+	<!-- Features -->
+	<section class="features">
+		<div class="section-inner">
+			<SectionHeader
+				eyebrow={copy.features.eyebrow}
+				title={copy.features.title}
+			/>
+			<div class="features-grid">
+				<FeatureCard
+					icon="heart"
+					title={emotional.title}
+					text={emotional.text}
+					background="var(--crema)"
+					iconColor="var(--pesca)"
+				/>
+				<FeatureCard
+					icon="baby"
+					title={newborn.title}
+					text={newborn.text}
+					background="var(--celeste)"
+					revealDelay={150}
+				/>
+				<FeatureCard
+					icon="milk"
+					title={feeding.title}
+					text={feeding.text}
+					background="var(--rosa-cipria)"
+					iconColor="var(--rosa-scuro)"
+					revealDelay={300}
+				/>
+			</div>
+		</div>
+	</section>
+
+	<!-- What to expect -->
+	<section class="expect">
+		<span
+			class="expect-circle sky anim-float"
+			style="--anim-dur:9s"
+			aria-hidden="true"
+		></span>
+		<span
+			class="expect-circle blush anim-float"
+			style="--anim-dur:11s;--anim-delay:-4s"
+			aria-hidden="true"
+		></span>
+		<div class="expect-content" data-reveal="up">
+			<p class="section-eyebrow">{copy.expect.eyebrow}</p>
+			<h2 class="section-title">{copy.expect.title}</h2>
+			<p>{copy.expect.text}</p>
+			<p class="expect-goal">{copy.expect.goal}</p>
+		</div>
+	</section>
+
+	<HighlightBox icon={copy.serviceArea.icon} title={copy.serviceArea.title}>
+		<Fragment set:html={copy.serviceArea.textHtml} />
+	</HighlightBox>
+
+	<!-- Packages + free discovery call -->
+	<section class="packages" id="packages">
+		<div class="section-inner">
+			<SectionHeader
+				eyebrow={copy.packages.eyebrow}
+				title={copy.packages.title}
+			/>
+			<PackagesSection category="doula" locale={locale} showHeading={false} />
+			<DiscoveryCallCard locale={locale} />
+		</div>
+	</section>
+
+	<CtaBand locale={locale} title={copy.cta.title} text={copy.cta.text} />
+</MainLayout>
+
+<style>
+	.hero-heart {
+		position: absolute;
+		pointer-events: none;
+	}
+
+	.intro {
+		padding: 60px 24px 100px;
+	}
+
+	.split {
+		max-width: 1000px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+		gap: 72px;
+		align-items: center;
+	}
+
+	.prose-block .section-title {
+		margin-bottom: 20px;
+	}
+	.prose-block p:not(.section-eyebrow),
+	.expect-content p:not(.section-eyebrow) {
+		font-size: 1.02rem;
+		line-height: 1.8;
+		color: rgba(45, 45, 45, 0.82);
+		margin: 0 0 18px;
+		text-wrap: pretty;
+	}
+
+	.features {
+		padding: 0 24px 110px;
+	}
+
+	.features-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 28px;
+		align-items: stretch;
+	}
+
+	.expect {
+		position: relative;
+		overflow: hidden;
+		padding: 100px 24px;
+		background: var(--crema);
+	}
+
+	.expect-circle {
+		position: absolute;
+		border-radius: 50%;
+	}
+	.expect-circle.sky {
+		left: -80px;
+		top: 40px;
+		width: 240px;
+		height: 240px;
+		background: rgba(183, 201, 207, 0.3);
+	}
+	.expect-circle.blush {
+		right: -60px;
+		bottom: -60px;
+		width: 200px;
+		height: 200px;
+		background: rgba(246, 212, 219, 0.6);
+	}
+
+	.expect-content {
+		position: relative;
+		max-width: 760px;
+		margin: 0 auto;
+		text-align: center;
+	}
+	.expect-content .section-title {
+		margin-bottom: 24px;
+	}
+
+	.expect-content p.expect-goal {
+		font-family: var(--font-display);
+		font-size: 1.9rem;
+		line-height: 1.35;
+		color: var(--navy);
+		max-width: 600px;
+		margin: 32px auto 0;
+	}
+
+	.packages {
+		padding: 100px 24px 110px;
+	}
+
+	@media (max-width: 900px) {
+		.split {
+			grid-template-columns: 1fr;
+			gap: 24px;
+			text-align: center;
+		}
+		.features-grid {
+			grid-template-columns: minmax(0, 1fr);
+			max-width: 480px;
+			margin: 0 auto;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.intro {
+			padding: 32px 20px 72px;
+		}
+		.features {
+			padding: 0 20px 72px;
+		}
+		.expect {
+			padding: 72px 20px;
+		}
+		.expect-content p.expect-goal {
+			font-size: 1.6rem;
+		}
+		.packages {
+			padding: 72px 20px;
+		}
+	}
+</style>

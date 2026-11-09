@@ -103,7 +103,7 @@ _Cosa impari: design token e variabili CSS, Tailwind v4._
 - [x] Font: Caveat Brush (titoli) + Poppins (testo)
 - [x] Logo in PNG con sfondo trasparente (1200px da Canva)
 - [ ] Testi About
-- [ ] Pagina Sleep: il testo dice "Available Worldwide… internationally", ma il sito è solo per gli USA. Da rivedere con Silvia
+- [ ] Pagina Sleep: il box "Available Worldwide… internationally" ora dice "Available Anywhere in the US" (le famiglie in Italia hanno la versione `/it`). Frase da confermare con Silvia (`src/i18n/copy/sleep-consulting.ts`)
 - [ ] Pagine Sleep/Doula: "How It Works" e "What to Expect" descrivono pacchetti vecchi. Da allineare ai pacchetti veri
 - [ ] Descrizioni, prezzi e durate dei 10 pacchetti
 - [ ] Link Instagram (header/footer)

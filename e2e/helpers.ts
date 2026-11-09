@@ -19,11 +19,14 @@ export function slugFor(path: string): string {
 	return trimmed === '' ? 'home' : trimmed;
 }
 
-/** Visible text of the body, without scripts and styles, whitespace collapsed. */
+/** Text of the body, without scripts and styles, whitespace collapsed. */
 export async function getBodyText(page: Page): Promise<string> {
 	const text = await page.evaluate(() => {
 		const clone = document.body.cloneNode(true) as HTMLElement;
 		clone.querySelectorAll('script, style').forEach((node) => node.remove());
+		// A space after every element, so the text does not depend on how the
+		// source is formatted (e.g. <p> tags rendered from a list, no newlines).
+		clone.querySelectorAll('*').forEach((node) => node.append(' '));
 		return clone.textContent ?? '';
 	});
 	return text.replace(/\s+/g, ' ').trim();

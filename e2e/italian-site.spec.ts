@@ -24,3 +24,27 @@ test('Italian services page shows Italian packages in euros', async ({
 	expect(text).toContain('€');
 	expect(text).not.toContain('$');
 });
+
+test('Italian sleep consulting page shows Italian packages in euros', async ({
+	page,
+}) => {
+	await expectItalianPage(page, '/it/sleep-consulting', '/sleep-consulting');
+
+	const text = await getBodyText(page);
+	expect(text).toContain(MARKET_NOTICE);
+	expect(text).toContain('€');
+	expect(text).not.toContain('$');
+});
+
+test('Italian postpartum doula page offers online support only', async ({
+	page,
+}) => {
+	await expectItalianPage(page, '/it/postpartum-doula', '/postpartum-doula');
+
+	const text = await getBodyText(page);
+	expect(text).toContain(MARKET_NOTICE);
+	expect(text).toContain('€');
+	expect(text).not.toContain('$');
+	expect(text).not.toContain('Waco');
+	expect(text).not.toContain('in-home');
+});
