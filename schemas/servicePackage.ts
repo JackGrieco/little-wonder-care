@@ -1,4 +1,6 @@
 import { defineField, defineType } from 'sanity';
+import type { Market } from '../src/i18n/locales';
+import { getBookingLinkWarning } from '../src/lib/booking-links';
 
 export const servicePackage = defineType({
 	name: 'servicePackage',
@@ -91,9 +93,16 @@ export const servicePackage = defineType({
 		}),
 		defineField({
 			name: 'ctaLink',
-			title: 'CTA Button URL',
+			title: 'Booking link (Cal.com)',
 			type: 'string',
-			description: 'e.g. "/contact/"',
+			description:
+				'Cal.com event this card opens, e.g. "cal:littlewondercare/sleep-session-it" for Italy. Leave empty to use the default event of the market.',
+			validation: (R) =>
+				R.custom((value: string | undefined, context) => {
+					const market = (context.document as { market?: Market } | undefined)
+						?.market;
+					return getBookingLinkWarning(value, market) ?? true;
+				}).warning(),
 		}),
 		defineField({
 			name: 'sortOrder',

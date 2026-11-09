@@ -21,6 +21,8 @@ export interface LocaleConfig {
 	numberFormat: 'en-US' | 'it-IT';
 	/** Text shown in the language switcher. */
 	label: 'EN' | 'IT';
+	/** Full language name, read by screen readers on the switcher link. */
+	name: 'English' | 'Italiano';
 }
 
 export const LOCALE_CONFIG: Record<Locale, LocaleConfig> = {
@@ -31,6 +33,7 @@ export const LOCALE_CONFIG: Record<Locale, LocaleConfig> = {
 		currency: 'USD',
 		numberFormat: 'en-US',
 		label: 'EN',
+		name: 'English',
 	},
 	it: {
 		market: 'it',
@@ -39,6 +42,7 @@ export const LOCALE_CONFIG: Record<Locale, LocaleConfig> = {
 		currency: 'EUR',
 		numberFormat: 'it-IT',
 		label: 'IT',
+		name: 'Italiano',
 	},
 };
 

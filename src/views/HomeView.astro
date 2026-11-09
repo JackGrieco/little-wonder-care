@@ -105,6 +105,7 @@ const testimonials = await getFeaturedTestimonials(locale).catch(() => []);
 		/>
 		<div class="services-grid">
 			<FeatureCard
+				locale={locale}
 				icon="moon-star"
 				title={copy.services.items[0].title}
 				text={copy.services.items[0].text}
@@ -112,6 +113,7 @@ const testimonials = await getFeaturedTestimonials(locale).catch(() => []);
 				href={to('/sleep-consulting')}
 			/>
 			<FeatureCard
+				locale={locale}
 				icon="heart"
 				title={copy.services.items[1].title}
 				text={copy.services.items[1].text}
@@ -123,6 +125,7 @@ const testimonials = await getFeaturedTestimonials(locale).catch(() => []);
 				revealDelay={150}
 			/>
 			<FeatureCard
+				locale={locale}
 				icon="video"
 				title={copy.services.items[2].title}
 				text={copy.services.items[2].text}

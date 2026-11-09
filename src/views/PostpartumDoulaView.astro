@@ -116,6 +116,7 @@ const [emotional, newborn, feeding] = copy.features.items;
 			/>
 			<div class="features-grid">
 				<FeatureCard
+					locale={locale}
 					icon="heart"
 					title={emotional.title}
 					text={emotional.text}
@@ -123,6 +124,7 @@ const [emotional, newborn, feeding] = copy.features.items;
 					iconColor="var(--pesca)"
 				/>
 				<FeatureCard
+					locale={locale}
 					icon="baby"
 					title={newborn.title}
 					text={newborn.text}
@@ -130,6 +132,7 @@ const [emotional, newborn, feeding] = copy.features.items;
 					revealDelay={150}
 				/>
 				<FeatureCard
+					locale={locale}
 					icon="milk"
 					title={feeding.title}
 					text={feeding.text}

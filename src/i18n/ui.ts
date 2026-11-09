@@ -47,6 +47,7 @@ export interface UiStrings {
 		copyright: string;
 	};
 	switcher: { ariaLabel: string };
+	featureCard: { learnMore: string };
 	categories: Record<ServiceCategory, CategoryStrings>;
 	packages: {
 		mostPopular: string;
@@ -107,6 +108,7 @@ const EN: UiStrings = {
 		copyright: '© 2026 Little Wonder Care',
 	},
 	switcher: { ariaLabel: 'Language' },
+	featureCard: { learnMore: 'Learn More' },
 	categories: {
 		sleep: {
 			label: 'Sleep Consulting',
@@ -194,6 +196,7 @@ const IT: UiStrings = {
 		copyright: '© 2026 Little Wonder Care',
 	},
 	switcher: { ariaLabel: 'Lingua' },
+	featureCard: { learnMore: 'Scopri di più' },
 	categories: {
 		sleep: {
 			label: 'Consulenza del sonno',

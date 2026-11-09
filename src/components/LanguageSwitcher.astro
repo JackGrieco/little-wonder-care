@@ -40,6 +40,7 @@ const { locale, pathname, class: className } = Astro.props;
 					href={localizePath(pathname, option)}
 					hreflang={option}
 					lang={option}
+					aria-label={LOCALE_CONFIG[option].name}
 				>
 					{LOCALE_CONFIG[option].label}
 				</a>
@@ -60,23 +61,27 @@ const { locale, pathname, class: className } = Astro.props;
 	}
 
 	.current {
-		font-weight: 600;
+		font-weight: 700;
 	}
 
 	.separator {
 		opacity: 0.4;
 	}
 
+	/* Full navy (no opacity) keeps WCAG AA contrast on the cream header; the
+	   underline tells the link apart from the current language. */
 	a {
 		color: inherit;
-		opacity: 0.6;
-		text-decoration: none;
-		transition: opacity 0.2s ease;
+		font-weight: 400;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+		padding: 4px 2px;
+		transition: color 0.2s ease;
 	}
 
 	a:hover,
 	a:focus-visible {
-		opacity: 1;
+		color: var(--pesca);
 		text-decoration: underline;
 	}
 </style>

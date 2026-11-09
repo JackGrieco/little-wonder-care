@@ -283,11 +283,12 @@ const faqSchema = {
 	}
 
 	/* Hero link colour override */
-	.page-hero a {
+	/* :global: the link is injected with set:html, so it has no scope attribute. */
+	.page-hero :global(a) {
 		color: var(--navy);
 		font-weight: 500;
 	}
-	.page-hero a:hover {
+	.page-hero :global(a:hover) {
 		color: var(--pesca);
 	}
 </style>

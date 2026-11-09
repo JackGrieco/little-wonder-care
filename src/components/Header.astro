@@ -440,6 +440,12 @@ const servicesActive = serviceLinks.some(
 			color 0.2s;
 	}
 
+	/* The switcher is a child component: reach its root through :global(). */
+	.mobile-menu :global(.mobile-switcher) {
+		padding: 10px 12px;
+		letter-spacing: 0.08em;
+	}
+
 	.mobile-menu a:hover {
 		background: rgba(232, 153, 132, 0.08);
 		color: var(--pesca);

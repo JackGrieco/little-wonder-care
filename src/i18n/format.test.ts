@@ -11,3 +11,7 @@ describe('formatPrice', () => {
 		expect(formatPrice(price, locale)).toBe(expected);
 	});
 });
+
+test('groups thousands in Italian prices like Italian price lists do', () => {
+	expect(formatPrice(1500, 'it')).toBe('1.500 €');
+});

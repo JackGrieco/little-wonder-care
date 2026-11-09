@@ -4,6 +4,7 @@
 import Icon, { type IconName } from './Icon.astro';
 
 interface Props {
+	locale: Locale;
 	icon: IconName;
 	title: string;
 	text: string;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const {
+	locale,
 	icon,
 	title,
 	text,
@@ -30,6 +32,8 @@ const {
 	tilt = 'left',
 	revealDelay = 0,
 } = Astro.props;
+import type { Locale } from '../i18n/locales';
+import { UI } from '../i18n/ui';
 ---
 
 <div class="card-wrap" data-reveal="up" data-delay={revealDelay}>
@@ -47,7 +51,7 @@ const {
 		<p>{text}</p>
 		{href && (
 			<a href={href} class="card-link">
-				Learn More{' '}
+				{UI[locale].featureCard.learnMore}{' '}
 				<span class="arrow" aria-hidden="true">
 					→
 				</span>
