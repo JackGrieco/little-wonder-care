@@ -11,4 +11,4 @@ type Props = Omit<ComponentProps<typeof CalButton>, 'calLink' | 'label'> & {
 const { label = 'Book a Free Discovery Call', ...attrs } = Astro.props;
 ---
 
-<CalButton calLink={CAL_LINKS.discoveryCall} label={label} {...attrs} />
+<CalButton calLink={CAL_LINKS.en.discoveryCall} label={label} {...attrs} />

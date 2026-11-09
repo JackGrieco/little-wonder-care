@@ -1,39 +1,41 @@
 ---
 import CalButton from './CalButton.astro';
 import Icon from './Icon.astro';
+import { formatPrice } from '../i18n/format';
+import type { Locale } from '../i18n/locales';
+import { UI } from '../i18n/ui';
 import {
 	SERVICE_CATEGORIES,
-	formatPrice,
+	getBookingLink,
 	type ServicePackage,
 } from '../lib/packages';
 
 interface Props {
 	pkg: ServicePackage;
+	locale: Locale;
 	/** Stagger (ms) for the scroll reveal inside the grid. */
 	revealDelay?: number;
 }
 
-const { pkg, revealDelay = 0 } = Astro.props;
-const category = SERVICE_CATEGORIES[pkg.category];
-const bookingLink = pkg.bookingLink ?? category.defaultBookingLink;
+const { pkg, locale, revealDelay = 0 } = Astro.props;
+const { cardClass } = SERVICE_CATEGORIES[pkg.category];
+const ui = UI[locale];
+const categoryText = ui.categories[pkg.category];
+const bookingLink = getBookingLink(pkg, locale);
 ---
 
 <div class="card-wrap" data-reveal="up" data-delay={revealDelay}>
-	<article
-		class:list={[
-			'package-card',
-			category.cardClass,
-			{ popular: pkg.isPopular },
-		]}
-	>
-		{pkg.isPopular && <span class="popular-badge">Most Popular</span>}
-		<span class="package-tag">{category.tag}</span>
+	<article class:list={['package-card', cardClass, { popular: pkg.isPopular }]}>
+		{pkg.isPopular && (
+			<span class="popular-badge">{ui.packages.mostPopular}</span>
+		)}
+		<span class="package-tag">{categoryText.tag}</span>
 		<h3>{pkg.title}</h3>
 		{pkg.description && <p class="description">{pkg.description}</p>}
 
 		{pkg.price !== null && (
 			<div class="package-price">
-				{formatPrice(pkg.price)}
+				{formatPrice(pkg.price, locale)}
 				{pkg.priceNote && <span> / {pkg.priceNote}</span>}
 			</div>
 		)}
@@ -55,11 +57,11 @@ const bookingLink = pkg.bookingLink ?? category.defaultBookingLink;
 		<div class="package-cta">
 			<CalButton
 				calLink={bookingLink}
-				label={category.ctaText}
+				label={categoryText.ctaText}
 				variant="btn-dark"
 				class="package-button"
 			/>
-			<p class="package-booking-note">{category.bookingNote}</p>
+			<p class="package-booking-note">{categoryText.bookingNote}</p>
 		</div>
 	</article>
 </div>

@@ -1,21 +1,21 @@
 ---
 import Icon, { type IconName } from './Icon.astro';
 import ServiceCard from './ServiceCard.astro';
-import {
-	SERVICE_CATEGORIES,
-	getPackagesByCategory,
-	type ServiceCategory,
-} from '../lib/packages';
+import type { Locale } from '../i18n/locales';
+import { UI } from '../i18n/ui';
+import { getPackagesByCategory, type ServiceCategory } from '../lib/packages';
 
 interface Props {
 	category: ServiceCategory;
+	locale: Locale;
 	/** Hide the heading on pages that are already about a single service. */
 	showHeading?: boolean;
 }
 
-const { category, showHeading = true } = Astro.props;
-const packages = await getPackagesByCategory(category);
-const { label } = SERVICE_CATEGORIES[category];
+const { category, locale, showHeading = true } = Astro.props;
+const packages = await getPackagesByCategory(category, locale);
+const { label } = UI[locale].categories[category];
+const { marketNotice } = UI[locale].packages;
 
 const HEADING_ICONS: Record<
 	ServiceCategory,
@@ -51,9 +51,14 @@ const STAGGER_MS = 120;
 			<h3>{label}</h3>
 		</div>
 	)}
+	{marketNotice && <p class="market-notice">{marketNotice}</p>}
 	<div class="packages-grid">
 		{packages.map((pkg, i) => (
-			<ServiceCard pkg={pkg} revealDelay={(i % COLUMNS) * STAGGER_MS} />
+			<ServiceCard
+				pkg={pkg}
+				locale={locale}
+				revealDelay={(i % COLUMNS) * STAGGER_MS}
+			/>
 		))}
 	</div>
 </section>
@@ -90,6 +95,13 @@ const STAGGER_MS = 120;
 		line-height: 1;
 		color: var(--navy);
 		margin: 0;
+	}
+
+	.market-notice {
+		margin: 0 0 28px;
+		font-size: 0.95rem;
+		font-weight: 500;
+		color: var(--navy);
 	}
 
 	.packages-grid {

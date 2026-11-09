@@ -1,5 +1,6 @@
-import { CAL_LINKS } from '../consts';
-import { PLACEHOLDER_PACKAGES } from '../data/placeholderPackages';
+import { CAL_LINKS, type CalLinks } from '../consts';
+import { getPlaceholderPackages } from '../data/placeholderPackages';
+import { LOCALE_CONFIG, type Locale } from '../i18n/locales';
 import { getServicePackagesByType, type SanityServicePackage } from './sanity';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -11,6 +12,7 @@ export interface ServicePackage {
 	category: ServiceCategory;
 	title: string;
 	description: string;
+	/** In the currency of the package's market (USD or EUR). */
 	price: number | null;
 	priceNote?: string;
 	duration?: string;
@@ -21,42 +23,38 @@ export interface ServicePackage {
 }
 
 interface CategoryConfig {
-	label: string;
 	/** Value of `serviceType` in the Sanity `servicePackage` schema. */
 	sanityType: string;
-	tag: string;
 	/** Modifier class for `.package-card` in global.css (sets the colors). */
 	cardClass: string;
-	defaultBookingLink: string;
-	ctaText: string;
-	bookingNote: string;
+	/** Which Cal.com event the card opens when the package has no own link. */
+	bookingLinkKey: keyof Pick<CalLinks, 'sleepSession' | 'doulaIntroCall'>;
 }
 
 // ─── Booking flows (from the 2026-10-05 call with Silvia) ─────────────────────
 // Sleep: pick a package → book a 1-hour session → pay at booking.
 // Doula: pick a package → book a free 15-minute intro call → contract and
 //        payment are handled by Silvia after the call.
+// Same flows on the Italian site. Category texts are in UI (src/i18n/ui.ts).
 
 export const SERVICE_CATEGORIES: Record<ServiceCategory, CategoryConfig> = {
 	sleep: {
-		label: 'Sleep Consulting',
 		sanityType: 'Sleep Consulting',
-		tag: 'Sleep',
 		cardClass: 'sleep',
-		defaultBookingLink: CAL_LINKS.sleepSession,
-		ctaText: 'Book Now',
-		bookingNote: '1-hour session · payment at booking',
+		bookingLinkKey: 'sleepSession',
 	},
 	doula: {
-		label: 'Postpartum Doula',
 		sanityType: 'Postpartum Doula',
-		tag: 'Postpartum',
 		cardClass: 'doula',
-		defaultBookingLink: CAL_LINKS.doulaIntroCall,
-		ctaText: 'Book an Intro Call',
-		bookingNote: 'Free 15-minute call first · nothing to pay now',
+		bookingLinkKey: 'doulaIntroCall',
 	},
 };
+
+/** Cal.com event a package card opens, in the page's language. */
+export function getBookingLink(pkg: ServicePackage, locale: Locale): string {
+	const { bookingLinkKey } = SERVICE_CATEGORIES[pkg.category];
+	return pkg.bookingLink ?? CAL_LINKS[locale][bookingLinkKey];
+}
 
 // ─── Data access ──────────────────────────────────────────────────────────────
 
@@ -79,29 +77,30 @@ function fromSanity(
 }
 
 /**
- * Packages for one category, from Sanity when it has any, otherwise the
- * placeholders (Sanity is still empty until Silvia's final packages arrive).
+ * Packages for one category and one site version, from Sanity when it has
+ * any, otherwise that market's placeholders (Sanity is still empty until
+ * Silvia's final packages arrive). Never mixes markets.
  */
 export async function getPackagesByCategory(
 	category: ServiceCategory,
+	locale: Locale,
 ): Promise<ServicePackage[]> {
 	const { sanityType } = SERVICE_CATEGORIES[category];
+	const { market } = LOCALE_CONFIG[locale];
 
 	try {
-		const sanityPackages = await getServicePackagesByType(sanityType, 'us');
+		const sanityPackages = await getServicePackagesByType(sanityType, market);
 		if (sanityPackages.length > 0) {
 			return sanityPackages.map((pkg) => fromSanity(pkg, category));
 		}
 	} catch (error: unknown) {
 		console.warn(
-			`[packages] Sanity fetch failed for "${category}", using placeholders`,
+			`[packages] Sanity fetch failed for "${category}" (${market}), using placeholders`,
 			error,
 		);
 	}
 
-	return PLACEHOLDER_PACKAGES.filter((pkg) => pkg.category === category);
-}
-
-export function formatPrice(price: number): string {
-	return `$${price.toLocaleString('en-US')}`;
+	return getPlaceholderPackages(market).filter(
+		(pkg) => pkg.category === category,
+	);
 }
