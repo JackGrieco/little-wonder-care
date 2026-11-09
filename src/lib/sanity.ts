@@ -11,7 +11,10 @@ export const client = createClient({
 	projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID || SANITY_PROJECT_ID,
 	dataset: import.meta.env.PUBLIC_SANITY_DATASET || SANITY_DATASET,
 	apiVersion: '2024-01-01',
-	useCdn: import.meta.env.PROD,
+	// Pages are generated at build time, and a build starts right after each
+	// publish (Sanity webhook → Vercel deploy hook): read the fresh content,
+	// not the CDN copy, which may still hold the old prices for a moment.
+	useCdn: false,
 });
 
 // ─── Image URL builder ────────────────────────────────────────────────────────

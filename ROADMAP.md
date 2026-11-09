@@ -76,6 +76,10 @@ _Cosa impari: cos'è un headless CMS, le query GROQ, dati presi durante la build
 - [ ] Inserire i pacchetti in Sanity, così Silvia può modificarli da `/studio`
 - [ ] Togliere i dati statici di fallback quando Sanity è popolato
 - [ ] Rebuild automatica quando Silvia pubblica (webhook Sanity → deploy hook Vercel)
+  - [x] Il sito legge Sanity senza CDN durante la build, così trova subito i contenuti appena pubblicati (`src/lib/sanity.ts`)
+  - [ ] Vercel → progetto → Settings → Git → Deploy Hooks: hook `sanity-publish` sul branch `main`. L'URL è segreto: non va nel codice
+  - [ ] sanity.io/manage → progetto `zjnv9ypr` → API → Webhooks: POST all'URL del deploy hook, dataset `production`, trigger Create/Update/Delete, filtro `_type in ["servicePackage", "faq", "testimonial"]`, drafts esclusi
+  - [ ] Prova: modificare un pacchetto in Studio, pubblicare, controllare che parta un deploy su Vercel
 
 ## Fase 4 — Form contatti (primo pezzo di backend)
 
