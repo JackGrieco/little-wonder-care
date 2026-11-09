@@ -48,3 +48,16 @@ test('Italian postpartum doula page offers online support only', async ({
 	expect(text).not.toContain('Waco');
 	expect(text).not.toContain('in-home');
 });
+
+for (const [path, usPath] of [
+	['/it/', '/'],
+	['/it/about', '/about'],
+] as const) {
+	test(`Italian page ${path} is in Italian and never mentions Waco`, async ({
+		page,
+	}) => {
+		await expectItalianPage(page, path, usPath);
+
+		expect(await getBodyText(page)).not.toContain('Waco');
+	});
+}

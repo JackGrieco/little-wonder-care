@@ -1,0 +1,104 @@
+---
+// Home page "Free Newborn Sleep Guide" sign-up band.
+// US site only (no Italian blog or lead magnet planned), hidden behind a
+// feature flag in src/consts.ts.
+---
+
+<section class="lead-magnet">
+	<div class="lead-magnet-inner">
+		<h2 class="section-title">Free Newborn Sleep Guide</h2>
+		<p>Download the guide and get practical tips straight to your inbox.</p>
+		<form class="email-form" onsubmit="return false;">
+			<input
+				type="email"
+				placeholder="Your email address..."
+				aria-label="Email address"
+			/>
+			<button type="submit">Download</button>
+		</form>
+	</div>
+</section>
+
+<style>
+	/* ===== LEAD MAGNET ===== */
+	.lead-magnet {
+		padding: 60px 24px;
+		background: var(--crema);
+	}
+
+	.lead-magnet-inner {
+		max-width: 640px;
+		margin: 0 auto;
+		text-align: center;
+		background: #fff;
+		padding: 48px 40px;
+		border-radius: 24px;
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+	}
+
+	.lead-magnet-inner .section-title {
+		font-size: 1.6rem;
+		margin-bottom: 12px;
+	}
+
+	.lead-magnet-inner p {
+		font-size: 0.95rem;
+		color: rgba(45, 45, 45, 0.7);
+		margin-bottom: 24px;
+	}
+
+	.email-form {
+		display: flex;
+		gap: 12px;
+		max-width: 420px;
+		margin: 0 auto;
+	}
+
+	.email-form input {
+		flex: 1;
+		padding: 12px 20px;
+		border: 1px solid rgba(183, 201, 206, 0.5);
+		border-radius: 50px;
+		font-size: 0.9rem;
+		outline: none;
+		font-family: var(--font-sans);
+		background: var(--off-white);
+		color: var(--charcoal);
+		transition: border-color 0.2s;
+	}
+
+	.email-form input:focus {
+		border-color: var(--celeste);
+	}
+
+	.email-form button {
+		background: var(--pesca);
+		color: var(--navy);
+		border: none;
+		padding: 12px 28px;
+		border-radius: 50px;
+		font-size: 0.85rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: background 0.2s;
+		white-space: nowrap;
+		font-family: var(--font-sans);
+	}
+
+	.email-form button:hover {
+		background: var(--navy);
+		color: #fff !important;
+	}
+
+	@media (max-width: 900px) {
+		.email-form {
+			flex-direction: column;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.lead-magnet-inner {
+			padding: 32px 24px;
+		}
+	}
+</style>

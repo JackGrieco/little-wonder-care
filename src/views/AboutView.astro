@@ -1,0 +1,306 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Cloud from '../components/Cloud.astro';
+import CtaBand from '../components/CtaBand.astro';
+import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import HeroLogo from '../components/HeroLogo.astro';
+import Scallop from '../components/Scallop.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { ABOUT_COPY } from '../i18n/copy/about';
+import type { Locale } from '../i18n/locales';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = ABOUT_COPY[locale];
+const [dona, gsc, education] = copy.credentials.items;
+
+// Hover color of each value card; texts come from the copy, same order.
+const VALUE_HOVER_BACKGROUNDS = [
+	'var(--rosa-cipria)',
+	'var(--celeste)',
+	'var(--crema)',
+	'var(--rosa-cipria)',
+];
+const VALUES = copy.values.items.map((value, i) => ({
+	...value,
+	hoverBg: VALUE_HOVER_BACKGROUNDS[i],
+}));
+
+// Reveal delays for the 2×2 grid: left column first, right column a beat later
+const VALUE_DELAYS_MS = [0, 150, 100, 250];
+---
+
+<MainLayout
+	locale={locale}
+	title={copy.meta.title}
+	description={copy.meta.description}
+>
+	<!-- Hero: logo on the left, Silvia's story on the right -->
+	<section class="hero">
+		<Cloud width={170} duration="22s" style="top:50px;left:3%" />
+		<Cloud
+			width={120}
+			color="var(--crema)"
+			opacity={0.45}
+			duration="28s"
+			delay="-8s"
+			style="top:36px;right:40%"
+		/>
+
+		<div class="hero-inner">
+			<div class="anim-fade-up" style="--anim-dur:1s;--anim-delay:0.2s">
+				<HeroLogo alt="Silvia — Little Wonder Care" />
+			</div>
+			<div class="hero-story">
+				<p class="hero-pill anim-fade-up" style="--anim-dur:0.8s">
+					{copy.hero.pill}
+				</p>
+				<h1 class="anim-fade-up" style="--anim-delay:0.15s">
+					{copy.hero.title}
+				</h1>
+				<div class="anim-fade-up" style="--anim-delay:0.35s">
+					{copy.hero.paragraphs.map((paragraph) => (
+						<p>{paragraph}</p>
+					))}
+				</div>
+				<div class="anim-fade-up" style="--anim-delay:0.55s">
+					<DiscoveryCallButton locale={locale} label={copy.hero.buttonLabel} />
+				</div>
+			</div>
+		</div>
+
+		<Scallop color="var(--crema)" />
+	</section>
+
+	<!-- Credentials -->
+	<section class="credentials">
+		<div class="section-inner">
+			<SectionHeader
+				eyebrow={copy.credentials.eyebrow}
+				title={copy.credentials.title}
+			/>
+			<div class="credentials-grid">
+				<FeatureCard
+					icon="award"
+					title={dona.title}
+					text={dona.text}
+					background="var(--off-white)"
+					decorColor="rgba(183, 201, 207, 0.3)"
+					iconBackground="var(--celeste)"
+				/>
+				<FeatureCard
+					icon="moon-star"
+					title={gsc.title}
+					text={gsc.text}
+					background="var(--off-white)"
+					decorColor="rgba(246, 212, 219, 0.45)"
+					iconBackground="var(--rosa-cipria)"
+					revealDelay={150}
+				/>
+				<FeatureCard
+					icon="book-open"
+					title={education.title}
+					text={education.text}
+					background="var(--off-white)"
+					decorColor="rgba(232, 153, 132, 0.2)"
+					iconBackground="var(--crema)"
+					revealDelay={300}
+				/>
+			</div>
+		</div>
+	</section>
+
+	<!-- Values -->
+	<section class="values">
+		<Cloud
+			width={160}
+			color="var(--celeste)"
+			opacity={0.35}
+			duration="26s"
+			style="right:4%;top:60px"
+		/>
+		<div class="values-inner">
+			<SectionHeader eyebrow={copy.values.eyebrow} title={copy.values.title} />
+			<div class="values-grid">
+				{VALUES.map((value, i) => (
+					<div
+						class="value-wrap"
+						data-reveal="up"
+						data-delay={VALUE_DELAYS_MS[i]}
+					>
+						<div class="value-card" style={`--hover-bg:${value.hoverBg}`}>
+							<span class="value-dot" aria-hidden="true"></span>
+							<div>
+								<h3>{value.title}</h3>
+								<p>{value.text}</p>
+							</div>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<CtaBand locale={locale} title={copy.cta.title} text={copy.cta.text} />
+</MainLayout>
+
+<style>
+	/* ===== HERO ===== */
+	.hero {
+		position: relative;
+		overflow: hidden;
+		background: var(--celeste);
+		padding: 80px 24px 160px;
+	}
+
+	.hero-inner {
+		position: relative;
+		z-index: 1;
+		max-width: var(--max-width);
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+		gap: 72px;
+		align-items: center;
+	}
+
+	h1 {
+		font-family: var(--font-display);
+		font-size: 4rem;
+		font-weight: 400;
+		line-height: 1.05;
+		color: var(--navy);
+		margin: 0 0 24px;
+	}
+
+	.hero-story p:not(.hero-pill) {
+		font-size: 1.02rem;
+		line-height: 1.75;
+		color: var(--navy);
+		margin: 0 0 16px;
+		text-wrap: pretty;
+	}
+	.hero-story p:last-child {
+		margin-bottom: 32px;
+	}
+
+	/* ===== CREDENTIALS ===== */
+	.credentials {
+		padding: 80px 24px 110px;
+		background: var(--crema);
+	}
+
+	.credentials-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 28px;
+		align-items: stretch;
+	}
+
+	/* ===== VALUES ===== */
+	.values {
+		position: relative;
+		overflow: hidden;
+		padding: 110px 24px;
+	}
+
+	.values-inner {
+		position: relative;
+		max-width: 1000px;
+		margin: 0 auto;
+	}
+
+	.values-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 24px;
+	}
+
+	.value-wrap {
+		display: flex;
+	}
+
+	.value-card {
+		flex: 1;
+		display: flex;
+		gap: 20px;
+		align-items: flex-start;
+		padding: 32px;
+		border-radius: 24px;
+		background: #fff;
+		border: 1px solid rgba(31, 56, 100, 0.06);
+		transition:
+			transform 0.4s var(--ease-soft),
+			box-shadow 0.4s,
+			background 0.4s;
+	}
+	.value-card:hover {
+		transform: translateY(-6px);
+		box-shadow: 0 18px 44px rgba(31, 56, 100, 0.1);
+		background: var(--hover-bg);
+	}
+
+	.value-dot {
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		background: var(--pesca);
+		margin-top: 10px;
+		flex-shrink: 0;
+		box-shadow: 0 0 0 6px rgba(232, 153, 132, 0.2);
+	}
+
+	.value-card h3 {
+		font-family: var(--font-display);
+		font-size: 1.7rem;
+		font-weight: 400;
+		line-height: 1.15;
+		color: var(--navy);
+		margin: 0 0 6px;
+	}
+
+	.value-card p {
+		font-size: 0.94rem;
+		line-height: 1.65;
+		color: rgba(45, 45, 45, 0.78);
+		margin: 0;
+	}
+
+	/* ===== RESPONSIVE ===== */
+	@media (max-width: 900px) {
+		.hero-inner {
+			grid-template-columns: 1fr;
+			gap: 24px;
+			text-align: center;
+		}
+		h1 {
+			font-size: 3.2rem;
+		}
+		.credentials-grid,
+		.values-grid {
+			grid-template-columns: minmax(0, 1fr);
+			max-width: 480px;
+			margin: 0 auto;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.hero {
+			padding: 48px 20px 120px;
+		}
+		h1 {
+			font-size: 2.6rem;
+		}
+		.credentials,
+		.values {
+			padding: 72px 20px;
+		}
+		.value-card {
+			padding: 24px;
+		}
+	}
+</style>
