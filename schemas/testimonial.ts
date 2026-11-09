@@ -12,6 +12,22 @@ export const testimonial = defineType({
 			validation: (Rule) => Rule.required(),
 		}),
 		defineField({
+			name: 'language',
+			title: 'Language',
+			type: 'string',
+			description:
+				'Testimonials show only on the version of the site in their language.',
+			options: {
+				list: [
+					{ title: 'English', value: 'en' },
+					{ title: 'Italiano', value: 'it' },
+				],
+				layout: 'radio',
+			},
+			initialValue: 'en',
+			validation: (Rule) => Rule.required(),
+		}),
+		defineField({
 			name: 'serviceType',
 			title: 'Service Type',
 			type: 'string',

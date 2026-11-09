@@ -3,6 +3,7 @@ import { createImageUrlBuilder } from '@sanity/image-url';
 import type { SanityImageSource } from '@sanity/image-url';
 import type { PortableTextBlock } from '@portabletext/types';
 import { SANITY_DATASET, SANITY_PROJECT_ID } from '../consts';
+import type { Locale, Market } from '../i18n/locales';
 
 // ─── Client ──────────────────────────────────────────────────────────────────
 
@@ -57,6 +58,8 @@ export interface Testimonial {
 	rating?: number;
 	featured?: boolean;
 	photo?: SanityImage;
+	/** Missing on documents created before the Italian site: means 'en'. */
+	language?: Locale;
 }
 
 export interface FAQ {
@@ -66,6 +69,8 @@ export interface FAQ {
 	answer?: PortableTextBlock[];
 	category?: 'General' | 'Sleep Consulting' | 'Postpartum Doula' | 'Pricing';
 	order?: number;
+	/** Missing on documents created before the Italian site: means 'us'. */
+	market?: Market;
 }
 
 export interface SanityServicePackage {
@@ -84,6 +89,8 @@ export interface SanityServicePackage {
 	ctaLink?: string;
 	sortOrder?: number;
 	isActive?: boolean;
+	/** Missing on documents created before the Italian site: means 'us'. */
+	market?: Market;
 }
 
 // ─── GROQ queries ─────────────────────────────────────────────────────────────
@@ -136,74 +143,56 @@ export async function getBlogPostSlugs(): Promise<{ slug: string }[]> {
 	return posts.map((p) => ({ slug: p.slug.current }));
 }
 
-/**
- * Fetch featured testimonials for the homepage.
- */
-export async function getFeaturedTestimonials(): Promise<Testimonial[]> {
-	return client.fetch(
-		`*[_type == "testimonial" && featured == true] {
-      _id,
-      name,
-      serviceType,
-      childAge,
-      quote,
-      rating,
-      photo { ..., "alt": alt }
-    }`,
-	);
+// Content filters by site version. Documents created before the Italian
+// site have no market/language field: coalesce() counts them as US/English,
+// so they never show up on the Italian pages. Optional filters take null
+// (never undefined: the Sanity client drops undefined params).
+const IN_MARKET = `coalesce(market, "us") == $market`;
+const IN_LANGUAGE = `coalesce(language, "en") == $language`;
+
+const TESTIMONIAL_FIELDS = `_id, name, serviceType, childAge, quote, rating, featured, language, photo { ..., "alt": alt }`;
+
+export const FEATURED_TESTIMONIALS_QUERY = `*[_type == "testimonial" && featured == true && ${IN_LANGUAGE}] { ${TESTIMONIAL_FIELDS} }`;
+
+export const TESTIMONIALS_QUERY = `*[_type == "testimonial" && ${IN_LANGUAGE} && ($serviceType == null || serviceType == $serviceType)] | order(_createdAt desc) { ${TESTIMONIAL_FIELDS} }`;
+
+export const FAQS_QUERY = `*[_type == "faq" && ${IN_MARKET} && ($category == null || category == $category)] | order(order asc, question asc) { _id, question, answer, category, order, market }`;
+
+export const SERVICE_PACKAGES_QUERY = `*[_type == "servicePackage" && isActive != false && serviceType == $serviceType && ${IN_MARKET}] | order(sortOrder asc, _createdAt asc) {
+  _id, title, slug, serviceType, description, features, price, priceNote,
+  duration, isPopular, ctaText, ctaLink, sortOrder, isActive, market
+}`;
+
+/** Featured testimonials in one language, for the homepage. */
+export async function getFeaturedTestimonials(
+	language: Locale,
+): Promise<Testimonial[]> {
+	return client.fetch(FEATURED_TESTIMONIALS_QUERY, { language });
 }
 
-/**
- * Fetch all testimonials, optionally filtered by service type.
- */
+/** Testimonials in one language, optionally of one service type. */
 export async function getTestimonials(
+	language: Locale,
 	serviceType?: string,
 ): Promise<Testimonial[]> {
-	const filter = serviceType
-		? `*[_type == "testimonial" && serviceType == $serviceType]`
-		: `*[_type == "testimonial"]`;
-	return client.fetch(
-		`${filter} | order(_createdAt desc) { _id, name, serviceType, childAge, quote, rating, featured, photo { ..., "alt": alt } }`,
-		{ serviceType },
-	);
+	return client.fetch(TESTIMONIALS_QUERY, {
+		language,
+		serviceType: serviceType ?? null,
+	});
 }
 
-/**
- * Fetch FAQs, optionally filtered by category, ordered by the `order` field.
- */
-export async function getFAQs(category?: string): Promise<FAQ[]> {
-	const filter = category
-		? `*[_type == "faq" && category == $category]`
-		: `*[_type == "faq"]`;
-	return client.fetch(
-		`${filter} | order(order asc, question asc) { _id, question, answer, category, order }`,
-		{ category },
-	);
+/** FAQs of one market, optionally of one category, ordered by `order`. */
+export async function getFAQs(
+	market: Market,
+	category?: string,
+): Promise<FAQ[]> {
+	return client.fetch(FAQS_QUERY, { market, category: category ?? null });
 }
 
-/**
- * Fetch active service packages filtered by serviceType.
- */
+/** Active service packages of one type and one market. */
 export async function getServicePackagesByType(
 	serviceType: string,
+	market: Market,
 ): Promise<SanityServicePackage[]> {
-	return client.fetch(
-		`*[_type == "servicePackage" && isActive != false && serviceType == $serviceType] | order(sortOrder asc, _createdAt asc) {
-      _id,
-      title,
-      slug,
-      serviceType,
-      description,
-      features,
-      price,
-      priceNote,
-      duration,
-      isPopular,
-      ctaText,
-      ctaLink,
-      sortOrder,
-      isActive
-    }`,
-		{ serviceType },
-	);
+	return client.fetch(SERVICE_PACKAGES_QUERY, { serviceType, market });
 }

@@ -88,7 +88,7 @@ export async function getPackagesByCategory(
 	const { sanityType } = SERVICE_CATEGORIES[category];
 
 	try {
-		const sanityPackages = await getServicePackagesByType(sanityType);
+		const sanityPackages = await getServicePackagesByType(sanityType, 'us');
 		if (sanityPackages.length > 0) {
 			return sanityPackages.map((pkg) => fromSanity(pkg, category));
 		}

@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
 import { getTestimonials, urlFor } from '../lib/sanity';
 
-const testimonials = await getTestimonials().catch(() => []);
+const testimonials = await getTestimonials('en').catch(() => []);
 
 const categories = ['All', 'Sleep Consulting', 'Postpartum Doula'] as const;
 ---

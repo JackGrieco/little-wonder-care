@@ -11,7 +11,7 @@ import Timeline from '../components/Timeline.astro';
 import { IS_BLOG_ENABLED, IS_LEAD_MAGNET_ENABLED } from '../consts';
 import { getFeaturedTestimonials } from '../lib/sanity';
 
-const testimonials = await getFeaturedTestimonials().catch(() => []);
+const testimonials = await getFeaturedTestimonials('en').catch(() => []);
 
 const TRUST_POINTS = [
 	'DONA Certified',

@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 import { getFAQs } from '../lib/sanity';
 import type { FAQ } from '../lib/sanity';
 
-const allFaqs = await getFAQs().catch(() => []);
+const allFaqs = await getFAQs('us').catch(() => []);
 
 // Group by category, preserving defined order
 const categoryOrder = [
