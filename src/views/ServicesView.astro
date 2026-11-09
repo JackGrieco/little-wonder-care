@@ -1,0 +1,139 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Cloud from '../components/Cloud.astro';
+import CtaBand from '../components/CtaBand.astro';
+import DiscoveryCallCard from '../components/DiscoveryCallCard.astro';
+import Dot from '../components/Dot.astro';
+import Icon from '../components/Icon.astro';
+import PackagesSection from '../components/PackagesSection.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { SERVICES_COPY } from '../i18n/copy/services';
+import type { Locale } from '../i18n/locales';
+import { UI } from '../i18n/ui';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = SERVICES_COPY[locale];
+const { categories } = UI[locale];
+---
+
+<MainLayout
+	locale={locale}
+	title={copy.meta.title}
+	description={copy.meta.description}
+>
+	<PageHero
+		eyebrow={copy.hero.eyebrow}
+		title={copy.hero.title}
+		subtitle={copy.hero.subtitle}
+		background="var(--crema)"
+	>
+		<Fragment slot="decor">
+			<Cloud
+				width={170}
+				color="var(--celeste)"
+				duration="22s"
+				style="top:60px;left:5%"
+			/>
+			<Cloud
+				width={140}
+				color="var(--rosa-cipria)"
+				opacity={0.7}
+				duration="26s"
+				delay="-6s"
+				style="top:40px;right:7%"
+			/>
+			<Dot size={18} color="var(--pesca)" style="top:42%;left:16%" />
+			<Dot
+				size={12}
+				color="var(--navy)"
+				opacity={0.5}
+				duration="7s"
+				delay="-2s"
+				style="top:30%;right:18%"
+			/>
+		</Fragment>
+
+		<nav
+			class="jump-links anim-fade-up"
+			style="--anim-delay:0.5s"
+			aria-label={copy.jumpLinksLabel}
+		>
+			<a href="#sleep">
+				<Icon name="moon-star" size={16} /> {categories.sleep.label}
+			</a>
+			<a href="#doula">
+				<Icon name="heart" size={16} class="heart" />
+				{categories.doula.label}
+			</a>
+		</nav>
+	</PageHero>
+
+	<!-- Packages: sleep, doula, then the free discovery call -->
+	<section class="packages">
+		<div class="section-inner">
+			<SectionHeader
+				eyebrow={copy.packages.eyebrow}
+				title={copy.packages.title}
+			/>
+			<PackagesSection category="sleep" locale={locale} />
+			<PackagesSection category="doula" locale={locale} />
+			<DiscoveryCallCard locale={locale} />
+		</div>
+	</section>
+
+	<CtaBand
+		locale={locale}
+		title={copy.cta.title}
+		text={copy.cta.text}
+		buttonLabel={copy.cta.buttonLabel}
+	/>
+</MainLayout>
+
+<style>
+	.jump-links {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin-top: 32px;
+	}
+
+	.jump-links a {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		background: var(--off-white);
+		color: var(--navy);
+		padding: 10px 20px;
+		border-radius: 50px;
+		text-decoration: none;
+		font-size: 0.85rem;
+		font-weight: 600;
+		transition:
+			transform 0.3s,
+			box-shadow 0.3s;
+	}
+	.jump-links a:hover {
+		color: var(--navy);
+		transform: translateY(-2px);
+		box-shadow: 0 8px 20px rgba(31, 56, 100, 0.1);
+	}
+	.jump-links :global(.heart) {
+		color: var(--pesca);
+	}
+
+	.packages {
+		padding: 60px 24px 110px;
+	}
+
+	@media (max-width: 600px) {
+		.packages {
+			padding: 40px 20px 72px;
+		}
+	}
+</style>

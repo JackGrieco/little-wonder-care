@@ -1,4 +1,5 @@
 import type { Page } from '@playwright/test';
+import { localizePath } from '../src/i18n/locales';
 
 export const US_PATHS: readonly string[] = [
 	'/',
@@ -46,3 +47,8 @@ export async function getInternalHrefs(page: Page): Promise<string[]> {
 export async function openPage(page: Page, path: string) {
 	return page.goto(path, { waitUntil: 'networkidle' });
 }
+
+/** The same pages on the Italian site ("/it/", "/it/about", ...). */
+export const IT_PATHS: readonly string[] = US_PATHS.map((path) =>
+	localizePath(path, 'it'),
+);
