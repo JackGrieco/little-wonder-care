@@ -1,0 +1,293 @@
+---
+import { PortableText } from '@portabletext/react';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { FAQ_COPY } from '../i18n/copy/faq';
+import { LOCALE_CONFIG, localizePath, type Locale } from '../i18n/locales';
+import { UI, type FaqCategory } from '../i18n/ui';
+import { getFAQs } from '../lib/sanity';
+import type { FAQ } from '../lib/sanity';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = FAQ_COPY[locale];
+const categoryLabels = UI[locale].faqCategories;
+const contactHref = localizePath('/contact', locale);
+const withContactLink = (html: string) =>
+	html.replace('{contact}', contactHref);
+
+const allFaqs = await getFAQs(LOCALE_CONFIG[locale].market).catch(() => []);
+
+// Group by category, preserving defined order
+const categoryOrder = [
+	'General',
+	'Sleep Consulting',
+	'Postpartum Doula',
+	'Pricing',
+] as const;
+
+const grouped = categoryOrder.reduce<Record<string, FAQ[]>>((acc, cat) => {
+	const items = allFaqs.filter((f) => f.category === cat);
+	if (items.length > 0) acc[cat] = items;
+	return acc;
+}, {});
+
+// Uncategorised FAQs land in their own group
+const uncategorised = allFaqs.filter((f) => !f.category);
+if (uncategorised.length > 0) grouped['Other'] = uncategorised;
+
+const hasContent = allFaqs.length > 0;
+
+// JSON-LD FAQ schema for SEO
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: allFaqs.map((f) => ({
+		'@type': 'Question',
+		name: f.question,
+		acceptedAnswer: {
+			'@type': 'Answer',
+			text: f.answer
+				? f.answer
+						.flatMap((block) =>
+							block._type === 'block' && Array.isArray((block as any).children)
+								? (block as any).children
+										.map((span: { text?: string }) => span.text ?? '')
+										.join('')
+								: [],
+						)
+						.join(' ')
+				: '',
+		},
+	})),
+};
+---
+
+<!doctype html>
+<html lang={locale}>
+	<head>
+		<BaseHead
+			locale={locale}
+			title={copy.meta.title}
+			description={copy.meta.description}
+		/>
+		{hasContent && (
+			<script
+				type="application/ld+json"
+				is:inline
+				set:html={JSON.stringify(faqSchema)}
+			/>
+		)}
+	</head>
+	<body>
+		<Header locale={locale} />
+
+		<main>
+			<div class="page-hero bg-crema">
+				<p class="eyebrow">{copy.hero.eyebrow}</p>
+				<h1>{copy.hero.title}</h1>
+				<p
+					class="subtitle"
+					set:html={withContactLink(copy.hero.subtitleHtml)}
+				/>
+			</div>
+
+			<div class="section">
+				<div class="faq-inner">
+					{hasContent ? (
+						Object.entries(grouped).map(([category, faqs]) => (
+							<div class="faq-group">
+								<h2 class="faq-category">
+									{categoryLabels[category as FaqCategory] ?? category}
+								</h2>
+								<div class="faq-list">
+									{faqs.map((faq) => (
+										<details class="faq-item" name={`faq-${category}`}>
+											<summary class="faq-question">
+												<span>{faq.question}</span>
+												<span class="faq-icon" aria-hidden="true">
+													+
+												</span>
+											</summary>
+											<div class="faq-answer">
+												{faq.answer && faq.answer.length > 0 ? (
+													<PortableText value={faq.answer} />
+												) : (
+													<p>{copy.answerComingSoon}</p>
+												)}
+											</div>
+										</details>
+									))}
+								</div>
+							</div>
+						))
+					) : (
+						<div class="faq-empty">
+							<p set:html={withContactLink(copy.emptyHtml)} />
+						</div>
+					)}
+				</div>
+			</div>
+
+			<section class="cta-band">
+				<h2>{copy.cta.title}</h2>
+				<p>{copy.cta.text}</p>
+				<a href={contactHref} class="btn-cta-light">
+					{copy.cta.button}
+				</a>
+			</section>
+		</main>
+
+		<Footer locale={locale} />
+	</body>
+</html>
+
+<style>
+	main {
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+	.faq-inner {
+		max-width: 760px;
+		margin: 0 auto;
+	}
+
+	/* Category heading */
+	.faq-group {
+		margin-bottom: 56px;
+	}
+	.faq-group:last-child {
+		margin-bottom: 0;
+	}
+
+	.faq-category {
+		font-family: var(--font-display);
+		font-size: 1.4rem;
+		font-weight: 600;
+		color: var(--navy);
+		margin: 0 0 20px;
+		padding-bottom: 12px;
+		border-bottom: 2px solid rgba(183, 201, 206, 0.4);
+	}
+
+	/* Accordion item */
+	.faq-list {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.faq-item {
+		background: #fff;
+		border-radius: 12px;
+		overflow: hidden;
+		box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+		transition: box-shadow 0.2s;
+	}
+
+	.faq-item[open] {
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+	}
+
+	/* Remove default triangle */
+	.faq-question {
+		list-style: none;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		padding: 20px 24px;
+		cursor: pointer;
+		font-size: 0.97rem;
+		font-weight: 600;
+		color: var(--charcoal);
+		line-height: 1.4;
+		user-select: none;
+		transition: background 0.15s;
+	}
+
+	.faq-question::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-item[open] .faq-question {
+		background: rgba(183, 201, 206, 0.12);
+	}
+	.faq-question:hover {
+		background: rgba(183, 201, 206, 0.1);
+	}
+
+	.faq-icon {
+		font-size: 1.3rem;
+		font-weight: 300;
+		color: var(--navy);
+		line-height: 1;
+		transition: transform 0.25s;
+		flex-shrink: 0;
+	}
+
+	.faq-item[open] .faq-icon {
+		transform: rotate(45deg);
+	}
+
+	/* Answer */
+	.faq-answer {
+		padding: 0 24px 20px;
+		font-size: 0.95rem;
+		line-height: 1.75;
+		color: rgba(45, 45, 45, 0.75);
+	}
+
+	.faq-answer :global(p) {
+		margin-bottom: 0.8em;
+	}
+	.faq-answer :global(p:last-child) {
+		margin-bottom: 0;
+	}
+
+	.faq-answer :global(ul),
+	.faq-answer :global(ol) {
+		padding-left: 1.4em;
+		margin-bottom: 0.8em;
+	}
+
+	.faq-answer :global(li) {
+		margin-bottom: 0.3em;
+	}
+
+	.faq-answer :global(a) {
+		color: var(--navy);
+	}
+	.faq-answer :global(a:hover) {
+		color: var(--pesca);
+	}
+
+	.faq-answer :global(strong) {
+		color: var(--charcoal);
+		font-weight: 600;
+	}
+
+	/* Empty state */
+	.faq-empty {
+		text-align: center;
+		padding: 60px 24px;
+		color: rgba(45, 45, 45, 0.55);
+		font-size: 1rem;
+	}
+
+	/* Hero link colour override */
+	.page-hero a {
+		color: var(--navy);
+		font-weight: 500;
+	}
+	.page-hero a:hover {
+		color: var(--pesca);
+	}
+</style>

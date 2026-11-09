@@ -1,0 +1,290 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Cloud from '../components/Cloud.astro';
+import ContactForm from '../components/ContactForm.astro';
+import CtaBand from '../components/CtaBand.astro';
+import DiscoveryCallButton from '../components/DiscoveryCallButton.astro';
+import Dot from '../components/Dot.astro';
+import Icon, { type IconName } from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import { CONTACT_EMAIL } from '../consts';
+import { CONTACT_COPY } from '../i18n/copy/contact';
+import { localizePath, type Locale } from '../i18n/locales';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = CONTACT_COPY[locale];
+
+interface ContactItem {
+	icon: IconName;
+	label: string;
+	value: string[];
+	href?: string;
+}
+
+const CONTACT_ITEMS: ContactItem[] = [
+	{
+		icon: 'mail',
+		label: copy.info.emailLabel,
+		value: [CONTACT_EMAIL],
+		href: `mailto:${CONTACT_EMAIL}`,
+	},
+	{
+		icon: 'map-pin',
+		label: copy.info.serviceAreaLabel,
+		value: [...copy.info.serviceArea],
+	},
+	{
+		icon: 'clock',
+		label: copy.info.responseTimeLabel,
+		value: [copy.info.responseTime],
+	},
+	// TODO: real Instagram URL still to come from Silvia
+	{
+		icon: 'instagram',
+		label: copy.info.instagramLabel,
+		value: ['@littlewondercare'],
+		href: '#',
+	},
+];
+
+const ITEM_STAGGER_MS = 100;
+---
+
+<MainLayout
+	locale={locale}
+	title={copy.meta.title}
+	description={copy.meta.description}
+>
+	<PageHero
+		eyebrow={copy.hero.eyebrow}
+		title={copy.hero.title}
+		subtitle={copy.hero.subtitle}
+		background="var(--celeste)"
+	>
+		<Fragment slot="decor">
+			<Cloud
+				width={170}
+				opacity={0.55}
+				duration="22s"
+				style="top:60px;left:5%"
+			/>
+			<Cloud width={140} duration="26s" delay="-6s" style="top:40px;right:7%" />
+			<Dot size={18} color="var(--pesca)" style="top:42%;left:16%" />
+			<Dot
+				size={12}
+				color="var(--navy)"
+				opacity={0.5}
+				duration="7s"
+				delay="-2s"
+				style="top:30%;right:18%"
+			/>
+		</Fragment>
+	</PageHero>
+
+	<section class="contact">
+		<div class="contact-grid">
+			<ContactForm locale={locale} />
+
+			<div class="side">
+				<!-- Free discovery call: Silvia wants it highly visible next to the form -->
+				<div class="talk-card" data-reveal="right" data-delay="100">
+					<span class="talk-circle anim-breathe" aria-hidden="true"></span>
+					<div class="talk-content">
+						<h2>{copy.talk.title}</h2>
+						<p>{copy.talk.text}</p>
+						<DiscoveryCallButton locale={locale} variant="btn-dark" />
+					</div>
+				</div>
+
+				<div class="info-card">
+					<h2 data-reveal="up">{copy.info.title}</h2>
+					{CONTACT_ITEMS.map((item, i) => (
+						<div
+							class="info-item"
+							data-reveal="up"
+							data-delay={i * ITEM_STAGGER_MS}
+						>
+							<span class="info-icon">
+								<Icon name={item.icon} size={20} />
+							</span>
+							<div>
+								<p class="info-label">{item.label}</p>
+								{item.href ? (
+									<a href={item.href} class="info-value">
+										{item.value[0]}
+									</a>
+								) : (
+									<p class="info-value">
+										{item.value.map((line, j) => (
+											<>
+												{j > 0 && <br />}
+												{line}
+											</>
+										))}
+									</p>
+								)}
+							</div>
+						</div>
+					))}
+					<div class="info-note">
+						{copy.info.notReady}
+						<br />
+						<a href={localizePath('/services', locale)}>
+							{copy.info.browseServices}
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<CtaBand locale={locale} title={copy.cta.title} text={copy.cta.text} />
+</MainLayout>
+
+<style>
+	.contact {
+		padding: 40px 24px 110px;
+	}
+
+	.contact-grid {
+		max-width: var(--max-width);
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+		gap: 48px;
+		align-items: start;
+	}
+
+	.side {
+		display: flex;
+		flex-direction: column;
+		gap: 28px;
+	}
+
+	h2 {
+		font-family: var(--font-display);
+		font-size: 2rem;
+		font-weight: 400;
+		line-height: 1.1;
+		color: var(--navy);
+		margin: 0;
+	}
+
+	.talk-card {
+		position: relative;
+		overflow: hidden;
+		background: var(--crema);
+		border-radius: 28px;
+		padding: 36px;
+	}
+
+	.talk-circle {
+		position: absolute;
+		right: -40px;
+		top: -40px;
+		width: 130px;
+		height: 130px;
+		border-radius: 50%;
+		background: var(--rosa-cipria);
+		opacity: 0.7;
+	}
+
+	.talk-content {
+		position: relative;
+	}
+	.talk-content h2 {
+		margin-bottom: 8px;
+	}
+	.talk-content p {
+		font-size: 0.94rem;
+		color: var(--charcoal);
+		line-height: 1.6;
+		margin: 0 0 22px;
+	}
+
+	.info-card {
+		background: #fff;
+		border-radius: 28px;
+		padding: 36px;
+		box-shadow: 0 10px 40px rgba(31, 56, 100, 0.06);
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+	}
+
+	.info-item {
+		display: flex;
+		gap: 16px;
+		align-items: flex-start;
+	}
+
+	.info-icon {
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		background: rgba(183, 201, 206, 0.35);
+		color: var(--navy);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.info-label {
+		font-size: 0.72rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		font-weight: 600;
+		color: var(--navy-soft);
+		margin: 0 0 4px;
+	}
+
+	.info-value {
+		font-size: 0.94rem;
+		color: var(--charcoal);
+		line-height: 1.55;
+		margin: 0;
+		text-decoration: none;
+		overflow-wrap: anywhere;
+	}
+	a.info-value:hover {
+		color: var(--pesca);
+	}
+
+	.info-note {
+		font-size: 0.86rem;
+		color: rgba(45, 45, 45, 0.65);
+		line-height: 1.6;
+		border-top: 1px solid rgba(183, 201, 206, 0.4);
+		padding-top: 20px;
+	}
+	.info-note a {
+		color: var(--navy);
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.info-note a:hover {
+		color: var(--pesca);
+	}
+
+	@media (max-width: 900px) {
+		.contact-grid {
+			grid-template-columns: minmax(0, 1fr);
+			max-width: 600px;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.contact {
+			padding: 24px 20px 72px;
+		}
+		.talk-card,
+		.info-card {
+			padding: 28px 24px;
+		}
+	}
+</style>

@@ -1,0 +1,140 @@
+---
+// Privacy policy page shell (head, hero, styles). The policy text is one
+// component per language in ./privacy/; styles reach it through :global().
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { PRIVACY_POLICY_COPY } from '../i18n/copy/privacy-policy';
+import type { Locale } from '../i18n/locales';
+import PrivacyPolicyEn from './privacy/PrivacyPolicyEn.astro';
+import PrivacyPolicyIt from './privacy/PrivacyPolicyIt.astro';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = PRIVACY_POLICY_COPY[locale];
+const POLICY_BODY = { en: PrivacyPolicyEn, it: PrivacyPolicyIt } as const;
+const PolicyBody = POLICY_BODY[locale];
+---
+
+<!doctype html>
+<html lang={locale}>
+	<head>
+		<BaseHead
+			locale={locale}
+			title={copy.meta.title}
+			description={copy.meta.description}
+		/>
+	</head>
+	<body>
+		<Header locale={locale} />
+
+		<main>
+			<!-- Page Hero -->
+			<div class="page-hero bg-crema">
+				<p class="eyebrow">{copy.hero.eyebrow}</p>
+				<h1>{copy.hero.title}</h1>
+				<p class="subtitle">{copy.hero.subtitle}</p>
+			</div>
+
+			<!-- Prose Content -->
+			<div class="section">
+				<div class="privacy-prose">
+					<PolicyBody />
+				</div>
+			</div>
+		</main>
+
+		<Footer locale={locale} />
+	</body>
+</html>
+
+<style>
+	main {
+		width: 100%;
+		max-width: 100%;
+		margin: 0;
+		padding: 0;
+	}
+
+	.privacy-prose {
+		max-width: 720px;
+		margin: 0 auto;
+	}
+
+	.privacy-prose :global(.privacy-intro) {
+		font-size: 1.05rem;
+		line-height: 1.8;
+		color: rgba(45, 45, 45, 0.8);
+		font-style: italic;
+		padding-bottom: 40px;
+		border-bottom: 1px solid rgba(183, 201, 206, 0.35);
+		margin-bottom: 48px;
+	}
+
+	.privacy-prose :global(.privacy-section) {
+		margin-bottom: 48px;
+	}
+
+	.privacy-prose :global(.privacy-section h2) {
+		font-family: var(--font-display);
+		font-size: 1.5rem;
+		font-weight: 600;
+		color: var(--navy);
+		margin-bottom: 16px;
+		padding-bottom: 10px;
+		border-bottom: 2px solid rgba(183, 201, 206, 0.4);
+	}
+
+	.privacy-prose :global(.privacy-section p) {
+		font-size: 0.97rem;
+		line-height: 1.8;
+		color: rgba(45, 45, 45, 0.78);
+		margin-bottom: 14px;
+	}
+
+	.privacy-prose :global(.privacy-section p:last-child) {
+		margin-bottom: 0;
+	}
+
+	.privacy-prose :global(.privacy-section ul) {
+		margin: 12px 0 16px 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.privacy-prose :global(.privacy-section ul li) {
+		font-size: 0.97rem;
+		line-height: 1.7;
+		color: rgba(45, 45, 45, 0.78);
+		padding: 6px 0 6px 24px;
+		position: relative;
+	}
+
+	.privacy-prose :global(.privacy-section ul li::before) {
+		content: '→';
+		position: absolute;
+		left: 0;
+		color: var(--navy);
+		font-size: 0.85rem;
+	}
+
+	.privacy-prose :global(.privacy-section a) {
+		color: var(--navy);
+		font-weight: 500;
+	}
+
+	.privacy-prose :global(.privacy-section a:hover) {
+		color: var(--pesca);
+	}
+
+	.privacy-prose :global(.privacy-draft-notice) {
+		background: var(--crema);
+		border-radius: 12px;
+		padding: 16px 20px;
+		margin-bottom: 32px;
+		color: var(--navy);
+	}
+</style>

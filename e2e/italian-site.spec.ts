@@ -61,3 +61,28 @@ for (const [path, usPath] of [
 		expect(await getBodyText(page)).not.toContain('Waco');
 	});
 }
+
+test('Italian contact page serves Italy online only', async ({ page }) => {
+	await expectItalianPage(page, '/it/contact', '/contact');
+
+	const text = await getBodyText(page);
+	expect(text).not.toContain('Waco');
+	expect(text).not.toContain('in-home');
+});
+
+for (const [path, usPath] of [
+	['/it/faq', '/faq'],
+	['/it/testimonials', '/testimonials'],
+] as const) {
+	test(`Italian page ${path} is in Italian`, async ({ page }) => {
+		await expectItalianPage(page, path, usPath);
+	});
+}
+
+test('Italian privacy policy is marked as a draft awaiting the legal opinion', async ({
+	page,
+}) => {
+	await expectItalianPage(page, '/it/privacy-policy', '/privacy-policy');
+
+	expect(await getBodyText(page)).toContain('Bozza');
+});
