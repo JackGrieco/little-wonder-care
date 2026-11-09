@@ -3,6 +3,7 @@
  "/about",
  "/contact",
  "/faq",
+ "/it/sleep-consulting",
  "/postpartum-doula",
  "/privacy-policy",
  "/services",

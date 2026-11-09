@@ -5,11 +5,14 @@ import '../styles/global.css';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/blog-placeholder-1.jpg';
 import { IS_BLOG_ENABLED, SITE_TITLE } from '../consts';
+import { LOCALE_CONFIG, getAlternates, type Locale } from '../i18n/locales';
+import { isAnalyticsEnabled } from '../lib/analytics';
 import PostHog from './PostHog.astro';
 
 const isStudioPage = Astro.url.pathname.startsWith('/studio');
 
 interface Props {
+	locale: Locale;
 	title: string;
 	description: string;
 	image?: ImageMetadata;
@@ -17,7 +20,8 @@ interface Props {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = FallbackImage } = Astro.props;
+const { locale, title, description, image = FallbackImage } = Astro.props;
+const alternates = getAlternates(Astro.url.pathname, Astro.site ?? Astro.url);
 ---
 
 <!-- Google Fonts -->
@@ -45,6 +49,10 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta name="generator" content={Astro.generator} />
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+<!-- Same page in the other language (and the US page as default) -->
+{alternates.map(({ hreflang, href }) => (
+	<link rel="alternate" hreflang={hreflang} href={href} />
+))}
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
@@ -53,6 +61,7 @@ const { title, description, image = FallbackImage } = Astro.props;
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
+<meta property="og:locale" content={LOCALE_CONFIG[locale].ogLocale} />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
@@ -65,8 +74,8 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
 
-<!-- Analytics -->
-<PostHog />
+<!-- Analytics (US site only, see src/lib/analytics.ts) -->
+{isAnalyticsEnabled(locale) && <PostHog />}
 
 <!-- Cal.com embed (excluded from /studio) -->
 {!isStudioPage && <script is:inline>

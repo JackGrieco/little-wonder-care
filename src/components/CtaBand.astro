@@ -3,14 +3,16 @@
 import Cloud from './Cloud.astro';
 import Dot from './Dot.astro';
 import DiscoveryCallButton from './DiscoveryCallButton.astro';
+import type { Locale } from '../i18n/locales';
 
 interface Props {
+	locale: Locale;
 	title: string;
 	text: string;
 	buttonLabel?: string;
 }
 
-const { title, text, buttonLabel } = Astro.props;
+const { locale, title, text, buttonLabel } = Astro.props;
 ---
 
 <section class="cta-band">
@@ -46,7 +48,11 @@ const { title, text, buttonLabel } = Astro.props;
 	<div class="cta-content" data-reveal="up">
 		<h2>{title}</h2>
 		<p>{text}</p>
-		<DiscoveryCallButton variant="btn-cta-light" label={buttonLabel} />
+		<DiscoveryCallButton
+			locale={locale}
+			variant="btn-cta-light"
+			label={buttonLabel}
+		/>
 	</div>
 </section>
 

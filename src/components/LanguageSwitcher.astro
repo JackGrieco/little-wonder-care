@@ -1,0 +1,82 @@
+---
+// "EN / IT" switch: the current language is plain text, the other one links
+// to the same page in that language. Language only: it never mentions
+// prices or markets.
+import {
+	LOCALES,
+	LOCALE_CONFIG,
+	localizePath,
+	type Locale,
+} from '../i18n/locales';
+import { UI } from '../i18n/ui';
+
+interface Props {
+	locale: Locale;
+	/** Path of the current page, e.g. Astro.url.pathname. */
+	pathname: string;
+	class?: string;
+}
+
+const { locale, pathname, class: className } = Astro.props;
+---
+
+<nav
+	class:list={['language-switcher', className]}
+	aria-label={UI[locale].switcher.ariaLabel}
+>
+	{LOCALES.map((option, index) => (
+		<>
+			{index > 0 && (
+				<span class="separator" aria-hidden="true">
+					/
+				</span>
+			)}
+			{option === locale ? (
+				<span class="current" aria-current="true">
+					{LOCALE_CONFIG[option].label}
+				</span>
+			) : (
+				<a
+					href={localizePath(pathname, option)}
+					hreflang={option}
+					lang={option}
+				>
+					{LOCALE_CONFIG[option].label}
+				</a>
+			)}
+		</>
+	))}
+</nav>
+
+<style>
+	.language-switcher {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 0.85rem;
+		font-weight: 500;
+		letter-spacing: 0.04em;
+		color: var(--navy);
+	}
+
+	.current {
+		font-weight: 600;
+	}
+
+	.separator {
+		opacity: 0.4;
+	}
+
+	a {
+		color: inherit;
+		opacity: 0.6;
+		text-decoration: none;
+		transition: opacity 0.2s ease;
+	}
+
+	a:hover,
+	a:focus-visible {
+		opacity: 1;
+		text-decoration: underline;
+	}
+</style>

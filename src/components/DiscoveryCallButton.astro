@@ -3,12 +3,19 @@
 import type { ComponentProps } from 'astro/types';
 import CalButton from './CalButton.astro';
 import { CAL_LINKS } from '../consts';
+import type { Locale } from '../i18n/locales';
+import { UI } from '../i18n/ui';
 
 type Props = Omit<ComponentProps<typeof CalButton>, 'calLink' | 'label'> & {
+	locale: Locale;
 	label?: string;
 };
 
-const { label = 'Book a Free Discovery Call', ...attrs } = Astro.props;
+const {
+	locale,
+	label = UI[locale].discoveryCall.buttonLabel,
+	...attrs
+} = Astro.props;
 ---
 
-<CalButton calLink={CAL_LINKS.en.discoveryCall} label={label} {...attrs} />
+<CalButton calLink={CAL_LINKS[locale].discoveryCall} label={label} {...attrs} />

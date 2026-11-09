@@ -1,5 +1,15 @@
 ---
 import { CONTACT_EMAIL } from '../consts';
+import { localizePath, type Locale } from '../i18n/locales';
+import { UI } from '../i18n/ui';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = UI[locale].footer;
+const to = (href: string) => localizePath(href, locale);
 ---
 
 <footer class="footer">
@@ -42,7 +52,7 @@ import { CONTACT_EMAIL } from '../consts';
 						<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
 					</svg>
 				</a>
-				<a href={`mailto:${CONTACT_EMAIL}`} aria-label="Email">
+				<a href={`mailto:${CONTACT_EMAIL}`} aria-label={ui.email}>
 					<svg
 						width="16"
 						height="16"
@@ -56,10 +66,10 @@ import { CONTACT_EMAIL } from '../consts';
 					</svg>
 				</a>
 			</div>
-			<a href="/contact">Contact</a>
-			<a href="/faq">FAQ</a>
-			<a href="/privacy-policy">Privacy Policy</a>
-			<span>© 2026 Little Wonder Care</span>
+			<a href={to('/contact')}>{ui.contact}</a>
+			<a href={to('/faq')}>{ui.faq}</a>
+			<a href={to('/privacy-policy')}>{ui.privacy}</a>
+			<span>{ui.copyright}</span>
 		</div>
 	</div>
 </footer>

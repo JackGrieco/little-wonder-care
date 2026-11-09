@@ -3,6 +3,7 @@
  "/about",
  "/contact",
  "/faq",
+ "/it/faq",
  "/postpartum-doula",
  "/privacy-policy",
  "/services",

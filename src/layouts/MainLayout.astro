@@ -3,30 +3,36 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import type { Locale } from '../i18n/locales';
 
 interface Props {
+	locale: Locale;
 	title?: string;
 	description?: string;
 }
 
-const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
+const {
+	locale,
+	title = SITE_TITLE,
+	description = SITE_DESCRIPTION,
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead locale={locale} title={title} description={description} />
 		<!-- Runs before first paint: lets CSS hide [data-reveal] only when JS is on -->
 		<script is:inline>
 			document.documentElement.classList.add('js');
 		</script>
 	</head>
 	<body class="min-h-screen flex flex-col">
-		<Header />
+		<Header locale={locale} />
 		<main class="flex-1">
 			<slot />
 		</main>
-		<Footer />
+		<Footer locale={locale} />
 		<script>
 			import '../scripts/reveal';
 		</script>

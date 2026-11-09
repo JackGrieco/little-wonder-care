@@ -1,26 +1,31 @@
 ---
 import { IS_BLOG_ENABLED } from '../consts';
+import { localizePath, stripLocale, type Locale } from '../i18n/locales';
+import { UI } from '../i18n/ui';
+import LanguageSwitcher from './LanguageSwitcher.astro';
 
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = UI[locale].nav;
+
+// Links are written as US paths and localized when rendered, so the active
+// state compares paths without the /it prefix.
 const serviceLinks = [
-	{ href: '/services', label: 'All Services', hint: 'Packages & pricing' },
-	{
-		href: '/sleep-consulting',
-		label: 'Sleep Consulting',
-		hint: 'Gentle sleep coaching',
-	},
-	{
-		href: '/postpartum-doula',
-		label: 'Postpartum Doula',
-		hint: 'Support after birth',
-	},
+	{ href: '/services', label: ui.allServices, hint: ui.allServicesHint },
+	{ href: '/sleep-consulting', label: ui.sleep, hint: ui.sleepHint },
+	{ href: '/postpartum-doula', label: ui.doula, hint: ui.doulaHint },
 ];
 
 const navLinks = [
-	{ href: '/about', label: 'About' },
-	...(IS_BLOG_ENABLED ? [{ href: '/blog', label: 'Blog' }] : []),
+	{ href: '/about', label: ui.about },
+	...(IS_BLOG_ENABLED ? [{ href: '/blog', label: ui.blog }] : []),
 ];
 
-const currentPath = Astro.url.pathname;
+const to = (href: string) => localizePath(href, locale);
+const currentPath = stripLocale(Astro.url.pathname);
 const servicesActive = serviceLinks.some(
 	(l) =>
 		currentPath === l.href ||
@@ -31,10 +36,10 @@ const servicesActive = serviceLinks.some(
 <nav class="navbar">
 	<div class="navbar-inner">
 		<!-- Logo -->
-		<a href="/" class="navbar-logo">
+		<a href={to('/')} class="navbar-logo">
 			<img
 				src="/logo.png"
-				alt="Little Wonder Care logo"
+				alt={ui.logoAlt}
 				width="48"
 				height="48"
 				class="anim-breathe"
@@ -52,7 +57,7 @@ const servicesActive = serviceLinks.some(
 					aria-expanded="false"
 					aria-haspopup="true"
 				>
-					Services
+					{ui.services}
 					<svg
 						class="chevron"
 						width="12"
@@ -74,7 +79,7 @@ const servicesActive = serviceLinks.some(
 					{serviceLinks.map(({ href, label, hint }) => (
 						<li role="none">
 							<a
-								href={href}
+								href={to(href)}
 								role="menuitem"
 								class={
 									currentPath === href ||
@@ -93,7 +98,7 @@ const servicesActive = serviceLinks.some(
 			{navLinks.map(({ href, label }) => (
 				<li>
 					<a
-						href={href}
+						href={to(href)}
 						class={
 							currentPath === href ||
 							(href !== '/' && currentPath.startsWith(href))
@@ -106,8 +111,11 @@ const servicesActive = serviceLinks.some(
 				</li>
 			))}
 			<li>
-				<a href="/contact" class="navbar-cta">
-					Get in Touch
+				<LanguageSwitcher locale={locale} pathname={Astro.url.pathname} />
+			</li>
+			<li>
+				<a href={to('/contact')} class="navbar-cta">
+					{ui.getInTouch}
 				</a>
 			</li>
 		</ul>
@@ -116,7 +124,9 @@ const servicesActive = serviceLinks.some(
 		<button
 			class="menu-toggle"
 			id="menu-toggle"
-			aria-label="Open menu"
+			aria-label={ui.openMenu}
+			data-open-label={ui.openMenu}
+			data-close-label={ui.closeMenu}
 			aria-expanded="false"
 		>
 			<span></span>
@@ -134,7 +144,7 @@ const servicesActive = serviceLinks.some(
 					class={`mobile-dropdown-trigger${servicesActive ? ' active' : ''}`}
 					aria-expanded="false"
 				>
-					Services
+					{ui.services}
 					<svg
 						class="chevron"
 						width="12"
@@ -155,19 +165,26 @@ const servicesActive = serviceLinks.some(
 				<ul class="mobile-dropdown">
 					{serviceLinks.map(({ href, label }) => (
 						<li>
-							<a href={href}>{label}</a>
+							<a href={to(href)}>{label}</a>
 						</li>
 					))}
 				</ul>
 			</li>
 			{navLinks.map(({ href, label }) => (
 				<li>
-					<a href={href}>{label}</a>
+					<a href={to(href)}>{label}</a>
 				</li>
 			))}
 			<li>
-				<a href="/contact" class="navbar-cta">
-					Get in Touch
+				<LanguageSwitcher
+					locale={locale}
+					pathname={Astro.url.pathname}
+					class="mobile-switcher"
+				/>
+			</li>
+			<li>
+				<a href={to('/contact')} class="navbar-cta">
+					{ui.getInTouch}
 				</a>
 			</li>
 		</ul>
@@ -508,7 +525,9 @@ const servicesActive = serviceLinks.some(
 		const isOpen = menu?.classList.contains('open');
 		menu?.classList.toggle('open', !isOpen);
 		toggle.setAttribute('aria-expanded', String(!isOpen));
-		toggle.setAttribute('aria-label', isOpen ? 'Open menu' : 'Close menu');
+		// Labels come from the markup, in the language of the page.
+		const label = isOpen ? toggle.dataset.openLabel : toggle.dataset.closeLabel;
+		if (label) toggle.setAttribute('aria-label', label);
 	});
 
 	// Desktop dropdown: toggle on click (for keyboard/touch)

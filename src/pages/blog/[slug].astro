@@ -36,12 +36,13 @@ const pageDesc = post.seoDescription ?? post.excerpt ?? '';
 <html lang="en">
 	<head>
 		<BaseHead
+			locale="en"
 			title={`${pageTitle} — Little Wonder Care`}
 			description={pageDesc}
 		/>
 	</head>
 	<body>
-		<Header />
+		<Header locale="en" />
 
 		<main>
 			<!-- Post Hero -->
@@ -94,7 +95,7 @@ const pageDesc = post.seoDescription ?? post.excerpt ?? '';
 			</div>
 		</main>
 
-		<Footer />
+		<Footer locale="en" />
 	</body>
 </html>
 
