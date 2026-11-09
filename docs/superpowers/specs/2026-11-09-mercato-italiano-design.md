@@ -79,6 +79,7 @@ Proposte da Claude e accettate in conversazione:
   - Silvia le manda un link di pagamento Stripe in euro.
 
   Il flusso visto dalla cliente resta "prenoti la sessione, paghi prima di farla". Non si incassa in dollari dalle clienti italiane.
+
 - **Analytics, in attesa del parere legale.** PostHog resta spento sulle pagine `/it`. Il consenso ai cookie va fatto come un pezzo isolato e riusabile, così se l'avvocato chiede un banner su tutto il sito (o per tutti i visitatori EU) si estende senza riscrivere nulla.
 - **Firewall.** Al posto della regola "solo US" la proposta è "US + Italia". Va confermata dall'avvocato, insieme al resto del parere. La versione US non deve diventare irraggiungibile in nessun caso.
 - **Testi dell'interfaccia comune** (header, footer, card dei pacchetti, bottoni, note di prenotazione come `bookingNote` e `ctaText` in `SERVICE_CATEGORIES`): tradotti tramite un dizionario per lingua. Niente stringhe inglesi dentro i componenti condivisi.
@@ -115,6 +116,7 @@ Differenze di contenuto rispetto alla versione US, non solo di lingua:
   - se PostHog può raccogliere dati dei visitatori italiani e come (consenso, modalità senza cookie, server EU).
 
   Finché manca, sulle pagine `/it` PostHog resta spento.
+
 - **Commercialista:** come fatturare alle clienti italiane.
 - **Da Silvia:**
   - pacchetti italiani con prezzi in euro;
@@ -132,6 +134,7 @@ Differenze di contenuto rispetto alla versione US, non solo di lingua:
   - oppure generarle da un unico file con i testi separati per lingua.
 
   Le pagine hanno molto testo scritto nel template (`index.astro` è circa 800 righe) e quelle italiane differiscono anche nei contenuti. Scegliere quello che resta più leggibile, senza duplicare i componenti.
+
 - **Come mappare le pagine equivalenti** per switcher e `hreflang`, anche se gli indirizzi italiani restano in inglese (`/it/services`) o vengono tradotti. Indirizzi in inglese è la scelta più semplice.
 - **Struttura dei file di traduzione** e dei tipi TypeScript.
 - **Ordine dei passi**, purché la versione US resti funzionante a ogni merge.

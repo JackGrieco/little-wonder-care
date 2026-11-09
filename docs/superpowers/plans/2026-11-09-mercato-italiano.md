@@ -5,6 +5,7 @@
 **Goal:** aggiungere sotto `/it` una versione italiana del sito: testi in italiano, prezzi in euro, solo servizi virtuali. La versione US resta identica.
 
 **Architecture:**
+
 - **Routing:** si usa il routing i18n di Astro (`en` predefinito senza prefisso, `it` sotto `/it`).
 - **Lingua:** entra dal file in `src/pages` come valore fisso e scende ai componenti tramite la prop `locale`.
 - **Pagine:** ogni pagina diventa una "view" in `src/views/`, con i testi in `src/i18n/copy/<pagina>.ts` (uno per lingua). I file in `src/pages/` e `src/pages/it/` si limitano a montare la view con la lingua giusta.
@@ -51,11 +52,13 @@
 ### Task 1: Strumenti di test e fotografia dei testi US
 
 **Files:**
+
 - Modify: `package.json` (script e devDependencies), `.gitignore`
 - Create: `vitest.config.ts`, `playwright.config.ts`, `e2e/helpers.ts`, `e2e/us-baseline.spec.ts`
 - Commit insieme: `docs/superpowers/specs/2026-11-09-mercato-italiano-design.md`, `docs/superpowers/plans/2026-11-09-mercato-italiano.md`
 
 **Interfaces:**
+
 - Produces:
   - `e2e/helpers.ts`:
     - `US_PATHS: readonly string[]` = `['/', '/about', '/services', '/sleep-consulting', '/postpartum-doula', '/faq', '/testimonials', '/contact', '/privacy-policy']`;
@@ -70,12 +73,14 @@
   ```
 
   Poi esegui `npm ci` dentro il worktree.
+
 - [ ] **Step 2:** Installa:
 
   ```bash
   npm i -D vitest @vitest/coverage-v8 @playwright/test groq-js
   npx playwright install chromium
   ```
+
 - [ ] **Step 3:** Configura Vitest e Playwright.
   - `vitest.config.ts` usa `getViteConfig` da `astro/config`, con:
     - `test.include: ['src/**/*.test.ts']`;
@@ -91,6 +96,7 @@
   - `expect(JSON.stringify(await getInternalHrefs(page), null, 1)).toMatchSnapshot(\`${slug}-links.txt\`)`.
 
   `slug` è `home` per `/`, altrimenti il percorso senza `/`.
+
 - [ ] **Step 5:** Esegui `npx playwright test e2e/us-baseline.spec.ts --update-snapshots`, poi `npm run test:e2e`. Atteso: 9 test PASS. Gli snapshot generati fotografano la versione US di oggi.
 - [ ] **Step 6:** Commit:
 
@@ -101,63 +107,75 @@
 ### Task 2: Lingue e indirizzi
 
 **Files:**
+
 - Create: `src/i18n/locales.ts`, `src/i18n/locales.test.ts`
 - Modify: `astro.config.mjs`
 
 **Interfaces:**
+
 - Produces (`src/i18n/locales.ts`):
+
   ```ts
   export const LOCALES = ['en', 'it'] as const;
   export type Locale = (typeof LOCALES)[number];
   export type Market = 'us' | 'it';
   export const DEFAULT_LOCALE: Locale = 'en';
   export interface LocaleConfig {
-    market: Market;
-    hreflang: 'en-US' | 'it-IT';
-    ogLocale: 'en_US' | 'it_IT';
-    currency: 'USD' | 'EUR';
-    numberFormat: 'en-US' | 'it-IT';
-    label: 'EN' | 'IT';
+  	market: Market;
+  	hreflang: 'en-US' | 'it-IT';
+  	ogLocale: 'en_US' | 'it_IT';
+  	currency: 'USD' | 'EUR';
+  	numberFormat: 'en-US' | 'it-IT';
+  	label: 'EN' | 'IT';
   }
   export const LOCALE_CONFIG: Record<Locale, LocaleConfig>;
   export function stripLocale(pathname: string): string;
   export function localizePath(path: string, locale: Locale): string;
-  export interface Alternate { hreflang: 'en-US' | 'it-IT' | 'x-default'; href: string }
-  export function getAlternates(pathname: string, site: URL): readonly Alternate[];
+  export interface Alternate {
+  	hreflang: 'en-US' | 'it-IT' | 'x-default';
+  	href: string;
+  }
+  export function getAlternates(
+  	pathname: string,
+  	site: URL,
+  ): readonly Alternate[];
   ```
 
 - [ ] **Step 1: Test** in `src/i18n/locales.test.ts`:
   - `stripLocale` (casi tabellari):
 
-    | input | output |
-    | --- | --- |
-    | `'/it'` | `'/'` |
-    | `'/it/'` | `'/'` |
-    | `'/it/services'` | `'/services'` |
+    | input             | output         |
+    | ----------------- | -------------- |
+    | `'/it'`           | `'/'`          |
+    | `'/it/'`          | `'/'`          |
+    | `'/it/services'`  | `'/services'`  |
     | `'/it/services/'` | `'/services/'` |
-    | `'/services'` | `'/services'` |
-    | `'/'` | `'/'` |
-    | `'/italy'` | `'/italy'` |
+    | `'/services'`     | `'/services'`  |
+    | `'/'`             | `'/'`          |
+    | `'/italy'`        | `'/italy'`     |
 
   - `localizePath` (casi tabellari):
 
-    | input | output |
-    | --- | --- |
-    | `('/services','it')` | `'/it/services'` |
-    | `('/','it')` | `'/it/'` |
-    | `('/services','en')` | `'/services'` |
-    | `('/it/services','en')` | `'/services'` |
-    | `('/it/services','it')` | `'/it/services'` |
+    | input                      | output                 |
+    | -------------------------- | ---------------------- |
+    | `('/services','it')`       | `'/it/services'`       |
+    | `('/','it')`               | `'/it/'`               |
+    | `('/services','en')`       | `'/services'`          |
+    | `('/it/services','en')`    | `'/services'`          |
+    | `('/it/services','it')`    | `'/it/services'`       |
     | `('/services#sleep','it')` | `'/it/services#sleep'` |
 
   - `getAlternates('/it/services', new URL('https://littlewondercareco.com'))` è uguale a:
 
     ```ts
     [
-      { hreflang: 'en-US', href: 'https://littlewondercareco.com/services' },
-      { hreflang: 'it-IT', href: 'https://littlewondercareco.com/it/services' },
-      { hreflang: 'x-default', href: 'https://littlewondercareco.com/services' },
-    ]
+    	{ hreflang: 'en-US', href: 'https://littlewondercareco.com/services' },
+    	{ hreflang: 'it-IT', href: 'https://littlewondercareco.com/it/services' },
+    	{
+    		hreflang: 'x-default',
+    		href: 'https://littlewondercareco.com/services',
+    	},
+    ];
     ```
 
   - `LOCALE_CONFIG.it`: `market` `'it'`, `currency` `'EUR'`. `LOCALE_CONFIG.en`: `market` `'us'`, `currency` `'USD'`.
@@ -172,9 +190,11 @@
 ### Task 3: Prezzi e testi dell'interfaccia
 
 **Files:**
+
 - Create: `src/i18n/format.ts`, `src/i18n/format.test.ts`, `src/i18n/ui.ts`, `src/i18n/ui.test.ts`
 
 **Interfaces:**
+
 - Consumes: `Locale` e `LOCALE_CONFIG` (Task 2); `ServiceCategory` da `src/lib/packages.ts`, solo come import di tipo.
 - Produces:
   - `formatPrice(price: number, locale: Locale): string`.
@@ -193,11 +213,11 @@
 - [ ] **Step 1: Test.**
   - `formatPrice`:
 
-    | chiamata | risultato |
-    | --- | --- |
-    | `(150,'en')` | `'$150'` |
-    | `(1500,'en')` | `'$1,500'` |
-    | `(150,'it')` | `'150 €'` |
+    | chiamata      | risultato   |
+    | ------------- | ----------- |
+    | `(150,'en')`  | `'$150'`    |
+    | `(1500,'en')` | `'$1,500'`  |
+    | `(150,'it')`  | `'150 €'`   |
     | `(99.5,'it')` | `'99,50 €'` |
 
   - `ui.test.ts`: `UI.it.packages.marketNotice` è `'Sessioni in italiano, riservate a chi risiede in Italia.'` e `UI.en.packages.marketNotice` è `null`.
@@ -209,12 +229,15 @@
 ### Task 4: Sanity — mercato e lingua nei contenuti
 
 **Files:**
+
 - Modify: `schemas/servicePackage.ts`, `schemas/faq.ts`, `schemas/testimonial.ts`, `src/lib/sanity.ts`
 - Create: `src/lib/sanity.test.ts`
 
 **Interfaces:**
+
 - Consumes: `Locale`, `Market` (Task 2).
 - Produces (`src/lib/sanity.ts`):
+
   ```ts
   export const SERVICE_PACKAGES_QUERY: string;     // params: serviceType, market
   export const FAQS_QUERY: string;                 // params: market, category (string | null)
@@ -238,6 +261,7 @@
   - `treats documents without market as US`: market `us` → `[us, senza market]`.
   - Stessa coppia di test per `FAQS_QUERY`, con `category: null` e con `category: 'Pricing'`.
   - Stessa coppia per `TESTIMONIALS_QUERY` e `FEATURED_TESTIMONIALS_QUERY` (`language` mancante = `en`).
+
 - [ ] **Step 2:** `npm test` → FAIL.
 - [ ] **Step 3:** Implementa.
   - **Filtri nelle query:** `coalesce(market, "us") == $market` e `coalesce(language, "en") == $language`. Per i filtri facoltativi usa `($category == null || category == $category)` e passa sempre `null` quando il valore manca, mai `undefined`.
@@ -251,16 +275,22 @@
 ### Task 5: Pacchetti per mercato
 
 **Files:**
+
 - Modify: `src/consts.ts`, `src/lib/packages.ts`, `src/data/placeholderPackages.ts`, `src/components/ServiceCard.astro`, `src/components/PackagesSection.astro`, `src/pages/services.astro`, `src/pages/sleep-consulting.astro`, `src/pages/postpartum-doula.astro`
 - Create: `src/lib/packages.test.ts`, `src/components/ServiceCard.test.ts`
 
 **Interfaces:**
+
 - Consumes: `formatPrice` e `UI` (Task 3); `getServicePackagesByType(type, market)` (Task 4).
 - Produces:
   - `src/consts.ts`:
     ```ts
-    export interface CalLinks { discoveryCall: string; doulaIntroCall: string; sleepSession: string }
-    export const CAL_LINKS: Record<Locale, CalLinks>
+    export interface CalLinks {
+    	discoveryCall: string;
+    	doulaIntroCall: string;
+    	sleepSession: string;
+    }
+    export const CAL_LINKS: Record<Locale, CalLinks>;
     ```
     I valori `it` sono tutti `'littlewondercare/discovery-call'`, con un TODO che indica i nomi futuri: `discovery-call-it`, `doula-intro-call-it`, `sleep-session-it`.
   - `src/lib/packages.ts`:
@@ -293,6 +323,7 @@
 ### Task 6: Layout, head, header, footer, switcher, analytics
 
 **Files:**
+
 - Modify:
   - `src/layouts/MainLayout.astro`, `src/components/BaseHead.astro`, `src/components/Header.astro`, `src/components/Footer.astro`;
   - `src/components/PostHog.astro`, `src/components/DiscoveryCallButton.astro`, `src/components/DiscoveryCallCard.astro`, `src/components/ContactForm.astro`;
@@ -300,6 +331,7 @@
 - Create: `src/components/LanguageSwitcher.astro`, `src/components/LanguageSwitcher.test.ts`, `src/lib/analytics.ts`, `src/lib/analytics.test.ts`
 
 **Interfaces:**
+
 - Consumes: `localizePath`, `stripLocale`, `getAlternates`, `LOCALE_CONFIG` (Task 2); `UI` (Task 3); `CAL_LINKS` (Task 5).
 - Produces:
   - `isAnalyticsEnabled(locale: Locale): boolean` in `src/lib/analytics.ts`: `true` solo per `en`. È l'unico punto da cambiare quando arriverà il consenso ai cookie.
@@ -330,10 +362,12 @@
 ### Task 7: Pagina Services in due lingue (modello per le altre pagine)
 
 **Files:**
+
 - Create: `src/i18n/copy/services.ts`, `src/views/ServicesView.astro`, `src/pages/it/services.astro`, `e2e/italian-site.spec.ts`
 - Modify: `src/pages/services.astro`, `e2e/helpers.ts` (aggiunge `IT_PATHS`)
 
 **Interfaces:**
+
 - Consumes: tutto quello dei Task 2–6.
 - Produces (lo schema che seguono i Task 8–10):
   - `src/i18n/copy/<pagina>.ts` esporta `interface <Pagina>Copy` e `<PAGINA>_COPY: Record<Locale, <Pagina>Copy>`.
@@ -355,10 +389,12 @@
 ### Task 8: Sleep e Doula in due lingue
 
 **Files:**
+
 - Create: `src/i18n/copy/sleep-consulting.ts`, `src/i18n/copy/postpartum-doula.ts`, `src/views/SleepConsultingView.astro`, `src/views/PostpartumDoulaView.astro`, `src/pages/it/sleep-consulting.astro`, `src/pages/it/postpartum-doula.astro`
 - Modify: `src/pages/sleep-consulting.astro`, `src/pages/postpartum-doula.astro`, `e2e/italian-site.spec.ts`
 
 **Interfaces:**
+
 - Consumes: lo schema del Task 7.
 
 - [ ] **Step 1: Test.** In `italian-site.spec.ts`, per `/it/sleep-consulting` e `/it/postpartum-doula`, gli stessi controlli del Task 7. In più: il testo della pagina doula italiana non contiene `Waco` e non contiene `in-home`.
@@ -374,10 +410,12 @@
 ### Task 9: Home e About in due lingue
 
 **Files:**
+
 - Create: `src/i18n/copy/home.ts`, `src/i18n/copy/about.ts`, `src/views/HomeView.astro`, `src/views/AboutView.astro`, `src/pages/it/index.astro`, `src/pages/it/about.astro`
 - Modify: `src/pages/index.astro`, `src/pages/about.astro`, `e2e/italian-site.spec.ts`
 
 **Interfaces:**
+
 - Consumes: lo schema del Task 7; `getFeaturedTestimonials(locale)` (Task 4).
 
 - [ ] **Step 1: Test.** Per `/it/` e `/it/about`, gli stessi controlli del Task 7, più "nessun `Waco`".
@@ -392,10 +430,12 @@
 ### Task 10: Contatti, FAQ, Testimonianze, Privacy in due lingue
 
 **Files:**
+
 - Create: `src/i18n/copy/{contact,faq,testimonials,privacy-policy}.ts`, `src/views/{Contact,Faq,Testimonials,PrivacyPolicy}View.astro`, `src/pages/it/{contact,faq,testimonials,privacy-policy}.astro`
 - Modify: le quattro pagine US, `e2e/italian-site.spec.ts`
 
 **Interfaces:**
+
 - Consumes: lo schema del Task 7; `getFAQs(market, category?)` e `getTestimonials(language, serviceType?)` (Task 4); `UI[locale].faqCategories` e `testimonialFilters` (Task 3).
 
 - [ ] **Step 1: Test.** Per le quattro pagine `/it`, gli stessi controlli del Task 7. In più:
@@ -414,6 +454,7 @@
 ### Task 11: Controlli su tutto il sito e roadmap
 
 **Files:**
+
 - Modify: `e2e/italian-site.spec.ts`, `ROADMAP.md`
 
 - [ ] **Step 1: Test.** In `italian-site.spec.ts`, ciclo su tutti gli `IT_PATHS`:

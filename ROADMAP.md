@@ -108,11 +108,32 @@ _Cosa impari: design token e variabili CSS, Tailwind v4._
 - [ ] Descrizioni, prezzi e durate dei 10 pacchetti
 - [ ] Link Instagram (header/footer)
 
+## Fase 6b — Versione italiana
+
+Design: `docs/superpowers/specs/2026-11-09-mercato-italiano-design.md`. Il sito italiano sta sotto `/it` (stesse pagine, indirizzi in inglese), in italiano, con prezzi in euro e **solo servizi virtuali**. Esce insieme a quello US.
+
+_Cosa impari: routing i18n di Astro, pagine "sottili" che montano una view con la lingua, testi separati dal markup, test end-to-end con Playwright._
+
+- [x] Indirizzi `/it/...`, switcher EN / IT nell'header, `hreflang` e sitemap con le due lingue
+- [x] Testi dell'interfaccia (`src/i18n/ui.ts`) e delle pagine (`src/i18n/copy/`) in due lingue; prezzi formattati per mercato (`$150` / `150 €`)
+- [x] Sanity: campo `market` (US / Italia) su pacchetti e FAQ, `language` sulle testimonianze. I documenti senza campo contano come US
+- [x] PostHog spento sulle pagine `/it` finché non arriva il parere legale (`src/lib/analytics.ts`)
+- [ ] **Silvia rivede tutti i testi italiani** (sono bozze): `src/i18n/ui.ts` e i file in `src/i18n/copy/`, più la policy in `src/views/privacy/PrivacyPolicyIt.astro`
+- [ ] Silvia conferma la nuova frase US del box sleep ("Available Anywhere in the US")
+- [ ] Cal.com: creare i 3 eventi italiani `discovery-call-it`, `doula-intro-call-it`, `sleep-session-it` con prezzo in **EUR**, fasce orarie per l'Italia (Silvia è 7 ore indietro) e campo obbligatorio "Paese di residenza"
+  - [ ] Verificare che EUR sia tra le valute dell'evento a pagamento. Se non c'è → piano B: prenotazione senza pagamento + link di pagamento Stripe in euro mandato da Silvia
+  - [ ] Verificare in che lingua si apre il popup Cal.com sulle pagine `/it`
+  - [ ] Aggiornare `CAL_LINKS.it` in `src/consts.ts` (oggi puntano tutti alla discovery call US)
+- [ ] Sanity: inserire pacchetti, FAQ e testimonianze italiani (mercato "Italia"), così spariscono i segnaposto
+- [ ] Stripe: costo della conversione EUR → USD sul conto di Silvia
+- [ ] Commercialista: come fatturare alle clienti in Italia
+
 ## Fase 7 — Legale e go-live
 
 - [ ] Privacy policy e T&C definitivi (dopo l'avvocato) → aggiornare `/privacy-policy`, creare `/terms`
+- [ ] Parere legale per l'Italia: privacy e T&C italiani (sostituiscono la bozza in `/it/privacy-policy`), banner dei cookie, se e come PostHog può raccogliere dati dei visitatori italiani/EU
 - [ ] Togliere dalla privacy policy i servizi non usati (es. Kit/ConvertKit, se il lead magnet resta nascosto)
-- [ ] Accesso solo dagli **Stati Uniti** (regola Firewall di Vercel). Far confermare all'avvocato che basta
+- [ ] Firewall di Vercel: **US + Italia** (non più solo US, altrimenti `/it` non è raggiungibile dall'Italia). Far confermare all'avvocato
 - [ ] Togliere la protezione Vercel dal dominio di produzione (oggi è attiva su _tutti_ i deploy, quindi il sito non è pubblico)
 - [ ] Rimuovere `littlewondercare.com` dall'account Vercel: **non è nostro** (è un altro sito, "Little Roots Daycare", su Netlify)
 - [ ] Chiedere a chi ha sviluppato prima di spegnere la vecchia copia su `little-wonder-care.vercel.app`
@@ -128,10 +149,10 @@ _Cosa impari: design token e variabili CSS, Tailwind v4._
 - [ ] Durate e regole di preavviso definitive per ogni tipo di call
 - [ ] Privacy policy e T&C dopo l'avvocato
 - [ ] Link Instagram
+- [ ] Revisione dei testi italiani, pacchetti e prezzi in euro, fasce orarie per l'Italia (vedi Fase 6b)
 
 ## Futuro (non requisiti adesso)
 
 - Dopo il pagamento sleep: mail automatica con i contratti precompilati col nome del cliente + link al questionario JotForm
 - Substack come blog/newsletter, collegato al sito
 - Automazione post Substack → Instagram con revisione umana
-- Apertura ad altri paesi (es. Italia/GDPR) dopo il parere legale
