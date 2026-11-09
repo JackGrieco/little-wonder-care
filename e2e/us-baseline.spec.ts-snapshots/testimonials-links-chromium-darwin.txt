@@ -1,0 +1,10 @@
+[
+ "/",
+ "/about",
+ "/contact",
+ "/faq",
+ "/postpartum-doula",
+ "/privacy-policy",
+ "/services",
+ "/sleep-consulting"
+]

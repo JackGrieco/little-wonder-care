@@ -23,3 +23,11 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .vercel
+
+# Tests
+coverage/
+test-results/
+playwright-report/
+
+# Plan execution scratch (superpowers)
+.superpowers/
